@@ -1,5 +1,7 @@
 .menuList {
   display: flex;
   flex-direction: column;
-  gap:15px;
+  gap: 15px;
+  height: 95vh;
+  justify-content: center;
 }
