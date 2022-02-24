@@ -32,5 +32,19 @@ class UserService {
     console.log('exit from USER SERVICE REGISTRATION----');
     return { ...tokens, user: userDto };
   }
+
+  async activate(activationLink) {
+    console.log('get activationLink---------------', activationLink);
+    const user = await User.findOne({ where: { activationLink }, raw: true });
+    if (!user) {
+      throw new Error('Некорректная ссылка активации');
+    }
+    await User.update({ isActivated: true }, {
+      where: {
+        activationLink,
+      },
+    });
+    console.log(' activationLink---------------updatedt');
+  }
 }
 module.exports = new UserService();

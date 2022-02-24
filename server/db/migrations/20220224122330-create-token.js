@@ -17,10 +17,7 @@ module.exports = {
       refreshToken: {
         type: Sequelize.STRING,
       },
-      isActivated: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true,
-      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
