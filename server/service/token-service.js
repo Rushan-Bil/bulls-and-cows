@@ -24,7 +24,7 @@ class TokenService {
     } else {
       token = await Token.create({ user_id: userId, refreshToken });
     }
-    console.log('TOKEN after created-----', token);
+    console.log('TOKEN after created-----');
     return token;
   }
 }

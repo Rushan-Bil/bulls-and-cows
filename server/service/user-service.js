@@ -10,26 +10,26 @@ class UserService {
   async registration(name, email, password) {
     console.log('UserService.registration-------------', name, email, password);
     const candidate = await User.findOne({ where: { email }, raw: true });
-    console.log('candidate--------------', candidate);
+    console.log('candidateFindOne--------------');
     if (candidate) {
       console.log(`Пользователь с таким ${email} майл уже существует`);
       throw new Error(`Пользователь с таким ${email} майл уже существует`);
     }
     const hashPassword = await bcrypt.hash(password, 3); // hash password
     const activationLink = uuid.v4(); // return random string
-    console.log('hashPassword-activationLink', hashPassword, activationLink);
+    console.log('hashPassword-activationLink--------', hashPassword, activationLink);
     const user = await User.create({
       name, email, password: hashPassword, activationLink,
     });
-    console.log('user created', user);
+    console.log('user created');
 
-    mailService.sendActivetionMail(email, activationLink);
+    mailService.sendActivetionMail(email, `${process.env.API_URL}/user/activate/${activationLink}`);
     const userDto = new UserDto(user.dataValues);
     console.log(userDto);
     const tokens = tokenService.generateTokens({ ...userDto });
 
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
-    console.log('exit from USER SERVICE REGISTRATION----', { ...tokens, user: userDto });
+    console.log('exit from USER SERVICE REGISTRATION----');
     return { ...tokens, user: userDto };
   }
 }
