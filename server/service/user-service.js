@@ -47,5 +47,23 @@ class UserService {
     });
     console.log(' activationLink---------------updatedt');
   }
+
+  async login(email, password) {
+    console.log('UserService.login-------------', email, password);
+    const user = await User.findOne({ where: { email }, raw: true });
+    if (!user) {
+      console.log('Пользователь с таким  майл не найден');
+      throw ApiError.BadREquest('Пользователь с таким не найден');
+    }
+    const isPassEquals = await bcrypt.compare(password, user.password);
+    if (!isPassEquals) {
+      throw ApiError.BadREquest('Неправильный пароль');
+    }
+    const userDto = new UserDto(user);
+    const tokens = tokenService.generateTokens({ ...userDto });
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+    console.log('exit from USER SERVICE LOGIN----');
+    return { ...tokens, user: userDto };
+  }
 }
 module.exports = new UserService();
