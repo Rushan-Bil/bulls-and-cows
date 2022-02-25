@@ -1,4 +1,5 @@
 import React from 'react';
+// import OneWord from '../pages/OneWord/OneWord';
 
 function WordsList() {
   return (
@@ -15,6 +16,9 @@ function WordsList() {
             <td>0</td>
             <td>3</td>
           </tr>
+          {/* <tr>
+            {words && words?.map((el) => <OneWord />)}
+          </tr> */}
         </tbody>
       </table>
     </div>
