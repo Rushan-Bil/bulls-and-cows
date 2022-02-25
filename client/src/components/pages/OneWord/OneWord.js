@@ -1,13 +1,13 @@
-// import React from 'react';
+import React from 'react';
 
-// function OneWord() {
-//   return (
-//     <>
-//       <td>{words.word}</td>
-//       <td>{words.bulls}</td>
-//       <td>{words.cows}</td>
-//     </>
-//   );
-// }
+function OneWord({ word, bulls, cows }) {
+  return (
+    <tr>
+      <td>{word}</td>
+      <td>{bulls}</td>
+      <td>{cows}</td>
+    </tr>
+  );
+}
 
-// export default OneWord;
+export default OneWord;

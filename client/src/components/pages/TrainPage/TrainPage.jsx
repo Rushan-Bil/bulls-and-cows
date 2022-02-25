@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cls from './train.module.css';
 import WordsList from '../../WordsList/WordsList';
 import Alphabet from '../../Alphabet/Alphabet';
@@ -6,14 +6,15 @@ import WordInput from '../../WordInput/WordInput';
 import LetterContainer from '../../LetterContainer/LetterContainer';
 
 function TrainPage() {
+  const [words, setWords] = useState([]);
   return (
     <>
       TrainPage
       <div className={cls.trainPage}>
-        <WordsList />
+        <WordsList words={words} />
         <div className="flex-d-c column-3">
           <Alphabet />
-          <WordInput />
+          <WordInput setWords={setWords} />
         </div>
         <div className="flex-d-c column-3">
           <LetterContainer />
