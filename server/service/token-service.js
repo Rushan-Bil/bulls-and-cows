@@ -27,5 +27,11 @@ class TokenService {
     console.log('TOKEN after created-----');
     return token;
   }
+
+  async removeToken(refreshToken) {
+    const tokenData = await Token.destroy({ where: { refreshToken } });
+    console.log('Token deleted-------------------------', tokenData);
+    return tokenData;
+  }
 }
 module.exports = new TokenService();
