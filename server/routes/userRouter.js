@@ -9,7 +9,6 @@ router.post(
   '/registration',
   body('email').isEmail(),
   body('password').isLength({ min: 3, max: 13 }),
-  // console.log('validation is done---------------------------'),
   UserController.registration,
 );
 router.post('/login', UserController.login);
