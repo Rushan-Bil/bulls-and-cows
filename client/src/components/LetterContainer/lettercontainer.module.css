@@ -1,0 +1,16 @@
+.letterContainer {
+  width:90%;
+  height: 30%;
+}
+
+.wrong {
+  background: rgba(255, 0, 0, 0.3);
+}
+
+.doubt {
+  background: rgba(255, 255, 0, 0.3);
+}
+
+.correct {
+ background: rgba(0, 128, 0, 0.3);
+}
