@@ -1,0 +1,9 @@
+.navList {
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 20px;
+}
