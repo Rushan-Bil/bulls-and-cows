@@ -5,6 +5,7 @@ const { User } = require('../db/models');
 const mailService = require('./mail-service');
 const tokenService = require('./token-service');
 const UserDto = require('../dtos/user_dtos');
+const ApiError = require('../exeptions/apiError');
 
 class UserService {
   async registration(name, email, password) {
@@ -13,7 +14,7 @@ class UserService {
     console.log('candidateFindOne--------------');
     if (candidate) {
       console.log(`Пользователь с таким ${email} майл уже существует`);
-      throw new Error(`Пользователь с таким ${email} майл уже существует`);
+      throw ApiError.BadREquest(`Пользователь с таким ${email} майл уже существует`);
     }
     const hashPassword = await bcrypt.hash(password, 3); // hash password
     const activationLink = uuid.v4(); // return random string
@@ -37,7 +38,7 @@ class UserService {
     console.log('get activationLink---------------', activationLink);
     const user = await User.findOne({ where: { activationLink }, raw: true });
     if (!user) {
-      throw new Error('Некорректная ссылка активации');
+      throw ApiError.BadREquest('Некорректная ссылка активации');
     }
     await User.update({ isActivated: true }, {
       where: {
