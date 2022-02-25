@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { loginUser } from '../../store/reducers/lettersSlice';
 
 function Login() {
   const useStyles = makeStyles((theme) => ({
@@ -23,21 +25,35 @@ function Login() {
   }));
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const loginHandler = (event) => {
+    event.preventDefault();
+    dispatch(loginUser({ email, password }));
+  };
+
   return (
     <>
       <h1>LOGIN</h1>
-      <form className={classes.root}>
+      <form className={classes.root} onSubmit={(event) => loginHandler(event)}>
         <TextField
           label="Email"
           variant="filled"
           type="email"
           required
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
         />
         <TextField
           label="Password"
           variant="filled"
           type="password"
           required
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
         />
         <div>
           <Button type="submit" variant="contained" color="primary">

@@ -5,10 +5,12 @@ const { User } = require('../db/models');
 
 module.exports = async function (req, res, next) {
   try {
-    console.log('\n IN AUTHMIDDLEWARE+++++++++++++++++++++++++++++++++++++++++', '\n');
+    console.log('\n TOKEN IN AUTHMIDDLEWARE+++++++++++++++++++++++++++++++++++++++++', '\n');
     const { refreshToken } = req.cookies;
     const tokenFromDB = await tokenService.findToken(refreshToken);
+    console.log('\n USER IN AUTHMIDDLEWARE++++++++++++++++', tokenFromDB, '\n');
     const user = await User.findOne({ where: { id: tokenFromDB.user_id }, raw: true });
+    console.log('\n USER IN AUTHMIDDLEWARE++++++++++++++++', user, '\n');
     console.log('\n IN AUTHMIDDLEWARE+++++++++++++++++++++++++++++++++', user.isActivated, '\n');
 
     const authorizationHeader = req.headers.authorization;

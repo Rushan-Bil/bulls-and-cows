@@ -9,11 +9,12 @@ const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const PORT = process.env.PORT ?? 3001;
 const app = express();
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true, // access-control-allow-credentials:true
+};
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
