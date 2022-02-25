@@ -1,10 +1,8 @@
 import React from 'react';
-
-function LetterContainer() {
+import cls from './lettercontainer.module.css';
+function LetterContainer({ type }) {
   return (
-    <div className="flex-c-c row-2">
-      LetterContainer
-    </div>
+    <div className={[cls.letterContainer, cls[type]].join(' ')} />
   );
 }
 

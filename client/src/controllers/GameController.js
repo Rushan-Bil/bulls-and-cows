@@ -17,31 +17,29 @@ class GameController {
     if (!this.checkSameLength(guessWord, hiddenWord)) return 'У слов разная длина';
     const prepareGuess = this.transformWordToArr(guessWord);
     const prepareHidden = this.transformWordToArr(hiddenWord);
+
     const result = {
       bulls: 0,
       cows: 0,
     };
+
     for (let i = 0; i < prepareGuess.length; i++) {
       const current = prepareGuess[i];
-      const index = prepareHidden.findIndex((item) => item.letter === current.letter && !item.checked);
-      if (index === -1) {
-        console.log('МИМО', current);
-        continue;
-      }
 
-      if (index === current.position) {
-        console.log('ЭТО БЫК', current, prepareHidden[index].letter);
+      if (current.letter === prepareHidden[i].letter) {
         result.bulls += 1;
-      } else if (current[index].letter === prepareHidden[index].letter) {
-        console.log('БЫК ВПЕРЕДИ', current, prepareHidden[index]);
+        prepareHidden[i].checked = true;
+        current.checked = true;
         continue;
-      } else {
-        console.log('ЭТО КОРОВА', current, prepareHidden[index]);
-        result.cows += 1;
       }
+      const index = prepareHidden.findIndex((item) => item.letter === current.letter && !item.checked);
+      if (index === -1) continue;
+
+      result.cows += 1;
       prepareHidden[index].checked = true;
       current.checked = true;
     }
+
     return result;
   }
 
