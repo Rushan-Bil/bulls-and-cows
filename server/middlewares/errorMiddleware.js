@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const ApiError = require('../exeptions/apiError');
 
 module.exports = function (err, req, res, next) {

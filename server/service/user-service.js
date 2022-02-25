@@ -70,5 +70,30 @@ class UserService {
     const token = await tokenService.removeToken(refreshToken);
     return token;
   }
+
+  async refresh(refreshToken) {
+    console.log('INSERT INTO REFRESH--------------------------------------------');
+    if (!refreshToken) {
+      throw ApiError.UnauthorizedError();
+    }
+    const userData = tokenService.validateRefreshToken(refreshToken);
+    const tokenFromDB = await tokenService.findToken(refreshToken);
+    if (!userData || !tokenFromDB) {
+      throw ApiError.UnauthorizedError();
+    }
+    const user = await User.findOne({ where: { id: userData.id }, raw: true });
+    console.log('IN REFRESH email------------------------------', user);
+    const userDto = new UserDto(user);
+    const tokens = tokenService.generateTokens({ ...userDto });
+
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+    console.log('exit from USER SERVICE REFRESH----');
+    return { ...tokens, user: userDto };
+  }
+
+  async getAllUsers() {
+    const users = await User.findAll();
+    return users;
+  }
 }
 module.exports = new UserService();
