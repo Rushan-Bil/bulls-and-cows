@@ -1,12 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import controller from '../../controllers/TrainController';
 
-function WordInput() {
+function WordInput({ setWords }) {
   const secret = 'qwert';
   const wordLength = secret.length;
 
   const [inputs, setInputs] = useState({});
-  const [words, setWords] = useState([]);
 
   const inputsHandler = useCallback((e) => {
     if (e.target.value.length <= wordLength) {
@@ -32,7 +31,6 @@ function WordInput() {
       alert('Введите слово целиком');
     }
   };
-  console.log(words);
 
   return (
     <div className="inputForm">
