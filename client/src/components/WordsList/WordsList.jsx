@@ -1,7 +1,8 @@
 import React from 'react';
+import OneWord from '../pages/OneWord/OneWord';
 // import OneWord from '../pages/OneWord/OneWord';
 
-function WordsList() {
+function WordsList({ words }) {
   return (
     <div className="flex-d-c column-3">
       <table>
@@ -16,9 +17,7 @@ function WordsList() {
             <td>0</td>
             <td>3</td>
           </tr>
-          {/* <tr>
-            {words && words?.map((el) => <OneWord />)}
-          </tr> */}
+          {words && words?.map((el) => <OneWord {...el} />)}
         </tbody>
       </table>
     </div>
