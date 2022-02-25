@@ -1,34 +1,23 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Tokens', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING,
-      },
-      password: {
-        type: Sequelize.STRING,
-      },
-      email: {
-        type: Sequelize.STRING,
-      },
-      photo: {
-        type: Sequelize.STRING,
-      },
-      rating: {
+      user_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
       },
-      activationLink: {
+      refreshToken: {
         type: Sequelize.STRING,
       },
-      isActivated: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true,
-      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -40,6 +29,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Tokens');
   },
 };
