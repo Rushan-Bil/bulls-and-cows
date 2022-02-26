@@ -7,6 +7,7 @@ import App from './App';
 import setupStore from './store/store';
 
 const store = setupStore();
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

@@ -1,6 +1,4 @@
-import axios from 'axios';
-import dictionary from '../dictionary';
-import dictionaryDef from '../dictionaryWithDefinition';
+const dictionary = require('../dictionaries/dictionary');
 
 class GameController {
   transformWordToArr(word) {
@@ -14,11 +12,12 @@ class GameController {
   }
 
   countBullandCows(guessWord = '', hiddenWord = '') {
-    if (!this.checkSameLength(guessWord, hiddenWord)) return 'У слов разная длина';
+    if (!this.checkSameLength(guessWord, hiddenWord)) return null;
     const prepareGuess = this.transformWordToArr(guessWord);
     const prepareHidden = this.transformWordToArr(hiddenWord);
 
     const result = {
+      word: guessWord,
       bulls: 0,
       cows: 0,
     };
@@ -69,10 +68,4 @@ class GameController {
 const alex = new GameController();
 alex.countBullandCows('акколада', 'акваланг'); // ?
 alex.computerGuessingWord('акваланг', dictionary); // ?
-export default new GameController();
-
-// async function check() {
-//   const res = await axios('https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=dict.1.1.20220224T124541Z.98f309cc535b59ea.d9f0a5365d104d1b3b409d6d4e856815119b7a8f&lang=ru-ru&text=хутор');
-//   console.log(res.data);
-// }
-// check();
+module.exports = new GameController();

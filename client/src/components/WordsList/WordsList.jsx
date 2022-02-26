@@ -1,23 +1,17 @@
 import React from 'react';
 import OneWord from '../pages/OneWord/OneWord';
-// import OneWord from '../pages/OneWord/OneWord';
 
 function WordsList({ words }) {
   return (
-    <div className="flex-d-c column-3">
-      <table>
+    <div className="flex-d-c">
+      <table className="table">
         <thead>
-          <th>Слово</th>
-          <th>Быков</th>
-          <th>Коров</th>
+          <th className="major">Слово</th>
+          <th className="minor">Быков</th>
+          <th className="minor">Коров</th>
         </thead>
         <tbody>
-          <tr>
-            <td>Кисель</td>
-            <td>0</td>
-            <td>3</td>
-          </tr>
-          {words && words?.map((el) => <OneWord {...el} />)}
+          {words && words?.map((el) => <OneWord key={el.word} {...el} />)}
         </tbody>
       </table>
     </div>

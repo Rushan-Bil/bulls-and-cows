@@ -1,0 +1,35 @@
+.inputsWrap {
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+}
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 40%;
+  padding: 50px;
+  background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+  box-shadow: 0 0 10px 2px rgb(255 255 255 / 20%);
+}
+
+.start {
+  margin: 0 auto;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+  background: rgb(6, 100, 0);
+  transition: all 0.5s ease-in-out;
+}
+.start:hover {
+  transform: scale(1.05);
+}

@@ -5,6 +5,7 @@ import Alphabet from '../../Alphabet/Alphabet';
 import WordInput from '../../WordInput/WordInput';
 import LetterContainer from '../../LetterContainer/LetterContainer';
 import StartModal from '../../StartModal/StartModal';
+import WrapLetterContainers from '../../WrapLetterContainers/WrapLetterContainers';
 
 function TrainPage() {
   const [words, setWords] = useState([]);
@@ -14,14 +15,14 @@ function TrainPage() {
     <>
       TrainPage
       <StartModal setSecret={setSecret} />
-      <div className={cls.trainPage}>
+      <div className="gamePage">
         <WordsList words={words} />
-        <div className="flex-d-c column-3">
+        <div className="flex-d-c s-b">
           <Alphabet />
           <WordInput secret={secret} setWords={setWords} />
         </div>
-        <div className="flex-d-c column-3">
-          <LetterContainer />
+        <div className="flex-d-c">
+          <WrapLetterContainers />
           <LetterContainer />
         </div>
       </div>

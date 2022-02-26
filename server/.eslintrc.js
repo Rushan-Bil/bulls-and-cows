@@ -12,5 +12,9 @@ module.exports = {
     ecmaVersion: 'latest',
   },
   rules: {
+    'class-methods-use-this': 'off',
+    'no-continue': 'off',
+    'no-plusplus': 'off',
+    'max-len': 'off',
   },
 };
