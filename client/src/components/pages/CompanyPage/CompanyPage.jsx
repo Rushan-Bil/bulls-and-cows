@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import cls from './company.module.css';
-import WordsList from '../../WordsList/WordsList';
 import Alphabet from '../../Alphabet/Alphabet';
-import WordInput from '../../WordInput/WordInput';
 import LetterContainer from '../../LetterContainer/LetterContainer';
 import WrapLetterContainers from '../../WrapLetterContainers/WrapLetterContainers';
 import { letterSlice } from '../../../store/reducers/lettersSlice';
 import TabWordsList from '../../TabWordsList/TabWordsList';
+import CompanyWordDialog from './CompanyWordDialog/CompanyWordDialog';
+import CompanyWordInput from './CompanyWordInput/CompanyWordInput';
 
 function CompanyPage() {
   const AB = 'йцукенгшщзхъфывапролджэячсмитьбю'.split('').sort();
@@ -17,17 +16,20 @@ function CompanyPage() {
     dispatch(setAlphabet(AB));
   }, []);
   return (
-    <div className="gamePage">
-      <TabWordsList />
-      <div className="flex-d-c s-b">
-        <Alphabet />
-        <WordInput />
+    <>
+      <CompanyWordDialog />
+      <div className="gamePage">
+        <TabWordsList reducer="gameCompReducer" />
+        <div className="flex-d-c s-b">
+          <Alphabet />
+          <CompanyWordInput />
+        </div>
+        <div className="flex-d-c">
+          <WrapLetterContainers />
+          <LetterContainer />
+        </div>
       </div>
-      <div className="flex-d-c">
-        <WrapLetterContainers />
-        <LetterContainer />
-      </div>
-    </div>
+    </>
   );
 }
 

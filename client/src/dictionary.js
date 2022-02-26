@@ -1,4 +1,4 @@
-const dictionary = `а-ля фуршет
+export const dictionary = `а-ля фуршет
 аба
 абажур
 абажурчик
@@ -67772,5 +67772,3 @@ const dictionary = `а-ля фуршет
 ящичник
 ящур
 ящурка`.split('\n').filter((item) => item.length > 2 && item.length < 10);
-
-export default dictionary;
