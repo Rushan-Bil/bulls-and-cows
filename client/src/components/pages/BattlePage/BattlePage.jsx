@@ -33,7 +33,7 @@ function BattlePage() {
     <>
       <ChoiceWordDialog />
       <div className="gamePage">
-        <TabWordsList />
+        <TabWordsList reducer="wordsReducer" />
         <div className="flex-d-c s-b">
           <Alphabet />
           <BattleWordInput />
