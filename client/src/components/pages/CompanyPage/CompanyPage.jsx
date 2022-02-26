@@ -7,6 +7,7 @@ import WordInput from '../../WordInput/WordInput';
 import LetterContainer from '../../LetterContainer/LetterContainer';
 import WrapLetterContainers from '../../WrapLetterContainers/WrapLetterContainers';
 import { letterSlice } from '../../../store/reducers/lettersSlice';
+import SwiperWordsList from '../../SwiperWordsList/SwiperWordsList';
 
 function CompanyPage() {
   const AB = 'йцукенгшщзхъфывапролджэячсмитьбю'.split('').sort();
@@ -17,8 +18,8 @@ function CompanyPage() {
   }, []);
   return (
     <div className={cls.companyPage}>
-      <WordsList />
-      <div className="flex-d-c column-3">
+      <SwiperWordsList />
+      <div className="flex-d-c column-3 s-b">
         <Alphabet />
         <WordInput />
       </div>

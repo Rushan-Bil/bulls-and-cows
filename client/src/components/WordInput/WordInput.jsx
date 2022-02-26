@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import controller from '../../controllers/TrainController';
+import cls from './wordInput.module.css';
 
 function WordInput({ secret, setWords }) {
   const wordLength = secret?.length;
@@ -26,15 +27,15 @@ function WordInput({ secret, setWords }) {
   };
 
   return (
-    <div className="inputForm">
+    <div className={`${cls.inputWrap} inputForm`}>
       <form onSubmit={submitHandler}>
         <div className="">
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="inputForm" className="form-label">Введите своё слово:</label>
-          <div>
+          <label htmlFor="inputForm" className={`${cls.labelWord} form-label`}>Введите своё слово:</label>
+          <div style={{ margin: '20px 0' }}>
             <input
               type="text"
-              className="form-control"
+              className={`${cls.wordInput} form-control`}
               id="inputSuppose"
               // pattern="[А-Яа-яЁё ]+" // ТАК СЕБЕ ВАРИАНТ
               // placeholder="Только русские буквы" // ТАК СЕБЕ ВАРИАНТ
@@ -44,7 +45,7 @@ function WordInput({ secret, setWords }) {
             />
           </div>
         </div>
-        <button type="submit">Проверить!</button>
+        <button type="submit" className={cls.checkBtn}>Проверить!</button>
       </form>
     </div>
   );

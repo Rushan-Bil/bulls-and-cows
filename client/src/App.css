@@ -33,6 +33,11 @@
   flex-direction: column;
   height:100%;
 }
+
+.s-b {
+  justify-content: space-between;
+}
+
 .flex-c-c {
   display: flex;
   justify-content: center;
@@ -63,6 +68,20 @@
 .letter-exit-active {
   opacity: 0;
   transition: opacity 500ms ease-in;
+}
+
+.swiper {
+  flex: 1 1 30%;
+  max-width: 30%;
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
 }
 
 
