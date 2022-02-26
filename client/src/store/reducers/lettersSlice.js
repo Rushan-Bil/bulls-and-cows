@@ -30,6 +30,11 @@ export const checkAuth = createAsyncThunk('isAuth', async () => {
   return response;
 });
 
+export const logOut = createAsyncThunk('logOut', async () => {
+  console.log('logOut work-----------------');
+  return api.post('/logout');
+});
+
 export const letterSlice = createSlice({
   name: 'user',
   initialState,
@@ -99,6 +104,29 @@ export const letterSlice = createSlice({
       console.log('isAuth rejected++++++++++++++++++++++++++++');
       state.isAuth = false;
       state.status = 'failed';
+      state.userName = '';
+      state.userId = null;
+    },
+    //----------------------------------------------------------------------------
+    // LOGOUT
+    [logOut.pending]: (state) => {
+      console.log('logOut pending--------------');
+      state.status = 'loading';
+    },
+    [logOut.fulfilled]: (state, { payload }) => {
+      console.log('logOut fullfiled++++++++++++++++++++++++++++', payload.data);
+      state.status = 'success';
+      if (payload.status === 200) {
+        state.isAuth = false;
+        state.userName = '';
+        state.userId = null;
+        localStorage.removeItem('token');
+      }
+      console.log(payload);
+    },
+    [logOut.rejected]: (state, action) => {
+      console.log('logOut rejected++++++++++++++++++++++++++++');
+      state.isAuth = false;
       state.userName = '';
       state.userId = null;
     },

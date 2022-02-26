@@ -2,6 +2,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { Button } from '@material-ui/core';
 import Authorisation from './components/auth/Authorisation';
 import Login from './components/login/Login';
 import MenuPage from './components/pages/MenuPage/MenuPage';
@@ -11,7 +12,7 @@ import TrainPage from './components/pages/TrainPage/TrainPage';
 import RulesPage from './components/pages/RulesPage/RulesPage';
 import SettingsPage from './components/pages/SettingsPage/SettingsPage';
 import RatingPage from './components/pages/RatingPage/RatingPage';
-import { selectLetterSlice, checkAuth } from './store/reducers/lettersSlice';
+import { selectLetterSlice, checkAuth, logOut } from './store/reducers/lettersSlice';
 
 function App() {
   const { isAuth } = useSelector(selectLetterSlice);
@@ -26,7 +27,15 @@ function App() {
 
   return (
     <div className="App">
-      <div>{isAuth ? 'Пользователь авторизован' : 'Вам нужно авторизоваться'}</div>
+      <div>
+        {isAuth ? (
+          <>
+            <span>Пользователь авторизован</span>
+            <Button onClick={() => dispatch(logOut())}>logout</Button>
+          </>
+        ) : 'Вам нужно авторизоваться'}
+
+      </div>
       <Routes>
         <Route path="/" element={<MenuPage />} />
         <Route path="login" element={<Login />} />

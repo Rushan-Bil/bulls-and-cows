@@ -5,10 +5,10 @@ const { User } = require('../db/models');
 module.exports = async function (req, res, next) {
   try {
     const user = await User.findOne({ where: { email: req.body.email }, raw: true });
-    console.log('\n USER IN AUTHMIDDLEWARE++++++++++++++++', user, '\n');
+    console.log('\n USER IN LOGIN++++++++++++++++', user, '\n');
 
     const authorizationHeader = req.headers.authorization;
-    console.log('\n IN AUTHMIDDLEWARE+++++++++++++++++++++++++++++++++', authorizationHeader, '\n');
+    console.log('\n IN LOGIN+++++++++++++++++++++++++++++++++', authorizationHeader, '\n');
     if (!user.isActivated) {
       return next(ApiError.notActiavteMail());
     }
