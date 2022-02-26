@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Users', {
@@ -27,7 +28,6 @@ module.exports = {
       },
       isActivated: {
         type: Sequelize.BOOLEAN,
-        defaultValue: true,
       },
       createdAt: {
         allowNull: false,

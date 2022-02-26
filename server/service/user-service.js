@@ -20,7 +20,7 @@ class UserService {
     const activationLink = uuid.v4(); // return random string
     console.log('hashPassword-activationLink--------', hashPassword, activationLink);
     const user = await User.create({
-      name, email, password: hashPassword, activationLink,
+      name, email, password: hashPassword, activationLink, isActivated: false,
     });
     console.log('user created');
 
@@ -87,7 +87,7 @@ class UserService {
     const tokens = tokenService.generateTokens({ ...userDto });
 
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
-    console.log('exit from USER SERVICE REFRESH----');
+    console.log('exit from USER SERVICE REFRESH----', { ...tokens, user: userDto });
     return { ...tokens, user: userDto };
   }
 

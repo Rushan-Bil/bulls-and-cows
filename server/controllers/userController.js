@@ -6,7 +6,7 @@ const userService = require('../service/user-service');
 
 class UserController {
   async registration(req, res, next) {
-    console.log('registration start---------------------------');
+    console.log('registration start---------------------------', req.body);
     try {
       const errors = validationResult(req);
       console.log('валидате errors=============================', errors.isEmpty());
@@ -26,6 +26,7 @@ class UserController {
 
   async login(req, res, next) {
     try {
+      console.log('DATA FROM CLIENT-----------------------------', req.body);
       const { email, password } = req.body;
       const userData = await userService.login(email, password);
       console.log('DATA FROM userService.login---------------------', userData);

@@ -12,4 +12,8 @@ module.exports = class ApiError extends Error {
   static BadREquest(message, errors = []) {
     return new ApiError(400, message, errors);
   }
+
+  static notActiavteMail() {
+    return new ApiError(400, 'Не подтверждена почта');
+  }
 };
