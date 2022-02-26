@@ -59,12 +59,11 @@ export const letterSlice = createSlice({
       state.status = 'loading';
     },
     [registrateUser.fulfilled]: (state, { payload }) => {
-      console.log('registrateUser fullfiled++++++++++++++++++++++++++++');
       state.status = 'success';
       if (payload.status === 200) {
-        localStorage.setItem('token', payload.data.accessToken);
+        console.log('registrateUser fullfiled++++++++++++++++++++++++++++', payload);
+        // localStorage.setItem('token', payload.data.accessToken);
       }
-      console.log(payload);
     },
     [registrateUser.rejected]: (state, action) => {
       console.log('registrateUser rejected++++++++++++++++++++++++++++');
