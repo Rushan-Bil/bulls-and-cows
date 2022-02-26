@@ -46,9 +46,26 @@
   flex: 1 1 50%;
 }
 .column-3 {
-  max-width: 33.333%;
-  flex: 1 1 33.3333%;
+  max-width: 30%;
+  flex: 1 1 30%;
 }
+
+.letter-enter {
+  opacity: 0;
+}
+.letter-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.letter-exit {
+  opacity: 1;
+}
+.letter-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
