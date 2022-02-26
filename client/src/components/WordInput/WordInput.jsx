@@ -35,7 +35,7 @@ function WordInput({ secret, setWords }) {
           <div style={{ margin: '20px 0' }}>
             <input
               type="text"
-              className={`${cls.wordInput} form-control`}
+              className="commonInput form-control"
               id="inputSuppose"
               // pattern="[А-Яа-яЁё ]+" // ТАК СЕБЕ ВАРИАНТ
               // placeholder="Только русские буквы" // ТАК СЕБЕ ВАРИАНТ
