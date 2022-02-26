@@ -5,6 +5,7 @@ import AuthService from '../../services/authService';
 import api, { API_URL } from '../../http';
 
 const initialState = {
+  alphabet: [],
   wrong: [],
   doubt: [],
   correct: [],
@@ -36,8 +37,20 @@ export const logOut = createAsyncThunk('logOut', async () => {
 });
 
 export const letterSlice = createSlice({
-  name: 'user',
+  name: 'letter',
   initialState,
+  reducers: {
+    setAlphabet(state, action) {
+      state.alphabet = action.payload;
+    },
+    replace(state, action) {
+      const { from, to, letter } = action.payload;
+      if (from === to) return;
+      state[to].push(letter);
+      state[to].sort();
+      state[from] = state[from].filter((item) => item !== letter);
+    },
+  },
   extraReducers: {
     //----------------------------------------------------------------------------
     // REGISTRATEUSER
@@ -130,7 +143,6 @@ export const letterSlice = createSlice({
       state.userName = '';
       state.userId = null;
     },
-
   },
 });
 

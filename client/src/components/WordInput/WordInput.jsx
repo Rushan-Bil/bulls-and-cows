@@ -1,31 +1,25 @@
 import React, { useState, useCallback } from 'react';
 import controller from '../../controllers/TrainController';
+import cls from './wordInput.module.css';
 
-function WordInput({ setWords }) {
-  const secret = 'qwert';
-  const wordLength = secret.length;
+function WordInput({ secret, setWords }) {
+  const wordLength = secret?.length;
 
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState('');
 
-  const inputsHandler = useCallback((e) => {
-    if (e.target.value.length <= wordLength) {
-      setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    }
-  }, []);
+  const inputsHandler = (e) => {
+    if (e.target.value.length > wordLength) return;
+    setInputs(e.target.value);
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    let suppose = '';
-    suppose = inputs.suppose;
-    setInputs({});
+    const suppose = inputs;
+    setInputs('');
 
     if (suppose?.length === wordLength) {
-      console.log(secret);
-      console.log(suppose);
       const bulls = controller.checkBulls(secret, suppose);
       const cows = controller.checkCows(secret, suppose);
-      console.log(bulls, 'bulls');
-      console.log(cows, 'cows');
       setWords((prev) => ([...prev, { word: suppose, bulls, cows }]));
     } else {
       alert('Введите слово целиком');
@@ -33,25 +27,25 @@ function WordInput({ setWords }) {
   };
 
   return (
-    <div className="inputForm">
+    <div className={`${cls.inputWrap} inputForm`}>
       <form onSubmit={submitHandler}>
         <div className="">
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="exampleFormControlInput1" className="form-label">Введите своё слово:</label>
-          <div>
+          <label htmlFor="inputForm" className={`${cls.labelWord} form-label`}>Введите своё слово:</label>
+          <div style={{ margin: '20px 0' }}>
             <input
               type="text"
-              className="form-control"
+              className="commonInput form-control"
               id="inputSuppose"
               // pattern="[А-Яа-яЁё ]+" // ТАК СЕБЕ ВАРИАНТ
               // placeholder="Только русские буквы" // ТАК СЕБЕ ВАРИАНТ
               name="suppose"
               onChange={inputsHandler}
-              value={inputs.suppose || ''}
+              value={inputs}
             />
           </div>
         </div>
-        <button type="submit">Проверить!</button>
+        <button type="submit" className={cls.checkBtn}>Проверить!</button>
       </form>
     </div>
   );

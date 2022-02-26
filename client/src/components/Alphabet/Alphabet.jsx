@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
-import AlphabetLetter from '../AlphabetLetter/AlphabetLetter';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import Letter from '../Letter/Letter';
 import cls from './alphabet.module.css';
+import { letterSlice } from '../../store/reducers/lettersSlice';
 
-function Alphabet({ arrLetter }) {
-  const AB = 'йцукенгшщзхъфывапролджэячсмитьбю'.split('').sort();
-  const [alphabet, setAlphabet] = useState(AB);
+function Alphabet() {
+  const { alphabet } = useSelector((state) => state.letterReducer);
+
   return (
-    <div className={`${cls.alphabet}`}>
-      {alphabet.map((letter) => <AlphabetLetter value={letter} />)}
-    </div>
+    <TransitionGroup className={cls.alphabet}>
+      {alphabet.map((letter) => (
+        <CSSTransition
+          key={letter}
+          timeout={500}
+          classNames="letter"
+        >
+          <Letter key={letter} value={letter} typeContainer="alphabet" />
+        </CSSTransition>
+      ))}
+    </TransitionGroup>
   );
 }
 

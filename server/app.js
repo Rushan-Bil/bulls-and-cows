@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const userRouter = require('./routes/userRouter');
 const errorMiddleware = require('./middlewares/errorMiddleware');
+const webSocket = require('./wss/websocket');
 
 const PORT = process.env.PORT ?? 3001;
 const app = express();
@@ -25,4 +26,4 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/user', userRouter);
 app.use(errorMiddleware);
 
-app.listen(PORT);
+webSocket(app.listen(PORT));
