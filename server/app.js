@@ -11,7 +11,9 @@ const PORT = process.env.PORT ?? 3001;
 const app = express();
 const corsOptions = {
   origin: process.env.CLIENT_URL,
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   credentials: true, // access-control-allow-credentials:true
+  optionSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));

@@ -87,7 +87,7 @@ class UserService {
     const tokens = tokenService.generateTokens({ ...userDto });
 
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
-    console.log('exit from USER SERVICE REFRESH----');
+    console.log('exit from USER SERVICE REFRESH----', { ...tokens, user: userDto });
     return { ...tokens, user: userDto };
   }
 

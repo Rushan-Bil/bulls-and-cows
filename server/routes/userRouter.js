@@ -2,6 +2,7 @@ const express = require('express');
 const { body } = require('express-validator');
 const UserController = require('../controllers/userController');
 const authMiddleware = require('../middlewares/auth-middleware');
+const loginMiddleware = require('../middlewares/login-middleware');
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ router.post(
   body('password').isLength({ min: 3, max: 13 }),
   UserController.registration,
 );
-router.post('/login', authMiddleware, UserController.login);
+router.post('/login', loginMiddleware, UserController.login);
 router.post('/logout', UserController.logout);
 router.get('/activate/:link', UserController.activate);
 router.get('/refresh', UserController.refresh);
