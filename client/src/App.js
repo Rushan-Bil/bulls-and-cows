@@ -38,7 +38,7 @@ function App() {
       </div>
       <Routes>
         <Route path="/" element={<MenuPage />} />
-        <Route path="login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Authorisation />} />
         <Route path="/game/battle" element={<BattlePage />} />
         <Route path="/game/company" element={<CompanyPage />} />

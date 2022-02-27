@@ -3,7 +3,11 @@ import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { registrateUser } from '../../store/reducers/lettersSlice';
+import {
+  registrateUser,
+  selectLetterSlice,
+} from '../../store/reducers/lettersSlice';
+import cls from './authorization.module.css';
 
 function Authorisation() {
   const useStyles = makeStyles((theme) => ({
@@ -35,6 +39,7 @@ function Authorisation() {
     event.preventDefault();
     dispatch(registrateUser({ name, email, password }));
   };
+  const errMessage = useSelector(selectLetterSlice);
 
   return (
     <>
@@ -63,6 +68,7 @@ function Authorisation() {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
+        <h2 className={errMessage.isError && cls.warning}>{errMessage.isError ? errMessage.isError : 'Проверьте почту'}</h2>
         <div>
           <Button type="submit" variant="contained" color="primary">
             Registration

@@ -13,6 +13,7 @@ const initialState = {
   status: '',
   userName: '',
   userId: null,
+  isError: '',
 };
 
 export const registrateUser = createAsyncThunk('registrateUser', async ({ name, email, password }) => {
@@ -62,12 +63,14 @@ export const letterSlice = createSlice({
       state.status = 'success';
       if (payload.status === 200) {
         console.log('registrateUser fullfiled++++++++++++++++++++++++++++', payload);
+        state.isError = '';
         // localStorage.setItem('token', payload.data.accessToken);
       }
     },
-    [registrateUser.rejected]: (state, action) => {
-      console.log('registrateUser rejected++++++++++++++++++++++++++++');
+    [registrateUser.rejected]: (state, payload) => {
+      console.log('registrateUser rejected++++++++++++++++++++++++++++', payload);
       state.status = 'failed';
+      state.isError = 'Ошибка регистрации';
     },
 
     //----------------------------------------------------------------------------
@@ -84,6 +87,7 @@ export const letterSlice = createSlice({
         state.isAuth = true;
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
+        state.isError = '';
       }
       console.log(payload);
     },
@@ -93,6 +97,7 @@ export const letterSlice = createSlice({
       state.status = 'failed';
       state.userName = '';
       state.userId = null;
+      state.isError = 'Ошибка авторизации';
     },
 
     //----------------------------------------------------------------------------
@@ -109,6 +114,7 @@ export const letterSlice = createSlice({
         state.isAuth = true;
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
+        state.isError = '';
       }
       console.log(payload);
     },
@@ -118,6 +124,7 @@ export const letterSlice = createSlice({
       state.status = 'failed';
       state.userName = '';
       state.userId = null;
+      state.isError = 'Ошибка что то пошло не так';
     },
     //----------------------------------------------------------------------------
     // LOGOUT
@@ -133,6 +140,7 @@ export const letterSlice = createSlice({
         state.userName = '';
         state.userId = null;
         localStorage.removeItem('token');
+        state.isError = '';
       }
       console.log(payload);
     },
@@ -141,6 +149,7 @@ export const letterSlice = createSlice({
       state.isAuth = false;
       state.userName = '';
       state.userId = null;
+      state.isError = 'Ошибка что то пошло не так';
     },
   },
 });

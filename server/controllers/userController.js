@@ -16,10 +16,10 @@ class UserController {
       const { name, email, password } = req.body;
       console.log('UserController.registration-------', name, email, password);
       const userData = await userService.registration(name, email, password);
-      console.log('userData--------------------');
       // res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
       res.json(userData);
     } catch (e) {
+      console.log('ERROR================================', e);
       next(e);
     }
   }
@@ -52,7 +52,7 @@ class UserController {
     try {
       const activationLink = req.params.link;
       await userService.activate(activationLink);
-      return res.redirect(process.env.CLIENT_URL);
+      return res.redirect(`${process.env.CLIENT_URL}/login`);
     } catch (e) {
       next(e);
     }
