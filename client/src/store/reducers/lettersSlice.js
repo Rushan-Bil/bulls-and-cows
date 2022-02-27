@@ -92,6 +92,7 @@ export const letterSlice = createSlice({
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
         state.isError = '';
+        state.imgPath = payload.data.user.photo;
       }
       console.log(payload);
     },
@@ -102,6 +103,7 @@ export const letterSlice = createSlice({
       state.userName = '';
       state.userId = null;
       state.isError = 'Ошибка авторизации';
+      state.imgPath = '';
     },
 
     //----------------------------------------------------------------------------
@@ -114,11 +116,13 @@ export const letterSlice = createSlice({
       console.log('isAuth fullfiled++++++++++++++++++++++++++++', payload.data);
       state.status = 'success';
       if (payload.status === 200) {
+        console.log(payload);
         localStorage.setItem('token', payload.data.accessToken);
         state.isAuth = true;
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
         state.isError = '';
+        state.imgPath = payload.data.user.photo;
       }
       console.log(payload);
     },
@@ -129,6 +133,7 @@ export const letterSlice = createSlice({
       state.userName = '';
       state.userId = null;
       state.isError = 'Ошибка что то пошло не так';
+      state.imgPath = '';
     },
     //----------------------------------------------------------------------------
     // LOGOUT
@@ -145,6 +150,7 @@ export const letterSlice = createSlice({
         state.userId = null;
         localStorage.removeItem('token');
         state.isError = '';
+        state.imgPath = '';
       }
       console.log(payload);
     },
