@@ -77,6 +77,18 @@ class UserController {
       next(e);
     }
   }
+
+  async upload(req, res, next) {
+    try {
+      console.log('GET REQUEST UPLOAD=================', req.file.originalname);
+      console.log('GET REQUEST UPLOAD USERDATA=================', req.params);
+      const path = await userService.addAvatar(req.file.originalname, req.params.id);
+      console.log(path);
+      res.json({ text: 'GOOD WORK', path: `/img/${req.file.originalname}` });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new UserController();

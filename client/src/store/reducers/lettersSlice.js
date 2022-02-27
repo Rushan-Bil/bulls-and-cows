@@ -14,6 +14,7 @@ const initialState = {
   userName: '',
   userId: null,
   isError: '',
+  imgPath: '',
 };
 
 export const registrateUser = createAsyncThunk('registrateUser', async ({ name, email, password }) => {
@@ -50,6 +51,9 @@ export const letterSlice = createSlice({
       state[to].push(letter);
       state[to].sort();
       state[from] = state[from].filter((item) => item !== letter);
+    },
+    setPhoto(state, action) {
+      state.imgPath = action.payload;
     },
   },
   extraReducers: {

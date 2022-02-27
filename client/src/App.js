@@ -13,6 +13,7 @@ import RulesPage from './components/pages/RulesPage/RulesPage';
 import SettingsPage from './components/pages/SettingsPage/SettingsPage';
 import RatingPage from './components/pages/RatingPage/RatingPage';
 import { selectLetterSlice, checkAuth, logOut } from './store/reducers/lettersSlice';
+import Avatar from './components/avatar/Avatar';
 
 function App() {
   const { isAuth } = useSelector(selectLetterSlice);
@@ -36,6 +37,7 @@ function App() {
         ) : 'Вам нужно авторизоваться'}
 
       </div>
+      <Avatar />
       <Routes>
         <Route path="/" element={<MenuPage />} />
         <Route path="/login" element={<Login />} />
