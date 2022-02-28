@@ -2,6 +2,7 @@ const { WebSocket } = require('ws');
 
 const decoder = new TextDecoder('utf-8');
 const gameController = require('../controllers/GameController');
+const roomController = require('../controllers/roomController');
 
 const rooms = {};
 
