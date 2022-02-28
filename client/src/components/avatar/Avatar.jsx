@@ -37,7 +37,7 @@ function Avatar() {
         <img src={`http://localhost:3001${slice.imgPath}`} alt="" width="150px" height="150px" />
       </div>
       <div className={cls.infocontainer}>
-        <h2>{slice.name}</h2>
+        <h2>{slice.userName}</h2>
         <form>
           <button type="button" onClick={((event) => photoHandler(event))} className={cls.btnPhoto}>Сменить аватар</button>
           <input name="avatar" type="file" id="getFile" className={cls.getPhoto} onChange={(event) => inputsHandler(event)} />

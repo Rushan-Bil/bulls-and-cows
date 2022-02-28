@@ -37,7 +37,7 @@ function App() {
         ) : 'Вам нужно авторизоваться'}
 
       </div>
-      <Avatar />
+      {isAuth && <Avatar />}
       <Routes>
         <Route path="/" element={<MenuPage />} />
         <Route path="/login" element={<Login />} />
