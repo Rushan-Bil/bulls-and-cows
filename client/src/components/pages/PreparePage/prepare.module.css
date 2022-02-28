@@ -1,0 +1,99 @@
+.preparePage {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.6);
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.btn {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: #444166;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  position: relative;
+}
+
+.btn:disabled {
+  background: rgba(0,229,255,0.5);
+}
+.formControl {
+  width: 70%;
+  height:70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding:20px 40px;
+  padding: 50px;
+  background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+  box-shadow: inset 3px -3px 7px 2px rgba(0,0,0,0.4), 1px -2px 7px 0px rgba(255,255,255,0.4), inset -1px 3px 7px 2px rgba(255,255,255,0.1);
+}
+.randomWrap {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap:40px;
+}
+.onlineData {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 50%;
+  max-width: 50%;
+}
+.transition {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.randomForm {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 50%;
+  max-width: 50%;
+  align-items: center;
+  gap: 20px;
+}
+
+.randomForm > select {
+  border: none;
+  outline: none;
+  background: #444166;
+  padding: 10px 20px;
+}
+
+.start {
+  position: relative;
+  width: fit-content;
+  padding: 10px 40px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+  background: rgb(6, 100, 0);
+  transition: all 0.5s ease-in-out;
+}
+.start::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: rgba(0, 255, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+}
+.start:hover::before  {
+  transform: scaleX(1);
+}

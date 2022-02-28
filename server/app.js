@@ -5,6 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const userRouter = require('./routes/userRouter');
+const gameRouter = require('./routes/gameRouter');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 const webSocket = require('./wss/websocket');
 
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/user', userRouter);
+app.use('game', gameRouter);
 app.use(errorMiddleware);
 
 webSocket(app.listen(PORT));
