@@ -90,6 +90,7 @@ export const userSlice = createSlice({
       state.userId = null;
       state.isError = 'Ошибка авторизации';
       state.imgPath = '';
+      console.log(action.error);
     },
 
     //----------------------------------------------------------------------------
