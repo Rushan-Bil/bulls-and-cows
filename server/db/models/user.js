@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.hasOne(models.Token, { foreignKey: 'user_id' });
       this.belongsToMany(models.Game, { through: 'GamesAndUser', foreignKey: 'user_id' });
+      this.hasMany(models.Gamestate, { foreignKey: 'user_id' });
     }
   }
   User.init({
