@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { loginUser } from '../../store/reducers/lettersSlice';
+import {
+  loginUser,
+  selectLetterSlice,
+} from '../../store/reducers/lettersSlice';
+import cls from './login.module.css';
 
 function Login() {
   const useStyles = makeStyles((theme) => ({
@@ -35,6 +39,8 @@ function Login() {
     dispatch(loginUser({ email, password }));
   };
 
+  const errMessage = useSelector(selectLetterSlice);
+
   return (
     <>
       <h1>LOGIN</h1>
@@ -55,6 +61,7 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
+        <h2 className={errMessage.isError && cls.warning}>{errMessage.isError}</h2>
         <div>
           <Button type="submit" variant="contained" color="primary">
             LogIn

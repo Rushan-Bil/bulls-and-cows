@@ -9,8 +9,8 @@ module.exports = class ApiError extends Error {
     return new ApiError(401, 'Пользовтаель не авторизован');
   }
 
-  static BadREquest(message, errors = []) {
-    return new ApiError(400, message, errors);
+  static BadREquest(message) {
+    return new ApiError(400, message);
   }
 
   static notActiavteMail() {
