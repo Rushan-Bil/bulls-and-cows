@@ -11,7 +11,7 @@ const initialState = {
   correct: [],
   isAuth: false,
   status: '',
-  userName: 'alex',
+  userName: '',
   userId: null,
   isError: '',
   imgPath: '',
