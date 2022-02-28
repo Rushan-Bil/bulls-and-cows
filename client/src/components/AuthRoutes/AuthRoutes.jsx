@@ -1,5 +1,7 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {
+  Route, Routes, Redirect, Navigate,
+} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import MenuPage from '../pages/MenuPage/MenuPage';
 import Login from '../login/Login';
@@ -17,14 +19,14 @@ function AuthRoutes() {
   return (
     <Routes>
       {isAuth && (
-      <>
-        <Route path="/game/battle" element={<BattlePage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/ratings" element={<RatingPage />} />
-      </>
+        <>
+          <Route path="/game/battle" element={<BattlePage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/ratings" element={<RatingPage />} />
+        </>
       )}
       <Route path="/" element={<MenuPage />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={isAuth ? <Navigate to="/" /> : <Login />} />
       <Route path="/registration" element={<Authorisation />} />
       <Route path="/game/company" element={<CompanyPage />} />
       <Route path="/game/train" element={<TrainPage />} />

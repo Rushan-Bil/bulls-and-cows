@@ -13,7 +13,7 @@ function NavList() {
         ? (
           <>
             <Avatar />
-            <button onClick={() => dispatch(logOut())}>Выйти</button>
+            <button type="button" onClick={() => dispatch(logOut())}>Выйти</button>
           </>
         )
         : (

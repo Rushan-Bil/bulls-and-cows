@@ -25,6 +25,10 @@ function Login() {
       '& .MuiButtonBase-root': {
         margin: theme.spacing(2),
       },
+
+    },
+    font: {
+      color: 'red',
     },
   }));
   const classes = useStyles();
@@ -52,6 +56,7 @@ function Login() {
           required
           onChange={(e) => setEmail(e.target.value)}
           value={email}
+          className={classes.font}
         />
         <TextField
           label="Password"
