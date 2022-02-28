@@ -92,7 +92,7 @@ class UserService {
   }
 
   async getAllUsers() {
-    const users = await User.findAll();
+    const users = await User.findAll({ order: [['rating', 'DESC']] });
     return users;
   }
 
