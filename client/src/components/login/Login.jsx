@@ -5,8 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {
   loginUser,
-  selectLetterSlice,
-} from '../../store/reducers/lettersSlice';
+  selectUserSlice,
+} from '../../store/reducers/userSlice';
 import cls from './login.module.css';
 
 function Login() {
@@ -39,7 +39,7 @@ function Login() {
     dispatch(loginUser({ email, password }));
   };
 
-  const errMessage = useSelector(selectLetterSlice);
+  const errMessage = useSelector(selectUserSlice);
 
   return (
     <>

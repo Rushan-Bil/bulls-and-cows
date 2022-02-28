@@ -4,18 +4,18 @@ import axios from 'axios';
 import cls from './avatar.module.css';
 import { API_URL } from '../../http';
 import {
-  selectLetterSlice,
-  letterSlice,
-} from '../../store/reducers/lettersSlice';
+  selectUserSlice,
+  userSlice,
+} from '../../store/reducers/userSlice';
 
 function Avatar() {
   const dispatch = useDispatch();
-  const { setPhoto } = letterSlice.actions;
+  const { setPhoto } = userSlice.actions;
   function photoHandler(event) {
     event.target.nextSibling.click();
   }
 
-  const slice = useSelector(selectLetterSlice);
+  const slice = useSelector(selectUserSlice);
 
   function inputsHandler(event) {
     const formData = new FormData();

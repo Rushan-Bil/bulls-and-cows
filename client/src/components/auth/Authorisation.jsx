@@ -5,8 +5,8 @@ import Button from '@material-ui/core/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   registrateUser,
-  selectLetterSlice,
-} from '../../store/reducers/lettersSlice';
+  selectUserSlice,
+} from '../../store/reducers/userSlice';
 import cls from './authorization.module.css';
 
 function Authorisation() {
@@ -39,7 +39,7 @@ function Authorisation() {
     event.preventDefault();
     dispatch(registrateUser({ name, email, password }));
   };
-  const errMessage = useSelector(selectLetterSlice);
+  const errMessage = useSelector(selectUserSlice);
 
   return (
     <>
