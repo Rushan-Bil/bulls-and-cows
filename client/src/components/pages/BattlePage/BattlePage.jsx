@@ -7,11 +7,11 @@ import WrapLetterContainers from '../../WrapLetterContainers/WrapLetterContainer
 import LetterContainer from '../../LetterContainer/LetterContainer';
 import ChoiceWordDialog from './ChoiceWordDialog/ChoiceWordDialog';
 import BattleWordInput from './BattleWordInput/BattleWordInput';
-import { wordsSlice } from '../../../store/reducers/wordSlice';
+import { onlineGameSlice } from '../../../store/reducers/onlineGameSlice';
 
 function BattlePage() {
   const dispatch = useDispatch();
-  const { setSocket, addWord, myTurn } = wordsSlice.actions;
+  const { setSocket, addWord, myTurn } = onlineGameSlice.actions;
   const typeAction = {
     ADD_WORD: addWord,
   };
