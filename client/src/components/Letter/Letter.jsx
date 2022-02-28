@@ -29,10 +29,11 @@ function Letter({ value, typeContainer }) {
   const clickHandler = () => {
     dispatch(replace({ to: helper.setCorrectType(type), from: typeContainer, letter: value }));
   };
-  const debouncedClickHandler = helper.debounce(changeType, clickHandler, 1000, timerId, setTimerId);
+  const debouncedClickHandler = helper
+    .debounce(changeType, clickHandler, 1000, timerId, setTimerId);
 
   return (
-    <div className={['letter', cls.letter, cls[type]].join(' ')} onClick={debouncedClickHandler}>
+    <div className={[cls.letter, type].join(' ')} onClick={debouncedClickHandler}>
       {value}
     </div>
   );

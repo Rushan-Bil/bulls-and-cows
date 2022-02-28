@@ -16,10 +16,10 @@ class UserController {
       const { name, email, password } = req.body;
       console.log('UserController.registration-------', name, email, password);
       const userData = await userService.registration(name, email, password);
-      console.log('userData--------------------');
-      res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+      // res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
       res.json(userData);
     } catch (e) {
+      console.log('ERROR================================', e);
       next(e);
     }
   }
@@ -52,7 +52,7 @@ class UserController {
     try {
       const activationLink = req.params.link;
       await userService.activate(activationLink);
-      return res.redirect(process.env.CLIENT_URL);
+      return res.redirect(`${process.env.CLIENT_URL}/login`);
     } catch (e) {
       next(e);
     }
@@ -75,6 +75,18 @@ class UserController {
       return res.json(users);
     } catch (e) {
       next(e);
+    }
+  }
+
+  async upload(req, res, next) {
+    try {
+      console.log('GET REQUEST UPLOAD=================', req.file.originalname);
+      console.log('GET REQUEST UPLOAD USERDATA=================', req.params);
+      const path = await userService.addAvatar(req.file.originalname, req.params.id);
+      console.log(path);
+      res.json({ text: 'GOOD WORK', path: `/img/${req.file.originalname}` });
+    } catch (error) {
+      next(error);
     }
   }
 }

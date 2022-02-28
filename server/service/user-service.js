@@ -95,5 +95,15 @@ class UserService {
     const users = await User.findAll();
     return users;
   }
+
+  async addAvatar(title, id) {
+    console.log('ADDAVATAR');
+    const img = await User.update({ photo: `/img/${title}` }, {
+      where: {
+        id,
+      },
+    });
+    return img;
+  }
 }
 module.exports = new UserService();

@@ -42,6 +42,7 @@ function WordInput({ secret, setWords }) {
               name="suppose"
               onChange={inputsHandler}
               value={inputs}
+              autoComplete="off"
             />
           </div>
         </div>

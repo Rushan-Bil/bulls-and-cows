@@ -4,5 +4,6 @@ module.exports = class UserDto {
     this.id = model.id;
     this.name = model.name;
     this.isActivated = true;
+    this.photo = model.photo;
   }
 };

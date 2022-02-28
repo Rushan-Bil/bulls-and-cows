@@ -11,8 +11,10 @@ const initialState = {
   correct: [],
   isAuth: false,
   status: '',
-  userName: '',
+  userName: 'alex',
   userId: null,
+  isError: '',
+  imgPath: '',
 };
 
 export const registrateUser = createAsyncThunk('registrateUser', async ({ name, email, password }) => {
@@ -50,6 +52,9 @@ export const letterSlice = createSlice({
       state[to].sort();
       state[from] = state[from].filter((item) => item !== letter);
     },
+    setPhoto(state, action) {
+      state.imgPath = action.payload;
+    },
   },
   extraReducers: {
     //----------------------------------------------------------------------------
@@ -59,16 +64,17 @@ export const letterSlice = createSlice({
       state.status = 'loading';
     },
     [registrateUser.fulfilled]: (state, { payload }) => {
-      console.log('registrateUser fullfiled++++++++++++++++++++++++++++');
       state.status = 'success';
       if (payload.status === 200) {
-        localStorage.setItem('token', payload.data.accessToken);
+        console.log('registrateUser fullfiled++++++++++++++++++++++++++++', payload);
+        state.isError = '';
+        // localStorage.setItem('token', payload.data.accessToken);
       }
-      console.log(payload);
     },
-    [registrateUser.rejected]: (state, action) => {
-      console.log('registrateUser rejected++++++++++++++++++++++++++++');
+    [registrateUser.rejected]: (state, payload) => {
+      console.log('registrateUser rejected++++++++++++++++++++++++++++', payload);
       state.status = 'failed';
+      state.isError = 'Ошибка регистрации';
     },
 
     //----------------------------------------------------------------------------
@@ -85,6 +91,8 @@ export const letterSlice = createSlice({
         state.isAuth = true;
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
+        state.isError = '';
+        state.imgPath = payload.data.user.photo;
       }
       console.log(payload);
     },
@@ -94,6 +102,8 @@ export const letterSlice = createSlice({
       state.status = 'failed';
       state.userName = '';
       state.userId = null;
+      state.isError = 'Ошибка авторизации';
+      state.imgPath = '';
     },
 
     //----------------------------------------------------------------------------
@@ -106,10 +116,13 @@ export const letterSlice = createSlice({
       console.log('isAuth fullfiled++++++++++++++++++++++++++++', payload.data);
       state.status = 'success';
       if (payload.status === 200) {
+        console.log(payload);
         localStorage.setItem('token', payload.data.accessToken);
         state.isAuth = true;
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
+        state.isError = '';
+        state.imgPath = payload.data.user.photo;
       }
       console.log(payload);
     },
@@ -119,6 +132,8 @@ export const letterSlice = createSlice({
       state.status = 'failed';
       state.userName = '';
       state.userId = null;
+      state.isError = 'Ошибка что то пошло не так';
+      state.imgPath = '';
     },
     //----------------------------------------------------------------------------
     // LOGOUT
@@ -134,6 +149,8 @@ export const letterSlice = createSlice({
         state.userName = '';
         state.userId = null;
         localStorage.removeItem('token');
+        state.isError = '';
+        state.imgPath = '';
       }
       console.log(payload);
     },
@@ -142,6 +159,7 @@ export const letterSlice = createSlice({
       state.isAuth = false;
       state.userName = '';
       state.userId = null;
+      state.isError = 'Ошибка что то пошло не так';
     },
   },
 });
