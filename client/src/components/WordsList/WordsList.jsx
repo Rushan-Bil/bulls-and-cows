@@ -1,20 +1,27 @@
 import React from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import OneWord from '../pages/OneWord/OneWord';
 
-function WordsList({ words }) {
+function WordsList({ words, type }) {
   return (
-    <div className="flex-d-c">
-      <table className="table">
-        <thead>
-          <th className="major">Слово</th>
-          <th className="minor">Быков</th>
-          <th className="minor">Коров</th>
-        </thead>
-        <tbody>
-          {words && words?.map((el) => <OneWord key={el.word} {...el} />)}
-        </tbody>
-      </table>
-    </div>
+    <TransitionGroup className="flex-d-c pos-r tableWrap">
+      <CSSTransition
+        key={type ?? words}
+        timeout={500}
+        classNames="wordsList"
+      >
+        <table className="table">
+          <thead>
+            <th className="major">Слово</th>
+            <th className="minor">Б</th>
+            <th className="minor">К</th>
+          </thead>
+          <tbody>
+            {words && words?.map((el) => <OneWord key={el.word} {...el} type={type} />)}
+          </tbody>
+        </table>
+      </CSSTransition>
+    </TransitionGroup>
   );
 }
 
