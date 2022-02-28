@@ -1,5 +1,4 @@
 .letter {
-  background: rgba(200,200,200,0.2);
   width: 100%;
   height: 100%;
   display: flex;
@@ -11,15 +10,6 @@
   color:white;
   border-radius: 5px;
   user-select: none;
-}
-.wrong {
-  background: var(--bg-red);
-}
-.doubt {
-  background: var(--bg-doubt);
-}
-.correct {
-  background: var(--bg-correct);
 }
 .letter:hover {
   transform: scale(0.9);

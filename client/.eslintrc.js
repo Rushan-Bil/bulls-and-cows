@@ -28,5 +28,6 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'off',
     'class-methods-use-this': 'off',
     'no-param-reassign': 'off',
+    'no-autofocus': 'off',
   },
 };

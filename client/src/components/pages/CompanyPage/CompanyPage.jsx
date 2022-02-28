@@ -20,7 +20,7 @@ function CompanyPage() {
       <CompanyWordDialog />
       <div className="gamePage">
         <TabWordsList reducer="gameCompReducer" />
-        <div className="flex-d-c s-b">
+        <div className="flex-d-c">
           <Alphabet />
           <CompanyWordInput />
         </div>

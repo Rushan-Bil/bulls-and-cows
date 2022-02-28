@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cls from '../../../WordInput/wordInput.module.css';
 import { gameCompSlice } from '../../../../store/reducers/gameCompSlice';
@@ -40,6 +40,7 @@ function CompanyWordInput() {
               name="suppose"
               onChange={inputsHandler}
               value={input}
+              autoComplete="off"
             />
           </div>
         </div>

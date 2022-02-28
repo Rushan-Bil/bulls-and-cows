@@ -20,21 +20,25 @@ function TabWordsList({ reducer }) {
     }
     setShowMe(!showMe);
   };
-  console.log('oppWords', oppWords, 'count', count);
   function showCounter() {
-    if (oppWords.length - count > 0) return <span className={cls.count}>{oppWords.length - count}</span>;
+    if (oppWords.length - count > 0) {
+      return <span className={cls.count}>{oppWords.length - count}</span>;
+    }
     return '';
   }
   return (
     <div className="flex-d-c">
       <div className={cls.controls}>
-        <button className={cls.btn} onClick={clickHandler} disabled={!!showMe}> Мои слова </button>
-        <button className={cls.btn} onClick={clickHandler} disabled={!showMe}>
+        <button type="button" className={cls.btn} onClick={clickHandler} disabled={!!showMe}> Мои слова </button>
+        <button type="button" className={cls.btn} onClick={clickHandler} disabled={!showMe}>
           Слова соперника
           {showCounter()}
         </button>
       </div>
-      <WordsList words={showMe ? myWords : oppWords} />
+      {showMe
+        ? <WordsList words={myWords} type="myWords" />
+        : <WordsList words={oppWords} type="oppWords" />}
+
     </div>
 
   );

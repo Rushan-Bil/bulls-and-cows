@@ -32,7 +32,7 @@ function Letter({ value, typeContainer }) {
   const debouncedClickHandler = helper.debounce(changeType, clickHandler, 1000, timerId, setTimerId);
 
   return (
-    <div className={['letter', cls.letter, cls[type]].join(' ')} onClick={debouncedClickHandler}>
+    <div className={[cls.letter, type].join(' ')} onClick={debouncedClickHandler}>
       {value}
     </div>
   );

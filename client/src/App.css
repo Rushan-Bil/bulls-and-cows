@@ -13,6 +13,18 @@
   }
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px #444166;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(255,255,255,0.4);
+  border-radius: 10px;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -35,30 +47,67 @@
   padding: 2vmax;
   height: 100vh;
 }
+.tableWrap {
+  overflow-y:scroll;
+}
 .table {
   border-collapse: collapse;
+  width: calc(100% - 10px);
+  position: absolute;
+  table-layout: fixed;
 }
 
+.table td {
+  font-size: 30px;
+  border: 1px solid #444166;
+  padding: 10px 0;
+}
+.table td > span {
+  font-size: 30px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.table td > span:last-child {
+  margin-right: 0;
+}
 .table > td,th {
-  border: 1px solid #4441666b;
   padding:5px 10px;
   font-size: 20px;
   font-weight: 700;
+  background: #444166;
 }
 th.minor {
-  flex: 0 1 20%;
-  max-width: 20%;
-  width: 20%;
+  flex: 0 1 10%;
+  max-width: 10%;
+  width: 10%;
 }
 th.major {
-  flex: 1 0 60%;
-  max-width: 60%;
-  width: 60%;
+  flex: 1 0 80%;
+  max-width: 80%;
+  width: 80%;
 }
 .flex-d-c {
   display: flex;
   flex-direction: column;
   height:100%;
+}
+.alphabet {
+  background: rgba(200,200,200,0.2);
+}
+.wrong {
+  background: var(--bg-red);
+}
+.doubt {
+  background: var(--bg-doubt);
+}
+.correct {
+  background: var(--bg-correct);
 }
 
 .s-b {
@@ -69,6 +118,9 @@ th.major {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.pos-r {
+  position: relative;
 }
 .row-2 {
   height:50%;
@@ -92,6 +144,28 @@ th.major {
   width: 100%;
   align-self: center;
 }
+.wordsList-enter {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.wordsList-enter-active {
+  transform: translateX(0%);
+  opacity: 1;
+  transition: all 0.5s ease-in-out;
+}
+.wordsList-exit {
+  position: absolute;
+  width: 100%;
+  opacity: 1;
+  transform: translateX(0%);
+}
+.wordsList-exit-active {
+  position: absolute;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all 0.5s ease-in-out;
+}
+
 
 .letter-enter {
   opacity: 0;

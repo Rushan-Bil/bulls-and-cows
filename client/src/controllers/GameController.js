@@ -3,6 +3,10 @@ const { dictionary } = require('../dictionary');
 class GameController {
   dict = dictionary;
 
+  checkIncludesWord(word) {
+    return this.dict.includes(word);
+  }
+
   transformWordToArr(word) {
     return word.split('').map((letter, index) => ({
       letter, checked: false, position: index,
@@ -23,24 +27,24 @@ class GameController {
       bulls: 0,
       cows: 0,
     };
-
+    // COUNT BULLS
     for (let i = 0; i < prepareGuess.length; i++) {
-      const current = prepareGuess[i];
-
-      if (current.letter === prepareHidden[i].letter) {
+      if (prepareHidden[i].letter === prepareGuess[i].letter) {
         result.bulls += 1;
         prepareHidden[i].checked = true;
-        current.checked = true;
-        continue;
+        prepareGuess[i].checked = true;
       }
+    }
+    // COUNT COWS
+    for (let i = 0; i < prepareGuess.length; i++) {
+      const current = prepareGuess[i];
       const index = prepareHidden.findIndex((item) => item.letter === current.letter && !item.checked);
       if (index === -1) continue;
 
       result.cows += 1;
-      prepareHidden[index].checked = true;
       current.checked = true;
+      prepareGuess[index].checked = true;
     }
-
     return result;
   }
 
@@ -61,11 +65,11 @@ class GameController {
     const randomWord = this.getRandomWord(word.length, currentDictionary);
     const currentResult = this.countBullandCows(randomWord, word);
 
-    this.dict = currentDictionary.filter((item) => this.countBull(word, item) > currentResult.bulls && item !== randomWord);
+    this.dict = currentDictionary.filter((item) => this.countBull(word, item) >= currentResult.bulls && item !== randomWord);
     return currentResult;
   }
 }
 const alex = new GameController();
-alex.countBullandCows('акколада', 'акваланг'); // ?
-alex.computerGuessingWord('акваланг', dictionary); // ?
+alex.countBullandCows('овлов', 'облов'); // ?
+
 export default new GameController();
