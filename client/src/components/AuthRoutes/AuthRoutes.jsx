@@ -5,7 +5,7 @@ import {
 import { useSelector } from 'react-redux';
 import MenuPage from '../pages/MenuPage/MenuPage';
 import Login from '../login/Login';
-import Authorisation from '../auth/Authorisation';
+import Authorisation from '../auth/Registration';
 import BattlePage from '../pages/BattlePage/BattlePage';
 import CompanyPage from '../pages/CompanyPage/CompanyPage';
 import TrainPage from '../pages/TrainPage/TrainPage';

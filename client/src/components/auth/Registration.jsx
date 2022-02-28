@@ -1,36 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  loginUser,
+  registrateUser,
   selectUserSlice,
 } from '../../store/reducers/userSlice';
 
-function Login() {
-  const dispatch = useDispatch();
+function Authorisation() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const loginHandler = (event) => {
+  const [name, setName] = useState('');
+
+  const dispatch = useDispatch();
+
+  const registrateHandler = (event) => {
     event.preventDefault();
-    dispatch(loginUser({ email, password }));
+    dispatch(registrateUser({ name, email, password }));
   };
-
   const errMessage = useSelector(selectUserSlice);
-
-  useEffect(() => {
-
-  });
 
   return (
     <div className="registration">
       <div className="regForm">
-        <h1 className="head">LOGIN</h1>
-        <form onSubmit={(event) => loginHandler(event)}>
+        <h1 className="head">REGISTRATION</h1>
+        <form onSubmit={(event) => registrateHandler(event)}>
+          <input className="commonInput" value={name} onChange={(e) => setName(e.target.value)} placeholder="Имя игрока" />
           <input className="commonInput" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Почта" />
           <input className="commonInput" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" type="password" />
           {errMessage.isError && <h2 className={errMessage.isError && 'warning'}>{errMessage.isError}</h2>}
           <div>
             <button type="submit" className="menuBtn">
-              Login
+              Registration
             </button>
           </div>
         </form>
@@ -39,4 +38,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Authorisation;

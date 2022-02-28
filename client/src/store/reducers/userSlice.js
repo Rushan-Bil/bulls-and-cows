@@ -53,7 +53,7 @@ export const userSlice = createSlice({
       state.status = 'success';
       if (payload.status === 200) {
         console.log('registrateUser fullfiled++++++++++++++++++++++++++++', payload);
-        state.isError = '';
+        state.isError = 'Проверьте почту';
         // localStorage.setItem('token', payload.data.accessToken);
       }
     },
