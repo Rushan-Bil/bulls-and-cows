@@ -17,11 +17,10 @@ export default function CompanyWordDialog() {
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
   const [removeError, setRemoveError] = useState(false);
-  const errorRef = useRef(null);
 
   const handleErrorClass = () => (removeError
-    ? [cls.error, cls.fadeOut].join(' ')
-    : cls.error);
+    ? 'error fadeOut'
+    : 'error');
 
   const handleInput = (e) => {
     if (error && input.length >= 3) {
@@ -69,7 +68,7 @@ export default function CompanyWordDialog() {
         </p>
         <form onSubmit={handleStart} className={cls.inputsWrap}>
           <input ref={focusRef} type="text" className="commonInput" value={input} onChange={handleInput} placeholder="Секретное слово" />
-          {error && <div ref={errorRef} className={handleErrorClass()}>{error}</div>}
+          {error && <div className={handleErrorClass()}>{error}</div>}
           <button type="submit" className={cls.start}>Старт!</button>
         </form>
       </div>

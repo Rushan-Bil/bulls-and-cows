@@ -2,9 +2,10 @@ const { WebSocket } = require('ws');
 
 const decoder = new TextDecoder('utf-8');
 const gameController = require('../controllers/GameController');
-const roomController = require('../controllers/roomController');
+const { Game, GamesAndUser } = require('../db/models');
 
-const rooms = {};
+const games = {};
+let searching = [];
 
 const webSocket = function (expressServer) {
   const wss = new WebSocket.Server({
@@ -16,37 +17,83 @@ const webSocket = function (expressServer) {
     });
   });
   wss.on('connection', (socket) => {
+    console.log(socket.id, 'CONNECTION');
     socket.send('CONNECTION');
-    console.log(rooms);
     socket.on('message', async (info) => {
       console.log('MESSAGE');
       const { type, payload } = JSON.parse(decoder.decode(new Uint8Array(info)));
-      console.log(type, payload);
+      console.log('type', type, 'payload', payload);
       const {
-        secret, userId, roomId, word,
+        userId, gameId, word, language,
       } = payload;
       switch (type) {
-        case 'SET_SECRET': {
-          rooms[roomId] = { [userId]: { words: [], secret } };
-          console.log(rooms);
-          return;
-        }
-        case 'ADD_WORD': {
-          const room = rooms[roomId];
-          let hiddenWord;
-          for (const key in room) {
-            if (key !== userId) {
-              hiddenWord = room[key].secret;
+        case 'SEARCHING_GAME':
+          socket.id = userId;
+          const opp = searching.filter((opp) => opp.word.length === word.length && opp.language === language && opp.userId !== userId)[0];
+          if (!opp) {
+            const index = searching.findIndex((item) => item.userId === userId);
+            if (index === -1) {
+              searching.push({
+                userId, language, word,
+              });
+            } else {
+              searching[index].language = language;
+              searching[index].word = word;
             }
+
+            return socket.send(JSON.stringify({ type: 'SEARCHING' }));
           }
-          console.log(hiddenWord, userId);
-          const result = gameController.countBullandCows(word, hiddenWord);
-          room[userId]?.words.push(result);
-          console.log(room);
+          searching = searching.filter((item) => item.userId !== opp.userId || item.userId !== userId);
+          const newGame = await Game.create({ winner: null, status: 'START' });
+          await GamesAndUser.create({ game_id: newGame.id, user_id: userId });
+          await GamesAndUser.create({ game_id: newGame.id, user_id: opp.userId });
+          const currentTurn = [userId, opp.userId][Math.floor(Math.random() * 2)];
+          games[newGame.id] = {
+            status: 'active',
+            winner: null,
+            language,
+            currentTurn,
+            users: {
+              [userId]: {
+                secret: opp.word,
+                words: [],
+              },
+              [opp.userId]: {
+                secret: word,
+                words: [],
+              },
+            },
+          };
           wss.clients.forEach((client) => {
-            client.send(JSON.stringify({ type: 'ADD_WORD', payload: { userId, word: result } }));
+            if (client.id === userId || client.id === opp.userId) {
+              client.send(JSON.stringify({ type: 'CONNECTED_GAME', payload: { gameId: newGame.id, currentTurn } }));
+            }
           });
-        }
+          break;
+        case 'ADD_WORD':
+          const game = games[gameId];
+          const currentUser = game.users[userId];
+          const { secret } = currentUser;
+          const bullsAndCows = gameController.countBullandCows(word, secret);
+          currentUser.words.push(bullsAndCows);
+          let gameCurrentTurn = game.currentTurn;
+          for (const key in game.users) {
+            if (game.currentTurn !== userId) gameCurrentTurn = key;
+          }
+
+          if (bullsAndCows.bulls === secret.length) {
+            wss.clients.forEach((client) => {
+              if (client.id in game.users) {
+                client.send(JSON.stringify({ type: 'FINISH_GAME', payload: { word: bullsAndCows, winner: userId } }));
+              }
+            });
+          } else {
+            wss.clients.forEach((client) => {
+              if (client.id in game.users) {
+                client.send(JSON.stringify({ type: 'ADD_WORD', payload: { word: bullsAndCows, userId } }));
+              }
+            });
+          }
         default:
           return '';
       }

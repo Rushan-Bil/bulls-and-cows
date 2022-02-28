@@ -1,8 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import AuthService from '../../services/authService';
-import api, { API_URL } from '../../http';
+import { alphabets } from '../../config';
 
 const initialState = {
   alphabet: [],
@@ -16,7 +14,8 @@ export const letterSlice = createSlice({
   initialState,
   reducers: {
     setAlphabet(state, action) {
-      state.alphabet = action.payload;
+      console.log(action.payload);
+      state.alphabet = alphabets[action.payload];
     },
     replace(state, action) {
       const { from, to, letter } = action.payload;

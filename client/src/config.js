@@ -11,3 +11,8 @@ export const noAuthMenu = [
   { id: 3, title: 'Тренировка', link: '/game/train' },
   { id: 4, title: 'Правила', link: '/rules' },
 ];
+
+export const alphabets = {
+  en: 'qwertyuiopasdfghjklzxcvbnm'.split('').sort(),
+  ru: 'йцукенгшщзхъфывапролджэячсмитьбю'.split('').sort(),
+};

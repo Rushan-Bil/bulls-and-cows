@@ -12,6 +12,10 @@
   background: rgb(6, 100, 0);
   transition: all 0.5s ease-in-out;
 }
+.checkBtn:disabled {
+  background: rgba(6,100,0,0.5);
+  filter: blur(3px);
+}
 
 .checkBtn:hover {
   transform: scale(1.05);

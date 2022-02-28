@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { checkAuth } from './store/reducers/userSlice';
 import AuthRoutes from './components/AuthRoutes/AuthRoutes';
-
+import socket from './socket/socket';
 function App() {
   const dispatch = useDispatch();
 

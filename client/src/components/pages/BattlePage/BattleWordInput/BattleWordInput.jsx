@@ -1,20 +1,16 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cls from '../../../WordInput/wordInput.module.css';
+import { selectGameOnline } from '../../../../store/reducers/onlineGameSlice';
 
 function BattleWordInput() {
   const [input, setInput] = useState('');
   const {
-    secret, socket, roomId, userId,
-  } = useSelector((state) => ({
-    secret: state.wordsReducer.secret,
-    socket: state.wordsReducer.socket,
-    roomId: state.wordsReducer.roomId,
-    userId: state.wordsReducer.userId,
-  }));
-  console.log(socket);
-  const dispatch = useDispatch();
+    secret, socket, gameId, userId, myTurn,
+  } = useSelector(selectGameOnline);
 
+  const dispatch = useDispatch();
+  console.log(myTurn);
   const inputsHandler = (e) => {
     if (e.target.value.length > secret.length) return;
     setInput(e.target.value);
@@ -22,12 +18,13 @@ function BattleWordInput() {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if (!myTurn) return;
     if (input.length === secret.length) {
-      socket.send(JSON.stringify({ type: 'ADD_WORD', payload: { word: input, roomId, userId } }));
-      setInput('');
+      socket.send(JSON.stringify({ type: 'ADD_WORD', payload: { word: input, gameId, userId } }));
     } else {
       alert(`Слово должно состоять из ${secret.length} букв`);
     }
+    setInput('');
   };
 
   return (
@@ -49,7 +46,9 @@ function BattleWordInput() {
             />
           </div>
         </div>
-        <button type="submit" className={cls.checkBtn}>Проверить!</button>
+        <button type="submit" className={cls.checkBtn} disabled={!myTurn}>
+          Проверить!
+        </button>
       </form>
     </div>
   );

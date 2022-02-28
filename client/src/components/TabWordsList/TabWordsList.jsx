@@ -5,12 +5,12 @@ import WordsList from '../WordsList/WordsList';
 
 function TabWordsList({ reducer }) {
   const [count, setCount] = useState(0);
+  console.log(reducer);
   const {
     myWords, oppWords,
   } = useSelector((state) => ({
     myWords: state[reducer].myWords,
     oppWords: state[reducer].oppWords,
-    myTurn: state[reducer].myTurn,
   }));
 
   const [showMe, setShowMe] = useState(true);
