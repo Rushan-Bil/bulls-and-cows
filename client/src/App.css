@@ -49,6 +49,7 @@
 }
 .tableWrap {
   overflow-y:scroll;
+  overflow-x: hidden;
 }
 .table {
   border-collapse: collapse;
@@ -149,7 +150,9 @@ th.major {
   opacity: 0;
 }
 .wordsList-enter-active {
+  position: absolute;
   transform: translateX(0%);
+  width: 100%;
   opacity: 1;
   transition: all 0.5s ease-in-out;
 }
