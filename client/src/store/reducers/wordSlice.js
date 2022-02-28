@@ -9,7 +9,6 @@ const initialState = {
   oppWords: [],
   finishGame: false,
   myTurn: true,
-  timer: null,
 };
 
 export const wordsSlice = createSlice({
