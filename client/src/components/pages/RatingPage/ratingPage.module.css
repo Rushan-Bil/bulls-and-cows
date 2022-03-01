@@ -13,7 +13,7 @@
   height: 80vh;
   display: flex;
   flex-direction: column; 
-  overflow-y: scroll;
+  overflow-y: auto;
   border-radius: 30px;
   padding: 20px;
   background: linear-gradient(to right, #24243e, #302b63, #0f0c29);

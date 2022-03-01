@@ -45,3 +45,28 @@ export const addWord = createAsyncThunk('onlineGame/addWord', async (data, thunk
     throw err.response.data;
   }
 });
+export const offlineCheckWord = createAsyncThunk('gameComp/offlineCheckWord', async (data, thunkAPI) => {
+  try {
+    const {
+      language, word,
+    } = data;
+    const res = await axios.post('/game/word', { language, word });
+    return res.data;
+  } catch (err) {
+    throw err.response.data;
+  }
+});
+export const configureOfflineGame = createAsyncThunk('gameComp/configureOfflineGame', async (data, thunkAPI) => {
+  try {
+    const {
+      language, word, hardMode,
+    } = data;
+    const res = await axios.post('/game/word', { language, word });
+    console.log(res);
+    const fetchCompController = await axios.post('/game/comp', { language, secret: res.data.word, hardMode });
+    console.log(fetchCompController);
+    return { word: res.data, compController: fetchCompController.data };
+  } catch (err) {
+    throw err.response.data;
+  }
+});

@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import AuthService from '../../services/authService';
 import api, { API_URL } from '../../http';
 import { onlineGameSlice } from './onlineGameSlice';
 
@@ -13,6 +12,8 @@ const initialState = {
   isError: false,
   imgPath: '',
   message: '',
+  fetch: 'fetching',
+  userList: [],
 };
 
 export const registrateUser = createAsyncThunk('registrateUser', async ({ name, email, password }) => {
@@ -36,12 +37,21 @@ export const logOut = createAsyncThunk('logOut', async () => {
   return api.post('/logout');
 });
 
+export const setUserList = createAsyncThunk('setUserList', async () => {
+  console.log('setUserList work-----------------');
+  return api.get('/users');
+});
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
     setPhoto(state, action) {
       state.imgPath = action.payload;
+    },
+    setFetching(state, action) {
+      console.log(action.payload);
+      state.fetch = action.payload;
     },
   },
   extraReducers: {
@@ -87,6 +97,8 @@ export const userSlice = createSlice({
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
         state.imgPath = payload.data.user.photo;
+        state.fetch = 'fetching';
+        state.message = '';
       }
       console.log(payload);
     },
@@ -99,6 +111,7 @@ export const userSlice = createSlice({
       state.isError = true;
       state.message = 'Ошибка авторизации';
       state.imgPath = '';
+      state.fetch = 'err';
       console.log(action.error);
     },
 
@@ -156,6 +169,26 @@ export const userSlice = createSlice({
       state.userId = null;
       state.isError = true;
       state.message = 'Ошибка что то пошло не так';
+    },
+
+    //----------------------------------------------------------------------------
+    // USERLIST
+    [setUserList.pending]: (state) => {
+      console.log('setUserList pending--------------');
+      state.status = 'loading';
+      state.fetch = 'fetching';
+    },
+    [setUserList.fulfilled]: (state, { payload }) => {
+      state.status = 'success';
+      if (payload.status === 200) {
+        console.log('setUserList fullfiled++++++++++++++++++++++++++++', payload);
+        state.userList = payload.data;
+        state.fetch = 'done';
+      }
+    },
+    [setUserList.rejected]: (state, payload) => {
+      console.log('setUserList rejected++++++++++++++++++++++++++++', payload);
+      state.fetch = 'err';
     },
   },
 });
