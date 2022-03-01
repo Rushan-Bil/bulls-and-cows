@@ -4,6 +4,12 @@
   gap:20px;
   align-items: center;
 }
+.inputsWrap > select {
+  border: none;
+  outline: none;
+  background: #444166;
+  padding: 10px 20px;
+}
 .modalWrap {
   background-color: rgba(0,0,0,0.8);
 }

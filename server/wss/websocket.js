@@ -20,9 +20,7 @@ const webSocket = function (expressServer) {
     console.log(socket.id, 'CONNECTION');
     socket.send('CONNECTION');
     socket.on('message', async (info) => {
-      console.log('MESSAGE');
       const { type, payload } = JSON.parse(decoder.decode(new Uint8Array(info)));
-      console.log('type', type, 'payload', payload);
       const {
         userId, gameId, word, language,
       } = payload;
