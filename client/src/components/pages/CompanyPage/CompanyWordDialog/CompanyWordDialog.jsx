@@ -77,6 +77,7 @@ export default function CompanyWordDialog() {
             <option value="en">Английский</option>
           </select>
           <input type="checkbox" id="hardMode" checked={hardMode} />
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label htmlFor="hardMode">Hard Mode</label>
           {error && <div className={handleErrorClass()}>{error}</div>}
           <button type="submit" className={cls.start}>Старт!</button>

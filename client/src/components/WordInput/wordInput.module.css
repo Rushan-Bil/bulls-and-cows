@@ -35,3 +35,10 @@
   gap: 10px;
 }
 
+.error {
+  padding:10px 20px;
+  font-size: 16px;
+  transition: all 1s ease-in-out;
+  background: rgba(255, 0, 0, 0.5);
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
