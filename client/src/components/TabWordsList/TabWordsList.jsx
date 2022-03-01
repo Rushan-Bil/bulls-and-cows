@@ -10,7 +10,6 @@ function TabWordsList({ reducer }) {
   } = useSelector((state) => ({
     myWords: state[reducer].myWords,
     oppWords: state[reducer].oppWords,
-    myTurn: state[reducer].myTurn,
   }));
 
   const [showMe, setShowMe] = useState(true);

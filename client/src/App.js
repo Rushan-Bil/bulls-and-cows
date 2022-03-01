@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { checkAuth } from './store/reducers/userSlice';
 import AuthRoutes from './components/AuthRoutes/AuthRoutes';
-
 function App() {
   const dispatch = useDispatch();
 

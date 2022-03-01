@@ -15,14 +15,17 @@ export default function CompanyWordDialog() {
 
   const [open, setOpen] = useState(true);
   const [input, setInput] = useState('');
+  const [language, setLanguage] = useState('ru');
+  const [hardMode, setHardMode] = useState(false);
   const [error, setError] = useState('');
   const [removeError, setRemoveError] = useState(false);
-  const errorRef = useRef(null);
 
   const handleErrorClass = () => (removeError
-    ? [cls.error, cls.fadeOut].join(' ')
-    : cls.error);
-
+    ? 'error fadeOut'
+    : 'error');
+  const handleSelect = (e) => {
+    setLanguage(e.target.value);
+  };
   const handleInput = (e) => {
     if (error && input.length >= 3) {
       setRemoveError(true);
@@ -46,7 +49,7 @@ export default function CompanyWordDialog() {
       setError('Слово должно содержать не менее 3 символов');
       return;
     }
-    if (!gameController.checkIncludesWord(input.toLowerCase())) {
+    if (!gameController.checkIncludesWord(input.toLowerCase(), language, hardMode)) {
       setError('Такого слова нет в словаре');
       return;
     }
@@ -69,7 +72,13 @@ export default function CompanyWordDialog() {
         </p>
         <form onSubmit={handleStart} className={cls.inputsWrap}>
           <input ref={focusRef} type="text" className="commonInput" value={input} onChange={handleInput} placeholder="Секретное слово" />
-          {error && <div ref={errorRef} className={handleErrorClass()}>{error}</div>}
+          <select name="language" defaultValue={language} onChange={handleSelect}>
+            <option value="ru">Русский</option>
+            <option value="en">Английский</option>
+          </select>
+          <input type="checkbox" id="hardMode" checked={hardMode} />
+          <label htmlFor="hardMode">Hard Mode</label>
+          {error && <div className={handleErrorClass()}>{error}</div>}
           <button type="submit" className={cls.start}>Старт!</button>
         </form>
       </div>

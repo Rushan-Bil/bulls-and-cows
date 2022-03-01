@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import socket from '../../../socket/socket';
 import TabWordsList from '../../TabWordsList/TabWordsList';
@@ -7,18 +7,22 @@ import WrapLetterContainers from '../../WrapLetterContainers/WrapLetterContainer
 import LetterContainer from '../../LetterContainer/LetterContainer';
 import ChoiceWordDialog from './ChoiceWordDialog/ChoiceWordDialog';
 import BattleWordInput from './BattleWordInput/BattleWordInput';
-import { onlineGameSlice } from '../../../store/reducers/onlineGameSlice';
+import { onlineGameSlice, selectGameOnline } from '../../../store/reducers/onlineGameSlice';
+import { letterSlice } from '../../../store/reducers/lettersSlice';
+import { selectUserSlice } from '../../../store/reducers/userSlice';
 
 function BattlePage() {
   const dispatch = useDispatch();
-  const { setSocket, addWord, myTurn } = onlineGameSlice.actions;
+  const { language, finishGame, didWin } = useSelector(selectGameOnline);
+  const { addWord, setFinishGame } = onlineGameSlice.actions;
+  const { setAlphabet } = letterSlice.actions;
   const typeAction = {
     ADD_WORD: addWord,
+    FINISH_GAME: setFinishGame,
   };
+
   useEffect(() => {
-    socket.onopen = function () {
-      dispatch(setSocket(socket));
-    };
+    dispatch(setAlphabet(language));
     socket.onmessage = function (data) {
       const res = JSON.parse(data.data);
       console.log(res, typeAction[res.type]);
@@ -33,7 +37,7 @@ function BattlePage() {
     <>
       <ChoiceWordDialog />
       <div className="gamePage">
-        <TabWordsList reducer="wordsReducer" />
+        <TabWordsList reducer="onlineGameReducer" />
         <div className="flex-d-c s-b">
           <Alphabet />
           <BattleWordInput />

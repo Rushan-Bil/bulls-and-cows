@@ -2,9 +2,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  socket: null,
-  userId: null,
-  roomId: null,
   secret: '',
   myWords: [],
   oppWords: [],

@@ -9,11 +9,10 @@ import CompanyWordDialog from './CompanyWordDialog/CompanyWordDialog';
 import CompanyWordInput from './CompanyWordInput/CompanyWordInput';
 
 function CompanyPage() {
-  const AB = 'йцукенгшщзхъфывапролджэячсмитьбю'.split('').sort();
   const dispatch = useDispatch();
   const { setAlphabet } = letterSlice.actions;
   useEffect(() => {
-    dispatch(setAlphabet(AB));
+    dispatch(setAlphabet('ru'));
   }, []);
   return (
     <>

@@ -12,4 +12,9 @@ export const noAuthMenu = [
   { id: 4, title: 'Правила', link: '/rules' },
 ];
 
+
 export const SERVER_URL = 'http://localhost:3001';
+export const alphabets = {
+  en: 'qwertyuiopasdfghjklzxcvbnm'.split('').sort(),
+  ru: 'йцукенгшщзхъфывапролджэячсмитьбю'.split('').sort(),
+};
