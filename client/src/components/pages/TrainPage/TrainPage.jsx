@@ -9,17 +9,17 @@ import WrapLetterContainers from '../../WrapLetterContainers/WrapLetterContainer
 
 function TrainPage() {
   const [words, setWords] = useState([]);
-  const [secret, setSecret] = useState('');
+  const [letterCount, setLetterCount] = useState('');
 
   return (
     <>
       TrainPage
-      <StartModal setSecret={setSecret} />
+      <StartModal setLetterCount={setLetterCount} />
       <div className="gamePage">
-        <WordsList words={words} />
+        <WordsList words={words} letterCount={letterCount} setLetterCount={setLetterCount} />
         <div className="flex-d-c s-b">
           <Alphabet />
-          <WordInput secret={secret} setWords={setWords} />
+          <WordInput setWords={setWords} />
         </div>
         <div className="flex-d-c">
           <WrapLetterContainers />

@@ -1,11 +1,13 @@
 import React, { useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import controller from '../../controllers/TrainController';
+import gameController from '../../controllers/GameController';
 import cls from './wordInput.module.css';
 
-function WordInput({ secret, setWords }) {
-  const wordLength = secret?.length;
-
+function WordInput({ setWords }) {
   const [inputs, setInputs] = useState('');
+  const secret = useSelector((state) => state.trainSlice.secret);
+  const wordLength = secret?.length;
 
   const inputsHandler = (e) => {
     if (e.target.value.length > wordLength) return;
@@ -16,7 +18,10 @@ function WordInput({ secret, setWords }) {
     e.preventDefault();
     const suppose = inputs;
     setInputs('');
-
+    // if (!gameController.checkIncludesWord(input.toLowerCase())) {
+    //   setError('Такого слова нет в словаре');
+    //   return;
+    // }
     if (suppose?.length === wordLength) {
       const bulls = controller.checkBulls(secret, suppose);
       const cows = controller.checkCows(secret, suppose);
