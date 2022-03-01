@@ -5,6 +5,7 @@ import wordsReducer from './reducers/wordSlice';
 import gameCompReducer from './reducers/gameCompSlice';
 import userReducer from './reducers/userSlice';
 import onlineGameReducer from './reducers/onlineGameSlice';
+import trainSlice from './reducers/trainSlice';
 
 const rootReducer = combineReducers({
   letterReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   gameCompReducer,
   userReducer,
   onlineGameReducer,
+  trainSlice,
 });
 
 const setupStore = () => configureStore({
