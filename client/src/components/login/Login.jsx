@@ -27,7 +27,7 @@ function Login() {
         <form onSubmit={(event) => loginHandler(event)}>
           <input className="commonInput" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Почта" />
           <input className="commonInput" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" type="password" />
-          {errMessage.isError && <h2 className={errMessage.isError && 'warning'}>{errMessage.isError}</h2>}
+          <h2 className={errMessage.isError && 'warning'}>{errMessage.isError && errMessage.message}</h2>
           <div>
             <button type="submit" className="menuBtn">
               Login
