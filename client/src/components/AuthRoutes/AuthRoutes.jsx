@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Route, Routes, Redirect, Navigate,
+  Route, Routes, Navigate,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import MenuPage from '../pages/MenuPage/MenuPage';
@@ -14,20 +14,15 @@ import SettingsPage from '../pages/SettingsPage/SettingsPage';
 import RatingPage from '../pages/RatingPage/RatingPage';
 import { selectUserSlice } from '../../store/reducers/userSlice';
 import PreparePage from '../pages/PreparePage/PreparePage';
-
 function AuthRoutes() {
   const { isAuth } = useSelector(selectUserSlice);
   return (
     <Routes>
-      {isAuth && (
-      <>
-        <Route path="/game/battle" element={<BattlePage />} />
-        <Route path="/game/prepare" element={<PreparePage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/ratings" element={<RatingPage />} />
-      </>
-      )}
       <Route path="/" element={<MenuPage />} />
+      <Route path="/game/battle" element={isAuth ? <BattlePage /> : <Navigate to="/" />} />
+      <Route path="/game/prepare" element={isAuth ? <PreparePage /> : <Navigate to="/" />} />
+      <Route path="/settings" element={isAuth ? <SettingsPage /> : <Navigate to="/" />} />
+      <Route path="/ratings" element={isAuth ? <RatingPage /> : <Navigate to="/" />} />
       <Route path="/login" element={isAuth ? <Navigate to="/" /> : <Login />} />
       <Route path="/registration" element={<Authorisation />} />
       <Route path="/game/company" element={<CompanyPage />} />

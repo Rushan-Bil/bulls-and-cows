@@ -1,22 +1,26 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import cls from './ratingPage.module.css';
 import api, { API_URL } from '../../../http';
 import Gamer from './gamer/Gamer';
 import {
   selectUserSlice,
+  setUserList,
+  userSlice,
 } from '../../../store/reducers/userSlice';
+import Loader from '../../loader/Loader';
 
 function RatingPage() {
-  const [userList, setUserList] = useState([]);
+  const dispatch = useDispatch();
+  const store = useSelector(selectUserSlice);
+  const { setFetching } = userSlice.actions;
 
   useEffect(() => {
-    api.get('/users')
-      .then((res) => {
-        console.log(res.data);
-        setUserList(res.data);
-      });
+    setTimeout(() => {
+      dispatch(setUserList());
+    }, 2000);
+    return () => dispatch(setFetching('fetching'));
   }, []);
 
   const slice = useSelector(selectUserSlice);
@@ -35,17 +39,21 @@ function RatingPage() {
           <div className={cls.name}>User</div>
           <div className={cls.score}>Score</div>
         </header>
-        <div className={cls.userList}>
-          {userList.map((item) => (
-            <Gamer
-              name={item.name}
-              photo={item.photo}
-              rating={item.rating}
-              key={item.id}
-              id={item.id}
-            />
-          ))}
-        </div>
+        {store.fetch === 'fetching' && <Loader />}
+        {store.fetch === 'done' && (
+          <div className={cls.userList}>
+            {store.userList.map((item) => (
+              <Gamer
+                name={item.name}
+                photo={item.photo}
+                rating={item.rating}
+                key={item.id}
+                id={item.id}
+              />
+            ))}
+          </div>
+        )}
+        {store.fetch === 'err' && <span>Oшибка</span>}
       </div>
       <div className={cls.buttons}>
         <Link to="/"><button type="button" className={cls.btn}>Back</button></Link>

@@ -11,3 +11,5 @@ export const noAuthMenu = [
   { id: 3, title: 'Тренировка', link: '/game/train' },
   { id: 4, title: 'Правила', link: '/rules' },
 ];
+
+export const SERVER_URL = 'http://localhost:3001';

@@ -26,7 +26,7 @@ function Authorisation() {
           <input className="commonInput" value={name} onChange={(e) => setName(e.target.value)} placeholder="Имя игрока" />
           <input className="commonInput" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Почта" />
           <input className="commonInput" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" type="password" />
-          <h2 className={errMessage.isError && 'warning'}>{errMessage.message}</h2>
+          <h2 className={errMessage.isError ? 'warning' : undefined}>{errMessage.message}</h2>
           <div>
             <button type="submit" className="menuBtn">
               Registration

@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
+import { SERVER_URL } from '../config';
 
-export const API_URL = 'http://localhost:3001/user';
+export const API_URL = `${SERVER_URL}/user`;
 
 const api = axios.create({
   withCredentials: true,
