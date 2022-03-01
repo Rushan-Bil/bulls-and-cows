@@ -4,20 +4,20 @@ import React, {
 import Modal from '@mui/material/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import cls from '../../BattlePage/ChoiceWordDialog/style.module.css';
-import { gameCompSlice } from '../../../../store/reducers/gameCompSlice';
+import { gameCompSlice, selectCompSlice } from '../../../../store/reducers/gameCompSlice';
 import gameController from '../../../../controllers/GameController';
+import { configureOfflineGame, setCompController, setSecretOffline } from '../../../../store/reducers/actionCreators';
 
 export default function CompanyWordDialog() {
-  const dispacth = useDispatch();
-  const { setSecret } = gameCompSlice.actions;
-
+  const dispatch = useDispatch();
+  const { setSecret, setError } = gameCompSlice.actions;
+  const { secret, error, gameStart } = useSelector(selectCompSlice);
   const [open, setOpen] = useState(true);
   const [input, setInput] = useState('');
   const [language, setLanguage] = useState('ru');
   const [hardMode, setHardMode] = useState(false);
-  const [error, setError] = useState('');
   const [removeError, setRemoveError] = useState(false);
-
+  console.log(gameStart);
   const handleErrorClass = () => (removeError
     ? 'error fadeOut'
     : 'error');
@@ -29,7 +29,7 @@ export default function CompanyWordDialog() {
       setRemoveError(true);
       setTimeout(() => {
         setRemoveError(false);
-        setError('');
+        dispatch(setError(''));
       }, 500);
     }
     setInput(e.target.value);
@@ -41,23 +41,18 @@ export default function CompanyWordDialog() {
     }
   }, []);
 
-  const handleStart = (e) => {
+  const handleStart = async (e) => {
     e.preventDefault();
     if (!input) {
-      setError('Слово должно содержать не менее 3 символов');
+      dispatch(setError('Слово должно содержать не менее 3 символов'));
       return;
     }
-    if (!gameController.checkIncludesWord(input.toLowerCase(), language, hardMode)) {
-      setError('Такого слова нет в словаре');
-      return;
-    }
-    dispacth(setSecret(input));
-    setOpen(false);
+    dispatch(configureOfflineGame({ word: input.toLowerCase(), language, hardMode }));
   };
 
   return (
     <Modal
-      open={open}
+      open={!gameStart}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       className={cls.modalWrap}

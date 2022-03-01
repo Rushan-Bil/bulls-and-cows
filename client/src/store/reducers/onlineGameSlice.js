@@ -27,7 +27,6 @@ export const onlineGameSlice = createSlice({
       state.error = '';
     },
     setSocket(state, action) {
-      console.log(action);
       state.socket = action.payload;
     },
     setLoading(state, action) {
@@ -40,8 +39,6 @@ export const onlineGameSlice = createSlice({
       state.gameId = action.payload;
     },
     addWord(state, action) {
-      console.log('ADD WORD');
-      console.log(action);
       const { word, isMyTurn } = action.payload;
       if (isMyTurn) {
         state.myWords.push(word);
