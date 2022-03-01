@@ -40,9 +40,10 @@ const webSocket = function (expressServer) {
               searching[index].language = language;
               searching[index].word = word;
             }
-
+            console.log('SEARCHING');
             return socket.send(JSON.stringify({ type: 'SEARCHING' }));
           }
+          console.log('PODBOR SOPERNIKA', searching);
           searching = searching.filter((item) => item.userId !== opp.userId || item.userId !== userId);
           const newGame = await Game.create({ winner: null, status: 'START' });
           await GamesAndUser.create({ game_id: newGame.id, user_id: userId });
@@ -75,6 +76,7 @@ const webSocket = function (expressServer) {
           const currentUser = game.users[userId];
           const { secret } = currentUser;
           const bullsAndCows = gameController.countBullandCows(word, secret);
+          console.log(bullsAndCows);
           currentUser.words.push(bullsAndCows);
           let gameCurrentTurn = game.currentTurn;
           for (const key in game.users) {
@@ -84,6 +86,7 @@ const webSocket = function (expressServer) {
           if (bullsAndCows.bulls === secret.length) {
             wss.clients.forEach((client) => {
               if (client.id in game.users) {
+                client.send(JSON.stringify({ type: 'ADD_WORD', payload: { word: bullsAndCows, userId } }));
                 client.send(JSON.stringify({ type: 'FINISH_GAME', payload: { word: bullsAndCows, winner: userId } }));
               }
             });

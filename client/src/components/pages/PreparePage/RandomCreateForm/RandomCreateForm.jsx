@@ -15,7 +15,7 @@ function RandomCreateForm() {
   const [word, setWord] = useState('');
   const dispatch = useDispatch();
   const {
-    clearError, setSocket, setLoading, setTurn,
+    clearError, setSocket, setLoading, setTurn, setGameId,
   } = onlineGameSlice.actions;
   useEffect(() => {
     dispatch(setSocket(ws));
@@ -31,9 +31,11 @@ function RandomCreateForm() {
           dispatch(setLoading(true));
           return;
         case 'CONNECTED_GAME':
-          if (currentTurn === userId) dispatch(setTurn());
+          dispatch(setTurn(currentTurn === userId));
           dispatch(setLoading(false));
-          return navigate(`/game/battle/${gameId}`);
+          dispatch(setGameId(gameId));
+          navigate(`/game/battle/${gameId}`);
+          break;
         default:
           break;
       }
@@ -55,8 +57,9 @@ function RandomCreateForm() {
   };
   const submitHandler = async (e) => {
     e.preventDefault();
+    const prepareWord = word.toLowerCase();
     await dispatch(startSearching({
-      language, word, userId, socket,
+      language, word: prepareWord, userId, socket,
     }));
   };
   if (isLoading) {

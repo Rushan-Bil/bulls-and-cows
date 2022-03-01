@@ -51,7 +51,17 @@
 .App-link {
   color: #61dafb;
 }
-
+.currentTurn {
+  width: fit-content;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(calc(-100% - 5px));
+  padding: 5px 10px;
+  background: #444166;
+  border-radius: 20px;
+  transition: all 0.5s ease-in-out;
+}
 .gamePage {
   display: grid;
   grid-template-columns: repeat(3,1fr);
@@ -60,7 +70,7 @@
   height: 100vh;
 }
 .tableWrap {
-  overflow-y:scroll;
+  overflow-y:auto;
   overflow-x: hidden;
 }
 .table {

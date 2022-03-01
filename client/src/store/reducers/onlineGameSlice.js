@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { addWord, startSearching } from './actionCreators';
 
 const initialState = {
-  userId: null,
   socket: null,
   gameId: null,
   secret: '',
@@ -13,14 +12,16 @@ const initialState = {
   myTurn: false,
   isLoading: false,
   error: '',
+  didWin: null,
+  lastChance: false,
 };
 
 export const onlineGameSlice = createSlice({
   name: 'onlineGame',
   initialState,
   reducers: {
-    setUserId(state, action) {
-      state.userId = action.payload;
+    setTurn(state, action) {
+      state.myTurn = action.payload;
     },
     clearError(state, action) {
       state.error = '';
@@ -35,10 +36,14 @@ export const onlineGameSlice = createSlice({
     setSecret(state, action) {
       state.secret = action.payload;
     },
+    setGameId(state, action) {
+      state.gameId = action.payload;
+    },
     addWord(state, action) {
       console.log('ADD WORD');
-      const { userId, word, currentTurn } = action.payload;
-      if (userId === state.userId) {
+      console.log(action);
+      const { word, isMyTurn } = action.payload;
+      if (isMyTurn) {
         state.myWords.push(word);
         state.myTurn = false;
       } else {
@@ -46,8 +51,10 @@ export const onlineGameSlice = createSlice({
         state.oppWords.push(word);
       }
     },
-    finishGame(state) {
+    setFinishGame(state, action) {
       state.finishGame = true;
+      state.didWin = action.payload.didWin;
+      state.myTurn = false;
     },
   },
   extraReducers: {

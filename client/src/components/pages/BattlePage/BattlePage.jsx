@@ -13,17 +13,16 @@ import { selectUserSlice } from '../../../store/reducers/userSlice';
 
 function BattlePage() {
   const dispatch = useDispatch();
-  const { language } = useSelector(selectGameOnline);
-  const { addWord, setUserId } = onlineGameSlice.actions;
+  const { language, finishGame, didWin } = useSelector(selectGameOnline);
+  const { addWord, setFinishGame } = onlineGameSlice.actions;
   const { setAlphabet } = letterSlice.actions;
-  const { userId } = useSelector(selectUserSlice);
   const typeAction = {
     ADD_WORD: addWord,
+    FINISH_GAME: setFinishGame,
   };
 
   useEffect(() => {
     dispatch(setAlphabet(language));
-    dispatch(setUserId(userId));
     socket.onmessage = function (data) {
       const res = JSON.parse(data.data);
       console.log(res, typeAction[res.type]);
@@ -36,7 +35,7 @@ function BattlePage() {
 
   return (
     <>
-      {/* <ChoiceWordDialog /> */}
+      <ChoiceWordDialog />
       <div className="gamePage">
         <TabWordsList reducer="onlineGameReducer" />
         <div className="flex-d-c s-b">
