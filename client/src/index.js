@@ -10,7 +10,7 @@ import setupStore from './store/store';
 axios.defaults.baseURL = 'http://localhost:3001';
 
 const store = setupStore();
-
+axios.defaults.baseURL = 'http://localhost:3001';
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

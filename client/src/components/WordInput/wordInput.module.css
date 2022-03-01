@@ -12,16 +12,26 @@
   background: rgb(6, 100, 0);
   transition: all 0.5s ease-in-out;
 }
+.checkBtn:disabled {
+  background: rgba(6,100,0,0.5);
+  filter: blur(3px);
+}
 
 .checkBtn:hover {
   transform: scale(1.05);
 }
 
-.inputWrap {
+.formWrap {
   box-shadow: 0 0 10px 2px rgb(0,0,0,0.1);
   padding: 10px 20px;
   border-radius: 5px;
   margin-top: auto;
-  margin-bottom: 10px;
+  position: relative;
+}
+.inputWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 

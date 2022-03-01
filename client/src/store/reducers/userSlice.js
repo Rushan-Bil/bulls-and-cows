@@ -3,14 +3,16 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import AuthService from '../../services/authService';
 import api, { API_URL } from '../../http';
+import { onlineGameSlice } from './onlineGameSlice';
 
 const initialState = {
   isAuth: false,
   userName: '',
   userId: null,
   status: '',
-  isError: '',
+  isError: false,
   imgPath: '',
+  message: '',
 };
 
 export const registrateUser = createAsyncThunk('registrateUser', async ({ name, email, password }) => {
@@ -43,6 +45,12 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: {
+    [onlineGameSlice.actions.addWord]: (state, action) => {
+      action.payload.isMyTurn = action.payload.userId === state.userId;
+    },
+    [onlineGameSlice.actions.setFinishGame]: (state, action) => {
+      action.payload.didWin = action.payload.winner === state.userId;
+    },
     //----------------------------------------------------------------------------
     // REGISTRATEUSER
     [registrateUser.pending]: (state) => {
@@ -53,14 +61,15 @@ export const userSlice = createSlice({
       state.status = 'success';
       if (payload.status === 200) {
         console.log('registrateUser fullfiled++++++++++++++++++++++++++++', payload);
-        state.isError = '';
+        state.message = 'Проверьте почту';
         // localStorage.setItem('token', payload.data.accessToken);
       }
     },
     [registrateUser.rejected]: (state, payload) => {
       console.log('registrateUser rejected++++++++++++++++++++++++++++', payload);
       state.status = 'failed';
-      state.isError = 'Ошибка регистрации';
+      state.isError = true;
+      state.message = 'Ошибка регистрации';
     },
 
     //----------------------------------------------------------------------------
@@ -77,7 +86,6 @@ export const userSlice = createSlice({
         state.isAuth = true;
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
-        state.isError = '';
         state.imgPath = payload.data.user.photo;
       }
       console.log(payload);
@@ -88,8 +96,10 @@ export const userSlice = createSlice({
       state.status = 'failed';
       state.userName = '';
       state.userId = null;
-      state.isError = 'Ошибка авторизации';
+      state.isError = true;
+      state.message = 'Ошибка авторизации';
       state.imgPath = '';
+      console.log(action.error);
     },
 
     //----------------------------------------------------------------------------
@@ -107,7 +117,6 @@ export const userSlice = createSlice({
         state.isAuth = true;
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
-        state.isError = '';
         state.imgPath = payload.data.user.photo;
       }
       console.log(payload);
@@ -118,7 +127,8 @@ export const userSlice = createSlice({
       state.status = 'failed';
       state.userName = '';
       state.userId = null;
-      state.isError = 'Ошибка что то пошло не так';
+      state.isError = true;
+      state.message = 'Ошибка что то пошло не так';
       state.imgPath = '';
     },
     //----------------------------------------------------------------------------
@@ -135,7 +145,6 @@ export const userSlice = createSlice({
         state.userName = '';
         state.userId = null;
         localStorage.removeItem('token');
-        state.isError = '';
         state.imgPath = '';
       }
       console.log(payload);
@@ -145,7 +154,8 @@ export const userSlice = createSlice({
       state.isAuth = false;
       state.userName = '';
       state.userId = null;
-      state.isError = 'Ошибка что то пошло не так';
+      state.isError = true;
+      state.message = 'Ошибка что то пошло не так';
     },
   },
 });

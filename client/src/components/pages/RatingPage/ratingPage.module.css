@@ -2,17 +2,18 @@
   width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
-  position: absolute;
-  top: 0;
+ background-color: rgba(0, 0, 0, 0.6);
  
 }
 .rating{
   width: 80vw; 
+  height: 80vh;
   display: flex;
   flex-direction: column; 
+  overflow-y: scroll;
   border-radius: 30px;
   padding: 20px;
   background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
@@ -36,4 +37,26 @@ padding: 10px;
 .score{
   font-size: 30px;
   margin-right: 10vw;
+}
+.buttons{
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  max-height: 100px;
+  align-items: center;
+}
+.btn{
+  padding: 13px 40px;
+  border-radius: 20px;
+  background: rgba(200,200,200,0.2);
+  cursor:pointer;
+  font-size: 2vmax;
+  transition: all 0.5s ease-in-out;
+  margin: 10px;
+  
+}
+
+.btn:hover {
+  transform: scale(0.95);
+  background: rgba(0,229,255,0.5);
 }

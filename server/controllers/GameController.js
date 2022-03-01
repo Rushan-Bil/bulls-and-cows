@@ -2,7 +2,7 @@ const dictionary = require('../dictionaries/dictionary');
 
 class GameController {
   transformWordToArr(word) {
-    return word.split('').map((letter, index) => ({
+    return word.toLowerCase().split('').map((letter, index) => ({
       letter, checked: false, position: index,
     }));
   }
