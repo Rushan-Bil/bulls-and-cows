@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Slider from '@mui/material/Slider';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import cls from './style.module.css';
 import { trainSlice } from '../../store/reducers/trainSlice';
 import { getSecret } from '../../store/reducers/actionCreators';
@@ -17,25 +16,26 @@ function valuetext(value) {
   return value;
 }
 
-export default function StartModal({
-  setLetterCount,
-}) {
+export default function StartModal({ setLetterCount }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { setOpenStartModal } = trainSlice.actions;
+  const openStartModal = useSelector((state) => state.trainSlice.openStartModal);
 
-  const [open, setOpen] = useState(true);
-  const handleOpen = () => setOpen(true);
   const handleStart = () => {
     setLetterCount(` из ${wordL} букв `);
+    dispatch(setOpenStartModal(false));
     dispatch(getSecret(wordL));
-    setOpen(false);
   };
-  const handleCansel = () => setOpen(false);
 
+  const handleCansel = () => {
+    dispatch(setOpenStartModal(true));
+    navigate('/');
+  };
   return (
     <div>
-      <button type="submit" onClick={handleOpen} className={cls.restart}>Начать новую игру</button>
       <Modal
-        open={open}
+        open={openStartModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         className={cls.modalWrap}
