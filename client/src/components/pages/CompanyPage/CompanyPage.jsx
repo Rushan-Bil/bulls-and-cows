@@ -7,10 +7,12 @@ import { letterSlice } from '../../../store/reducers/lettersSlice';
 import TabWordsList from '../../TabWordsList/TabWordsList';
 import CompanyWordDialog from './CompanyWordDialog/CompanyWordDialog';
 import CompanyWordInput from './CompanyWordInput/CompanyWordInput';
-
+import { gameCompSlice } from '../../../store/reducers/gameCompSlice';
+import { setCompController } from '../../../store/reducers/actionCreators';
 function CompanyPage() {
   const dispatch = useDispatch();
   const { setAlphabet } = letterSlice.actions;
+
   useEffect(() => {
     dispatch(setAlphabet('ru'));
   }, []);

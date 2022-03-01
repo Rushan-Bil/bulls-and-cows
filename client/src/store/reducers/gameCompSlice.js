@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import gameController from '../../controllers/GameController';
+import {
+  setCompController, configureOfflineGame,
+} from './actionCreators';
 
 const initialState = {
   secret: '',
@@ -8,18 +11,18 @@ const initialState = {
   oppWords: [],
   finishGame: false,
   myTurn: true,
-  timer: null,
+  isLoading: false,
+  error: '',
+  compController: null,
+  gameStart: false,
 };
 
 export const gameCompSlice = createSlice({
   name: 'gameComp',
   initialState,
   reducers: {
-    setTimer(state, action) {
-      state.timer = action.payload ?? 60;
-    },
-    decreaseTimer(state, action) {
-      state.timer -= 1;
+    setError(state, action) {
+      state.error = action.payload;
     },
     setSecret(state, action) {
       state.secret = action.payload;
@@ -36,6 +39,24 @@ export const gameCompSlice = createSlice({
       state.finishGame = true;
     },
   },
+  extraReducers: {
+    [configureOfflineGame.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [configureOfflineGame.fulfilled]: (state, action) => {
+      state.secret = action.payload.word;
+      state.compController = action.payload.compController;
+      state.compSecret = action.payload.compController.word;
+      state.isLoading = false;
+      state.gameStart = true;
+    },
+    [configureOfflineGame.rejected]: (state, action) => {
+      console.log(action);
+      state.error = action.error.message;
+      state.isLoading = false;
+    },
+  },
 });
 
 export default gameCompSlice.reducer;
+export const selectCompSlice = (state) => state.gameCompReducer;
