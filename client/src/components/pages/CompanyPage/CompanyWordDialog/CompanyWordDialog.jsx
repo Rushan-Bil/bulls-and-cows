@@ -1,13 +1,11 @@
 import React, {
-  useCallback, useEffect, useRef, useState,
+  useCallback, useState,
 } from 'react';
 import Modal from '@mui/material/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import cls from '../../BattlePage/ChoiceWordDialog/style.module.css';
 import { gameCompSlice } from '../../../../store/reducers/gameCompSlice';
 import gameController from '../../../../controllers/GameController';
-import Letter from '../../../Letter/Letter';
 
 export default function CompanyWordDialog() {
   const dispacth = useDispatch();
@@ -77,7 +75,7 @@ export default function CompanyWordDialog() {
             <option value="en">Английский</option>
           </select>
           <input type="checkbox" id="hardMode" checked={hardMode} />
-          <label htmlFor="hardMode">Hard Mode</label>
+          <label htmlFor="hardMode" onClick={() => setHardMode(!hardMode)}>Hard Mode</label>
           {error && <div className={handleErrorClass()}>{error}</div>}
           <button type="submit" className={cls.start}>Старт!</button>
         </form>

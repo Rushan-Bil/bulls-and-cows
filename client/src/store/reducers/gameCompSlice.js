@@ -8,19 +8,14 @@ const initialState = {
   oppWords: [],
   finishGame: false,
   myTurn: true,
-  timer: null,
+  isLoading: false,
+  error: '',
 };
 
 export const gameCompSlice = createSlice({
   name: 'gameComp',
   initialState,
   reducers: {
-    setTimer(state, action) {
-      state.timer = action.payload ?? 60;
-    },
-    decreaseTimer(state, action) {
-      state.timer -= 1;
-    },
     setSecret(state, action) {
       state.secret = action.payload;
       state.compSecret = gameController.getRandomWord(state.secret.length);
