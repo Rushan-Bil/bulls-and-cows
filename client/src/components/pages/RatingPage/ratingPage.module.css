@@ -13,7 +13,7 @@
   height: 80vh;
   display: flex;
   flex-direction: column; 
-  
+  overflow-y: scroll;
   border-radius: 30px;
   padding: 20px;
   background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
@@ -42,6 +42,8 @@ padding: 10px;
   display: flex;
   justify-content: space-between;
   margin: 20px;
+  max-height: 100px;
+  align-items: center;
 }
 .btn{
   padding: 13px 40px;
@@ -51,6 +53,7 @@ padding: 10px;
   font-size: 2vmax;
   transition: all 0.5s ease-in-out;
   margin: 10px;
+  
 }
 
 .btn:hover {

@@ -1,9 +1,11 @@
 import React from 'react';
 import cls from './gamer.module.css';
 
-function Gamer({ photo, name, rating }) {
+function Gamer({
+  photo, name, rating, id,
+}) {
   return (
-    <div className={cls.mainConntainer}>
+    <div className={cls.mainConntainer} data-id={id}>
       <div className={cls.icon}>
         <div className={cls.imgContainer}>
           <img src={`http://localhost:3001${photo}`} alt="avatar" width="110px" height="110px" />

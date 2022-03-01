@@ -194,3 +194,47 @@ th.major {
     transform: rotate(360deg);
   }
 }
+
+.mySelf{
+  animation-name: mySelf;
+  animation-duration: 2s;
+  transition: 1s;
+  border-radius: 10px;
+  animation-iteration-count:4
+}
+@keyframes mySelf {
+ 0% {background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+  
+}
+ 50% {background: rgba(129, 76, 76, 0.425);
+  transform: scale(1.05);
+} 
+}
+
+.menuBtn {
+  position: relative;
+  width: fit-content;
+  padding: 10px 40px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+  background: rgb(6, 100, 0);
+  transition: all 0.5s ease-in-out;
+}
+.menuBtn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: rgba(0, 255, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+}
+.menuBtn:hover::before  {
+  transform: scaleX(1);
+}
