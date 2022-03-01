@@ -2,7 +2,9 @@ import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import OneWord from '../pages/OneWord/OneWord';
 
-function WordsList({ words, type }) {
+function WordsList({
+  words, type, letterCount,
+}) {
   return (
     <TransitionGroup className="flex-d-c pos-r tableWrap">
       <CSSTransition
@@ -12,7 +14,10 @@ function WordsList({ words, type }) {
       >
         <table className="table">
           <thead>
-            <th className="major">Слово</th>
+            <th className="major">
+              Слово
+              {letterCount}
+            </th>
             <th className="minor">Б</th>
             <th className="minor">К</th>
           </thead>

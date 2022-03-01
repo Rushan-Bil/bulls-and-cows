@@ -7,6 +7,8 @@ import axios from 'axios';
 import App from './App';
 import setupStore from './store/store';
 
+axios.defaults.baseURL = 'http://localhost:3001';
+
 const store = setupStore();
 axios.defaults.baseURL = 'http://localhost:3001';
 ReactDOM.render(
