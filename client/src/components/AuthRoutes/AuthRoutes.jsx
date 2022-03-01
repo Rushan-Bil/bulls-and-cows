@@ -21,7 +21,7 @@ function AuthRoutes() {
     <Routes>
       {isAuth && (
       <>
-        <Route path="/game/battle" element={<BattlePage />} />
+        <Route path="/game/battle/:id" element={<BattlePage />} />
         <Route path="/game/prepare" element={<PreparePage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/ratings" element={<RatingPage />} />

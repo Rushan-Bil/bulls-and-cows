@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import AuthService from '../../services/authService';
 import api, { API_URL } from '../../http';
+import { onlineGameSlice } from './onlineGameSlice';
 
 const initialState = {
   isAuth: false,
@@ -44,6 +45,12 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: {
+    [onlineGameSlice.actions.addWord]: (state, action) => {
+      action.payload.isMyTurn = action.payload.userId === state.userId;
+    },
+    [onlineGameSlice.actions.setFinishGame]: (state, action) => {
+      action.payload.didWin = action.payload.winner === state.userId;
+    },
     //----------------------------------------------------------------------------
     // REGISTRATEUSER
     [registrateUser.pending]: (state) => {

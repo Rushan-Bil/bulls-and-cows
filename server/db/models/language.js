@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.Language, { foreignKey: 'language_id' });
+      this.hasMany(models.Word, { foreignKey: 'language_id' });
     }
   }
   Language.init({
