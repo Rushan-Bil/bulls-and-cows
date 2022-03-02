@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import letterReducer from './reducers/lettersSlice';

@@ -8,7 +8,7 @@ function RoomCreateForm() {
       <form>
         <input className="commonInput" type="text" placeholder="введите номер комнаты" required />
         <input className="commonInput" type="password" placeholder="введите пароль для комнаты" />
-        <button>Создать</button>
+        <button type="button">Создать</button>
       </form>
     </div>
   );

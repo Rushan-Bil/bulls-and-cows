@@ -6,11 +6,10 @@ import { Provider } from 'react-redux';
 import axios from 'axios';
 import App from './App';
 import setupStore from './store/store';
-
-axios.defaults.baseURL = 'http://localhost:3001';
+import { SERVER_URL } from './config';
 
 const store = setupStore();
-axios.defaults.baseURL = 'http://localhost:3001';
+axios.defaults.baseURL = `${SERVER_URL}`;
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
