@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import trainController from '../../controllers/TrainController';
 import { getSecret } from './actionCreators';
 
 const initialState = {
@@ -28,8 +27,8 @@ export const trainSlice = createSlice({
     },
     [getSecret.fulfilled]: (state, { payload }) => {
       state.status = 'success';
-      console.log('fullfiled', payload);
       state.secret = payload;
+      console.log('====================>         ', payload);
     },
     [getSecret.rejected]: (state, payload) => {
       state.status = 'failed';
