@@ -1,5 +1,3 @@
-const dictionary = require('../dictionaries/dictionary');
-
 class GameController {
   transformWordToArr(word) {
     return word.toLowerCase().split('').map((letter, index) => ({
@@ -21,24 +19,24 @@ class GameController {
       bulls: 0,
       cows: 0,
     };
-
+    // COUNT BULLS
     for (let i = 0; i < prepareGuess.length; i++) {
-      const current = prepareGuess[i];
-
-      if (current.letter === prepareHidden[i].letter) {
+      if (prepareHidden[i].letter === prepareGuess[i].letter) {
         result.bulls += 1;
         prepareHidden[i].checked = true;
-        current.checked = true;
-        continue;
+        prepareGuess[i].checked = true;
       }
+    }
+    // COUNT COWS
+    for (let i = 0; i < prepareGuess.length; i++) {
+      const current = prepareGuess[i];
       const index = prepareHidden.findIndex((item) => item.letter === current.letter && !item.checked);
       if (index === -1) continue;
 
       result.cows += 1;
-      prepareHidden[index].checked = true;
       current.checked = true;
+      prepareGuess[index].checked = true;
     }
-
     return result;
   }
 }

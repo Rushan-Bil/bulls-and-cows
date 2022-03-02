@@ -9,6 +9,7 @@ import CompanyWordDialog from './CompanyWordDialog/CompanyWordDialog';
 import CompanyWordInput from './CompanyWordInput/CompanyWordInput';
 import { gameCompSlice } from '../../../store/reducers/gameCompSlice';
 import { setCompController } from '../../../store/reducers/actionCreators';
+import FinishGameDialog from './FinishGameDialog/FinishGameDialog';
 function CompanyPage() {
   const dispatch = useDispatch();
   const { setAlphabet } = letterSlice.actions;
@@ -18,6 +19,7 @@ function CompanyPage() {
   }, []);
   return (
     <>
+      <FinishGameDialog />
       <CompanyWordDialog />
       <div className="gamePage">
         <TabWordsList reducer="gameCompReducer" />

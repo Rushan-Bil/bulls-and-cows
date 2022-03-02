@@ -1,20 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 import gameController from '../../controllers/GameController';
 import {
-  setCompController, configureOfflineGame,
+  setCompController, configureOfflineGame, offlineCheckWord, offlineAddWord,
 } from './actionCreators';
+import companyController from '../../controllers/companyController';
 
 const initialState = {
   secret: '',
   compSecret: '',
+  language: null,
   myWords: [],
   oppWords: [],
-  finishGame: false,
+  compController: null,
   myTurn: true,
+  gameStart: false,
+  finishGame: false,
+  gameResult: null,
   isLoading: false,
   error: '',
-  compController: null,
-  gameStart: false,
 };
 
 export const gameCompSlice = createSlice({
@@ -44,14 +47,34 @@ export const gameCompSlice = createSlice({
       state.isLoading = true;
     },
     [configureOfflineGame.fulfilled]: (state, action) => {
-      state.secret = action.payload.word;
-      state.compController = action.payload.compController;
-      state.compSecret = action.payload.compController.word;
+      const { word, compController } = action.payload;
+      state.secret = word.word;
+      state.compController = compController;
+      state.compSecret = compController.word;
+      state.language = compController.language;
       state.isLoading = false;
       state.gameStart = true;
     },
     [configureOfflineGame.rejected]: (state, action) => {
       console.log(action);
+      state.error = action.error.message;
+      state.isLoading = false;
+    },
+    [offlineAddWord.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [offlineAddWord.fulfilled]: (state, action) => {
+      const {
+        compController, result, userResult, gameResult, finishGame,
+      } = action.payload;
+      state.myWords.push(userResult);
+      state.oppWords.push(result);
+      state.compController = compController;
+      state.gameResult = gameResult;
+      state.finishGame = finishGame;
+      state.isLoading = false;
+    },
+    [offlineAddWord.rejected]: (state, action) => {
       state.error = action.error.message;
       state.isLoading = false;
     },
