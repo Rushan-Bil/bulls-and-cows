@@ -1,26 +1,11 @@
 {
   "development": {
-<<<<<<< HEAD
     "use_env_variable": "DB_CONNECT",
     "dialectOptions": {
       "ssl": {
         "rejectUnauthorized": false
       }
     }
-=======
-    "username": "bulat",
-    "password": "12345",
-    "database": "bullsandcows",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
->>>>>>> 8b674b4abdc3da4bc3834d4051b2efa341732ea7
   },
   "production": {
     "use_env_variable": "DB_CONNECT",
