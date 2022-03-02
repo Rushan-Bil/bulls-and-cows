@@ -14,8 +14,24 @@ function PreparePage() {
     <div className={cls.preparePage}>
       <div className={cls.formControl}>
         <div className={cls.controls}>
-          <button className={cls.btn} onClick={clickHandler} disabled={!!showRoomSetting}>Создать комнату</button>
-          <button className={cls.btn} onClick={clickHandler} disabled={!showRoomSetting}>Случайный поиск</button>
+          <button
+            type="button"
+            className={cls.btn}
+            onClick={clickHandler}
+            disabled={!!showRoomSetting}
+          >
+            Создать комнату
+
+          </button>
+          <button
+            type="button"
+            className={cls.btn}
+            onClick={clickHandler}
+            disabled={!showRoomSetting}
+          >
+            Случайный поиск
+
+          </button>
         </div>
         <TransitionGroup className={cls.transition}>
           <CSSTransition
