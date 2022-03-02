@@ -178,6 +178,8 @@ export const userSlice = createSlice({
       state.userId = null;
       state.isError = true;
       state.message = 'Ошибка что то пошло не так';
+      localStorage.removeItem('token');
+      localStorage.removeItem('gamerId');
     },
 
     //----------------------------------------------------------------------------
