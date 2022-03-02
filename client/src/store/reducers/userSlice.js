@@ -29,6 +29,7 @@ export const loginUser = createAsyncThunk('loginUser', async ({ email, password 
 export const checkAuth = createAsyncThunk('isAuth', async () => {
   console.log('refresh work-----------------');
   const response = api.get('/refresh', { withCredentials: true });
+
   return response;
 });
 
