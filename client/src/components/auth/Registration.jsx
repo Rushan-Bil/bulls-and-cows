@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   registrateUser,
   selectUserSlice,
+  userSlice,
 } from '../../store/reducers/userSlice';
 
 function Authorisation() {
@@ -17,6 +18,8 @@ function Authorisation() {
     dispatch(registrateUser({ name, email, password }));
   };
   const errMessage = useSelector(selectUserSlice);
+  const { setErrorMessageNull } = userSlice.actions;
+  useEffect(() => () => dispatch(setErrorMessageNull()), []);
 
   return (
     <div className="registration">

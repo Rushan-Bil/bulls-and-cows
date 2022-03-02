@@ -53,6 +53,10 @@ export const userSlice = createSlice({
       console.log(action.payload);
       state.fetch = action.payload;
     },
+    setErrorMessageNull(state) {
+      state.isError = false;
+      state.message = '';
+    },
   },
   extraReducers: {
     [onlineGameSlice.actions.addWord]: (state, action) => {
@@ -131,6 +135,8 @@ export const userSlice = createSlice({
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
         state.imgPath = payload.data.user.photo;
+        state.isError = false;
+        state.message = '';
       }
       console.log(payload);
     },
