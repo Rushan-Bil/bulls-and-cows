@@ -71,21 +71,20 @@ class UserService {
     return token;
   }
 
-  async refresh(refreshToken) {
-    console.log('INSERT INTO REFRESH--------------------------------------------', refreshToken);
-    if (!refreshToken) {
-      throw ApiError.UnauthorizedError();
-    }
-    const userData = tokenService.validateRefreshToken(refreshToken);
-    const tokenFromDB = await tokenService.findToken(refreshToken);
-    if (!userData || !tokenFromDB) {
-      throw ApiError.UnauthorizedError();
-    }
-    const user = await User.findOne({ where: { id: userData.id }, raw: true });
+  async refresh(id) {
+    console.log('INSERT INTO REFRESH--------------------------------------------');
+    // if (!refreshToken) {
+    //   throw ApiError.UnauthorizedError();
+    // }
+    // const userData = tokenService.validateRefreshToken(refreshToken);
+    // const tokenFromDB = await tokenService.findToken(refreshToken);
+    // if (!userData || !tokenFromDB) {
+    //   throw ApiError.UnauthorizedError();
+    // }
+    const user = await User.findOne({ where: { id }, raw: true });
     console.log('IN REFRESH email------------------------------', user);
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
-
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
     console.log('exit from USER SERVICE REFRESH----', { ...tokens, user: userDto });
     return { ...tokens, user: userDto };
