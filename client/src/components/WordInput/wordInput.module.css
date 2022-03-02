@@ -33,5 +33,28 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  margin-top: auto;
+}
+
+.info {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(calc(-100% - 5px));
+  transition: all 1s ease-in-out;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.error {
+  padding:10px 20px;
+  font-size: 16px;
+  transition: all 1s ease-in-out;
+  background: rgba(255, 0, 0, 0.5);
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
 

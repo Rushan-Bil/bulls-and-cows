@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addWord, startSearching } from './actionCreators';
+import { onlineAddWord, startSearching } from './actionCreators';
 
 const initialState = {
   socket: null,
@@ -23,11 +23,10 @@ export const onlineGameSlice = createSlice({
     setTurn(state, action) {
       state.myTurn = action.payload;
     },
-    clearError(state, action) {
-      state.error = '';
+    setError(state, action) {
+      state.error = action.payload;
     },
     setSocket(state, action) {
-      console.log(action);
       state.socket = action.payload;
     },
     setLoading(state, action) {
@@ -40,8 +39,6 @@ export const onlineGameSlice = createSlice({
       state.gameId = action.payload;
     },
     addWord(state, action) {
-      console.log('ADD WORD');
-      console.log(action);
       const { word, isMyTurn } = action.payload;
       if (isMyTurn) {
         state.myWords.push(word);
@@ -71,13 +68,13 @@ export const onlineGameSlice = createSlice({
       state.error = action.error.message;
       state.isLoading = false;
     },
-    [addWord.pending]: (state) => {
+    [onlineAddWord.pending]: (state) => {
       state.isLoading = true;
     },
-    [addWord.fulfilled]: (state, action) => {
+    [onlineAddWord.fulfilled]: (state, action) => {
       state.isLoading = false;
     },
-    [addWord.rejected]: (state, action) => {
+    [onlineAddWord.rejected]: (state, action) => {
       console.log(action);
       state.error = action.error.message;
       state.isLoading = false;

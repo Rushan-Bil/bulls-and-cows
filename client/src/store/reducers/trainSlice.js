@@ -1,38 +1,36 @@
 import { createSlice } from '@reduxjs/toolkit';
-import trainController from '../../controllers/TrainController';
 import { getSecret } from './actionCreators';
 
 const initialState = {
   secret: '',
   status: '',
   isError: '',
-  // words: [],
-  // letterCount: '',
+  open: false,
+  openStartModal: true,
 };
 
 export const trainSlice = createSlice({
   name: 'train',
   initialState,
   reducers: {
-
+    setOpen(state, action) {
+      state.open = action.payload;
+    },
+    setOpenStartModal(state, action) {
+      state.openStartModal = action.payload;
+    },
   },
 
   extraReducers: {
     [getSecret.pending]: (state) => {
-      // console.log('pending');
       state.status = 'loading';
     },
     [getSecret.fulfilled]: (state, { payload }) => {
-      // console.log(payload, '============>');
       state.status = 'success';
-      // console.log(payload.status);
-      // if (payload.status === 200) {
-      console.log('fullfiled', payload);
       state.secret = payload;
-      // }
+      console.log('====================>         ', payload);
     },
     [getSecret.rejected]: (state, payload) => {
-      // console.log('rejected', payload);
       state.status = 'failed';
       state.isError = 'Ошибка';
     },

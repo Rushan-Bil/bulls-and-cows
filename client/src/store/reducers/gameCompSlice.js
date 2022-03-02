@@ -1,25 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
 import gameController from '../../controllers/GameController';
+import {
+  configureOfflineGame, offlineAddWord,
+} from './actionCreators';
 
 const initialState = {
   secret: '',
   compSecret: '',
+  language: null,
   myWords: [],
   oppWords: [],
-  finishGame: false,
+  compController: null,
   myTurn: true,
-  timer: null,
+  gameStart: false,
+  finishGame: false,
+  gameResult: null,
+  isLoading: false,
+  error: '',
 };
 
 export const gameCompSlice = createSlice({
   name: 'gameComp',
   initialState,
   reducers: {
-    setTimer(state, action) {
-      state.timer = action.payload ?? 60;
-    },
-    decreaseTimer(state, action) {
-      state.timer -= 1;
+    setError(state, action) {
+      state.error = action.payload;
     },
     setSecret(state, action) {
       state.secret = action.payload;
@@ -36,6 +41,44 @@ export const gameCompSlice = createSlice({
       state.finishGame = true;
     },
   },
+  extraReducers: {
+    [configureOfflineGame.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [configureOfflineGame.fulfilled]: (state, action) => {
+      const { word, compController } = action.payload;
+      state.secret = word.word;
+      state.compController = compController;
+      state.compSecret = compController.word;
+      state.language = compController.language;
+      state.isLoading = false;
+      state.gameStart = true;
+    },
+    [configureOfflineGame.rejected]: (state, action) => {
+      console.log(action);
+      state.error = action.error.message;
+      state.isLoading = false;
+    },
+    [offlineAddWord.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [offlineAddWord.fulfilled]: (state, action) => {
+      const {
+        compController, result, userResult, gameResult, finishGame,
+      } = action.payload;
+      state.myWords.push(userResult);
+      state.oppWords.push(result);
+      state.compController = compController;
+      state.gameResult = gameResult;
+      state.finishGame = finishGame;
+      state.isLoading = false;
+    },
+    [offlineAddWord.rejected]: (state, action) => {
+      state.error = action.error.message;
+      state.isLoading = false;
+    },
+  },
 });
 
 export default gameCompSlice.reducer;
+export const selectCompSlice = (state) => state.gameCompReducer;

@@ -1,5 +1,8 @@
 import axios from 'axios';
+// import { useDispatch, useSelector } from 'react-redux';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+// import controller from '../../controllers/TrainController';
+// import { trainSlice } from './trainSlice';
 
 export const startSearching = createAsyncThunk(
   'onlineGame/startSearching',
@@ -29,11 +32,12 @@ export const getSecret = createAsyncThunk(
   },
 );
 
-export const addWord = createAsyncThunk('onlineGame/addWord', async (data, thunkAPI) => {
+export const onlineAddWord = createAsyncThunk('onlineGame/onlineAddWord', async (data, thunkAPI) => {
   try {
     const {
       language, word, userId, socket, gameId,
     } = data;
+    console.log(language, word, userId, socket, gameId);
     const res = await axios.post('/game/word', { language, word });
     socket.send(JSON.stringify({
       type: 'ADD_WORD',
@@ -41,6 +45,43 @@ export const addWord = createAsyncThunk('onlineGame/addWord', async (data, thunk
         language, word, userId, gameId,
       },
     }));
+  } catch (err) {
+    throw err.response.data;
+  }
+});
+export const offlineCheckWord = createAsyncThunk('gameComp/offlineCheckWord', async (data, thunkAPI) => {
+  try {
+    const {
+      language, word,
+    } = data;
+    const res = await axios.post('/game/word', { language, word });
+    return res.data;
+  } catch (err) {
+    throw err.response.data;
+  }
+});
+export const offlineAddWord = createAsyncThunk('gameComp/offlineAddWord', async (data, thunkAPI) => {
+  try {
+    const {
+      language, word, compController,
+    } = data;
+    await axios.post('/game/word', { language, word });
+    const result = await axios.post('/game/guess', { compController, userWord: word });
+    return result.data;
+  } catch (err) {
+    throw err.response.data;
+  }
+});
+export const configureOfflineGame = createAsyncThunk('gameComp/configureOfflineGame', async (data, thunkAPI) => {
+  try {
+    const {
+      language, word, hardMode,
+    } = data;
+    const res = await axios.post('/game/word', { language, word });
+    console.log(res);
+    const fetchCompController = await axios.post('/game/comp', { language, secret: res.data.word, hardMode });
+    console.log(fetchCompController);
+    return { word: res.data, compController: fetchCompController.data };
   } catch (err) {
     throw err.response.data;
   }

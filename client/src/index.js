@@ -9,7 +9,9 @@ import setupStore from './store/store';
 import { SERVER_URL } from './config';
 
 const store = setupStore();
+
 axios.defaults.baseURL = `${SERVER_URL}`;
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
