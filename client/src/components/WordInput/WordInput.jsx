@@ -24,7 +24,7 @@ function WordInput({ setWords }) {
   const submitHandler = async (e) => {
     e.preventDefault();
     setError('');
-    const suppose = inputs;
+    const suppose = inputs.toLowerCase();
     setInputs('');
 
     if (suppose.length !== wordLength) {
