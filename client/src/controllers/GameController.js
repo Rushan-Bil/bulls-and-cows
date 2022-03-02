@@ -1,3 +1,4 @@
+/* eslint-disable no-continue */
 const { dictionary } = require('../dictionary');
 
 class GameController {
@@ -28,7 +29,7 @@ class GameController {
       cows: 0,
     };
     // COUNT BULLS
-    for (let i = 0; i < prepareGuess.length; i++) {
+    for (let i = 0; i < prepareGuess.length; i += 1) {
       if (prepareHidden[i].letter === prepareGuess[i].letter) {
         result.bulls += 1;
         prepareHidden[i].checked = true;
@@ -36,9 +37,10 @@ class GameController {
       }
     }
     // COUNT COWS
-    for (let i = 0; i < prepareGuess.length; i++) {
+    for (let i = 0; i < prepareGuess.length; i += 1) {
       const current = prepareGuess[i];
-      const index = prepareHidden.findIndex((item) => item.letter === current.letter && !item.checked);
+      const index = prepareHidden
+        .findIndex((item) => item.letter === current.letter && !item.checked);
       if (index === -1) continue;
 
       result.cows += 1;
@@ -65,7 +67,8 @@ class GameController {
     const randomWord = this.getRandomWord(word.length, currentDictionary);
     const currentResult = this.countBullandCows(randomWord, word);
 
-    this.dict = currentDictionary.filter((item) => this.countBull(word, item) >= currentResult.bulls && item !== randomWord);
+    this.dict = currentDictionary
+      .filter((item) => this.countBull(word, item) >= currentResult.bulls && item !== randomWord);
     return currentResult;
   }
 }

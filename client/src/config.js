@@ -13,7 +13,7 @@ export const noAuthMenu = [
 ];
 
 
-export const SERVER_URL = 'http://localhost:3001';
+export const SERVER_URL = 'https://bulls-and-cows-apii.herokuapp.com';
 export const alphabets = {
   en: 'qwertyuiopasdfghjklzxcvbnm'.split('').sort(),
   ru: 'йцукенгшщзхъфывапролджэячсмитьбю'.split('').sort(),
