@@ -12,8 +12,9 @@ export const noAuthMenu = [
   { id: 4, title: 'Правила', link: '/rules' },
 ];
 
-export const SERVER_URL = 'https://bulls-and-cows-apii.herokuapp.com';
 export const alphabets = {
   en: 'qwertyuiopasdfghjklzxcvbnm'.split('').sort(),
   ru: 'йцукенгшщзхъфывапролджэячсмитьбю'.split('').sort(),
 };
+
+export const SERVER_URL = 'https://bulls-and-cows-apii.herokuapp.com';

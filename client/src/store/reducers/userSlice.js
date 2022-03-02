@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk('loginUser', async ({ email, password 
 
 export const checkAuth = createAsyncThunk('isAuth', async () => {
   console.log('refresh work-----------------');
-  const response = await axios('/user/refresh', { withCredentials: true });
+  const response = api.get('/refresh', { withCredentials: true });
   return response;
 });
 
@@ -52,6 +52,10 @@ export const userSlice = createSlice({
     setFetching(state, action) {
       console.log(action.payload);
       state.fetch = action.payload;
+    },
+    setErrorMessageNull(state) {
+      state.isError = false;
+      state.message = '';
     },
   },
   extraReducers: {
@@ -93,6 +97,7 @@ export const userSlice = createSlice({
       state.status = 'success';
       if (payload.status === 200) {
         localStorage.setItem('token', payload.data.accessToken);
+        localStorage.setItem('gamerId', payload.data.user.id);
         state.isAuth = true;
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
@@ -131,6 +136,8 @@ export const userSlice = createSlice({
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
         state.imgPath = payload.data.user.photo;
+        state.isError = false;
+        state.message = '';
       }
       console.log(payload);
     },
