@@ -19,11 +19,29 @@ class WordController {
 
   async compGuessWord(req, res) {
     try {
-      const { compController } = req.body;
+      const { compController, userWord } = req.body;
       const dict = await Word.findAll();
-      const word = compController.guessingWord(dict);
-      const result = gameController.countBullandCows(word, compController.secret);
-      res.json(result);
+      const newCompController = await CompPlayerController.guessingWord(dict, compController);
+      const lastWord = newCompController.words[newCompController.words.length - 1].word;
+      const result = gameController.countBullandCows(lastWord, compController.secret);
+      const userResult = gameController.countBullandCows(userWord, compController.word);
+      const userWin = userResult.bulls === compController.word.length;
+      const compWin = result.bulls === compController.secret.length;
+      const finishGame = userWin || compWin;
+      const gameResult = userWin && compWin
+        ? 'tie'
+        : userWin
+          ? 'userWin'
+          : compWin
+            ? 'compWin'
+            : null;
+      return res.json({
+        compController: newCompController,
+        result,
+        userResult,
+        gameResult,
+        finishGame,
+      });
     } catch (err) {
       res.status(500).json(err);
     }
@@ -32,13 +50,11 @@ class WordController {
   async createCompPlayer(req, res) {
     try {
       const { language, hardMode, secret } = req.body;
-      console.log(language, hardMode, secret);
       const dict = await Word.findAll();
-      console.log(dict.length);
       const newComp = new CompPlayerController({ secret, hardMode, language });
       console.log(newComp);
-      newComp.setRandomWord(dict);
-      res.json({ comp: newComp });
+      newComp.setRandomWord(dict.filter((item) => item.value.length === secret.length));
+      res.json(newComp);
     } catch (err) {
       res.status(500).json(err);
     }

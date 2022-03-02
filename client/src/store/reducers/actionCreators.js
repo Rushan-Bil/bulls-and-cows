@@ -29,11 +29,12 @@ export const getSecret = createAsyncThunk(
   },
 );
 
-export const addWord = createAsyncThunk('onlineGame/addWord', async (data, thunkAPI) => {
+export const onlineAddWord = createAsyncThunk('onlineGame/onlineAddWord', async (data, thunkAPI) => {
   try {
     const {
       language, word, userId, socket, gameId,
     } = data;
+    console.log(language, word, userId, socket, gameId);
     const res = await axios.post('/game/word', { language, word });
     socket.send(JSON.stringify({
       type: 'ADD_WORD',
@@ -52,6 +53,18 @@ export const offlineCheckWord = createAsyncThunk('gameComp/offlineCheckWord', as
     } = data;
     const res = await axios.post('/game/word', { language, word });
     return res.data;
+  } catch (err) {
+    throw err.response.data;
+  }
+});
+export const offlineAddWord = createAsyncThunk('gameComp/offlineAddWord', async (data, thunkAPI) => {
+  try {
+    const {
+      language, word, compController,
+    } = data;
+    await axios.post('/game/word', { language, word });
+    const result = await axios.post('/game/guess', { compController, userWord: word });
+    return result.data;
   } catch (err) {
     throw err.response.data;
   }

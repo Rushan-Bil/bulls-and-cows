@@ -7,7 +7,6 @@ const router = express.Router();
 router.post('/word', wordController.isInDictionary);
 router.post('/guess', wordController.compGuessWord);
 router.post('/comp', wordController.createCompPlayer);
-
 router.post('/getword', async (req, res) => {
   try {
     const dictionary = await Word.findAll({ raw: true });
