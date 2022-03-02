@@ -18,7 +18,6 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 
-app.set('trust proxy', 'https://bulls-and-cows-client.herokuapp.com');
 app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
