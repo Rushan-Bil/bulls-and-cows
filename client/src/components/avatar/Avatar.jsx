@@ -7,6 +7,7 @@ import {
   selectUserSlice,
   userSlice,
 } from '../../store/reducers/userSlice';
+import { SERVER_URL } from '../../config';
 
 function Avatar() {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ function Avatar() {
   return (
     <div className={cls.avatarContainer}>
       <div className={cls.photo}>
-        <img src={`http://localhost:3001${slice.imgPath}`} alt="" width="150px" height="150px" />
+        <img src={`${SERVER_URL}${slice.imgPath}`} alt="" width="150px" height="150px" />
       </div>
       <div className={cls.infocontainer}>
         <h2>{slice.userName}</h2>

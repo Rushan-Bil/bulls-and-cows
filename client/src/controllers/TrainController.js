@@ -5,9 +5,9 @@ class TrainController {
     for (let i = 0; i < wordLength; i += 1) {
       if (word1[i].toUpperCase() === word2[i].toUpperCase()) {
         bulls += 1;
-        if (bulls === wordLength) {
-          alert('Поздравляем! Хорошая игра!');
-        }
+        // if (bulls === wordLength) {
+        //   alert('Поздравляем! Хорошая игра!');
+        // }
       }
     }
     return bulls;
