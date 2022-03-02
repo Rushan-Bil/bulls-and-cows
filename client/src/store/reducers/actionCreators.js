@@ -1,5 +1,8 @@
 import axios from 'axios';
+// import { useDispatch, useSelector } from 'react-redux';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+// import controller from '../../controllers/TrainController';
+// import { trainSlice } from './trainSlice';
 
 export const startSearching = createAsyncThunk(
   'onlineGame/startSearching',
