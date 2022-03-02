@@ -72,7 +72,7 @@ class UserService {
   }
 
   async refresh(refreshToken) {
-    console.log('INSERT INTO REFRESH--------------------------------------------');
+    console.log('INSERT INTO REFRESH--------------------------------------------', refreshToken);
     if (!refreshToken) {
       throw ApiError.UnauthorizedError();
     }

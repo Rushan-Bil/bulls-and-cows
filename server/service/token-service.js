@@ -37,6 +37,7 @@ class TokenService {
   validateAccessToken(token) {
     try {
       const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+      console.log('VALIDATE REFRESH TOKEN-------------------', userData);
       return userData;
     } catch (error) {
       return null;
@@ -54,7 +55,9 @@ class TokenService {
   }
 
   async findToken(refreshToken) {
+    console.log('FIND TOKEN FIND ONE===========================');
     const tokenData = await Token.findOne({ where: { refreshToken }, raw: true });
+    console.log('FIND TOKEN TOKEN-------------------', tokenData);
     return tokenData;
   }
 }
