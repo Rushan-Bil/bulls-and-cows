@@ -166,6 +166,7 @@ export const userSlice = createSlice({
         state.userName = '';
         state.userId = null;
         localStorage.removeItem('token');
+        localStorage.removeItem('gamerId');
         state.imgPath = '';
       }
       console.log(payload);
