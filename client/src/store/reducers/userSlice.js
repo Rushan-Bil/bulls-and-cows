@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk('loginUser', async ({ email, password 
 
 export const checkAuth = createAsyncThunk('isAuth', async () => {
   console.log('refresh work-----------------');
-  const response = await axios(`/user/refresh`, { withCredentials: true });
+  const response = await axios('/user/refresh', { withCredentials: true });
   return response;
 });
 
