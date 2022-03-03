@@ -36,15 +36,15 @@ function Avatar() {
     <div className={cls.avatarContainer}>
       <div className={cls.photo}>
         <img src={`${SERVER_URL}${slice.imgPath}`} alt="" width="150px" height="150px" />
+
       </div>
       <div className={cls.infocontainer}>
-        <h2>{slice.userName}</h2>
+        <p>{slice.userName}</p>
         <form>
           <button type="button" onClick={((event) => photoHandler(event))} className={cls.btnPhoto}>Сменить аватар</button>
           <input name="avatar" type="file" id="getFile" className={cls.getPhoto} onChange={(event) => inputsHandler(event)} />
         </form>
       </div>
-
     </div>
   );
 }

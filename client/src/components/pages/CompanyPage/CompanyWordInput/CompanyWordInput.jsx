@@ -31,7 +31,7 @@ function CompanyWordInput() {
   };
 
   return (
-    <div className={`${cls.formWrap} inputForm`}>
+    <div className={cls.formWrap}>
       <div className={cls.info}>
         <CustomError selectState={selectCompSlice} />
       </div>

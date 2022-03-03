@@ -5,7 +5,6 @@ import Modal from '@mui/material/Modal';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import cls from './style.module.css';
-import { selectGameOnline } from '../../../../store/reducers/onlineGameSlice';
 import { selectCompSlice } from '../../../../store/reducers/gameCompSlice';
 
 export default function FinishGameDialog() {
