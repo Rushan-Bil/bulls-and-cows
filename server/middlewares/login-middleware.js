@@ -6,7 +6,9 @@ module.exports = async function (req, res, next) {
   try {
     const user = await User.findOne({ where: { email: req.body.email }, raw: true });
     console.log('\n USER IN LOGIN++++++++++++++++', user, '\n');
-
+    if (!user) {
+      return next(ApiError.BadREquest('Пользователь не зарегистрирован'));
+    }
     const authorizationHeader = req.headers.authorization;
     console.log('\n IN LOGIN+++++++++++++++++++++++++++++++++', authorizationHeader, '\n');
     if (!user.isActivated) {
