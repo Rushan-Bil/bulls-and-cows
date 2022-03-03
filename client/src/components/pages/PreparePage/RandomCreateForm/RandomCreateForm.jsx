@@ -13,10 +13,11 @@ function RandomCreateForm() {
   const dispatch = useDispatch();
   const [searchingList, setSearchingList] = useState([]);
   const {
-    setSocket, setLoading, setTurn, setGameId,
+    setSocket, setLoading, setTurn, setGameId, setError,
   } = onlineGameSlice.actions;
   useEffect(() => {
     dispatch(setSocket(ws));
+    dispatch(setError(''));
     ws.send(JSON.stringify({ type: 'GET_ALL_SEARCHING', payload: {} }));
     ws.onmessage = (message) => {
       const { type, payload = {} } = JSON.parse(message.data);

@@ -51,8 +51,6 @@ function BattleWordInput() {
           type="text"
           className="commonInput form-control"
           id="inputSuppose"
-                // pattern="[А-Яа-яЁё ]+" // ТАК СЕБЕ ВАРИАНТ
-                // placeholder="Только русские буквы" // ТАК СЕБЕ ВАРИАНТ
           name="suppose"
           onChange={inputsHandler}
           value={input}
