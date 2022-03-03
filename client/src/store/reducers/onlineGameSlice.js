@@ -64,7 +64,6 @@ export const onlineGameSlice = createSlice({
       state.isLoading = false;
     },
     [startSearching.rejected]: (state, action) => {
-      console.log(action);
       state.error = action.error.message;
       state.isLoading = false;
     },
@@ -75,7 +74,6 @@ export const onlineGameSlice = createSlice({
       state.isLoading = false;
     },
     [onlineAddWord.rejected]: (state, action) => {
-      console.log(action);
       state.error = action.error.message;
       state.isLoading = false;
     },

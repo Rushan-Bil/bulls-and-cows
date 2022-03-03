@@ -9,8 +9,9 @@ import CustomError from '../../../CustomError/CustomError';
 function BattleWordInput() {
   const [input, setInput] = useState('');
   const {
-    secret, socket, gameId, myTurn, finishGame, error, language,
+    secret, socket, gameId, myTurn, finishGame, error, language, isLoading,
   } = useSelector(selectGameOnline);
+  console.log('INPUT LOADING', isLoading);
   const { userId } = useSelector(selectUserSlice);
   const { setError } = onlineGameSlice.actions;
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function BattleWordInput() {
   const submitHandler = (e) => {
     e.preventDefault();
     if (!myTurn) return;
-    if (input.length === secret.length) {
+    if (input.length === secret.length && !isLoading) {
       dispatch(onlineAddWord({
         socket, gameId, userId, word: input.toLowerCase(), language,
       }));
@@ -40,13 +41,11 @@ function BattleWordInput() {
 
   return (
     <div className={`${cls.formWrap} inputForm`}>
-      {/* {error && <div className="error">{error}</div> } */}
       <div className={cls.info}>
         <CustomError selectState={selectGameOnline} />
         <p className="currentTurn">{createStatusTurn()}</p>
       </div>
       <form onSubmit={submitHandler} className={cls.inputWrap}>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label htmlFor="inputForm" className={`${cls.labelWord} form-label`}>Введите слово:</label>
         <input
           type="text"
@@ -57,8 +56,9 @@ function BattleWordInput() {
           name="suppose"
           onChange={inputsHandler}
           value={input}
+          autoComplete="off"
         />
-        <button type="submit" className={cls.checkBtn} disabled={!myTurn}>
+        <button type="submit" className={cls.checkBtn} disabled={!myTurn || isLoading} >
           Проверить!
         </button>
       </form>

@@ -37,7 +37,6 @@ export const onlineAddWord = createAsyncThunk('onlineGame/onlineAddWord', async 
     const {
       language, word, userId, socket, gameId,
     } = data;
-    console.log(language, word, userId, socket, gameId);
     const res = await axios.post('/game/word', { language, word });
     socket.send(JSON.stringify({
       type: 'ADD_WORD',
@@ -78,9 +77,7 @@ export const configureOfflineGame = createAsyncThunk('gameComp/configureOfflineG
       language, word, hardMode,
     } = data;
     const res = await axios.post('/game/word', { language, word });
-    console.log(res);
     const fetchCompController = await axios.post('/game/comp', { language, secret: res.data.word, hardMode });
-    console.log(fetchCompController);
     return { word: res.data, compController: fetchCompController.data };
   } catch (err) {
     throw err.response.data;

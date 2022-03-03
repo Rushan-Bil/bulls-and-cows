@@ -84,11 +84,11 @@
 .tableWrap {
   overflow-y:auto;
   overflow-x: hidden;
+  align-items: center;
 }
 .table {
   border-collapse: collapse;
   width: calc(100% - 10px);
-  position: absolute;
   table-layout: fixed;
 }
 

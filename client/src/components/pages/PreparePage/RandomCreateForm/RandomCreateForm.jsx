@@ -2,32 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import cls from '../prepare.module.css';
-import { startSearching } from '../../../../store/reducers/actionCreators';
 import ws from '../../../../socket/socket';
 import { onlineGameSlice, selectGameOnline } from '../../../../store/reducers/onlineGameSlice';
 import { selectUserSlice } from '../../../../store/reducers/userSlice';
+import PrepareFormControl from '../PrepareFormControl/PrepareFormControl';
 
 function RandomCreateForm() {
-  const { error, isLoading, socket } = useSelector(selectGameOnline);
   const navigate = useNavigate();
   const { userId } = useSelector(selectUserSlice);
-  const [language, setLanguage] = useState('ru');
-  const [word, setWord] = useState('');
   const dispatch = useDispatch();
+  const [searchingList, setSearchingList] = useState([]);
   const {
-    clearError, setSocket, setLoading, setTurn, setGameId,
+    setSocket, setLoading, setTurn, setGameId,
   } = onlineGameSlice.actions;
   useEffect(() => {
     dispatch(setSocket(ws));
+    ws.send(JSON.stringify({ type: 'GET_ALL_SEARCHING', payload: {} }));
     ws.onmessage = (message) => {
       const { type, payload = {} } = JSON.parse(message.data);
-      console.log(payload);
-      const { gameId, currentTurn } = payload;
-      console.log('TYPE', type, payload);
+      const { gameId, currentTurn, searchList } = payload;
       switch (type) {
+        case 'UPDATE_SEARCHING':
+          setSearchingList(() => searchList);
+          return;
         case 'SEARCHING':
-          console.log('SEARCHING');
-          console.log(isLoading);
           dispatch(setLoading(true));
           return;
         case 'CONNECTED_GAME':
@@ -40,45 +38,32 @@ function RandomCreateForm() {
           break;
       }
     };
+    return () => {
+      ws.send(JSON.stringify({ type: 'STOP_SEARCHING', payload: { userId } }));
+      dispatch(setLoading(false));
+    };
   }, []);
-
-  const handleErrorClass = () => (error
-    ? 'error'
-    : 'error fadeOut');
-
-  const handleSelect = (e) => {
-    setLanguage(e.target.value);
-  };
-  const handleInput = (e) => {
-    setWord(e.target.value);
-    if (error) {
-      dispatch(clearError());
-    }
-  };
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    const prepareWord = word.toLowerCase();
-    await dispatch(startSearching({
-      language, word: prepareWord, userId, socket,
-    }));
-  };
-  if (isLoading) {
-    return <div>Поиск...</div>;
-  }
   return (
     <div className={cls.randomWrap}>
       <div className={cls.onlineData}>
-        ЗДЕСЬ БУДЕТ ИНФОРМАЦИЯ О ТОМ, СКОЛЬКО СЕЙЧАС ЛЮДЕЙ ИЩУТ ИГРУ
+        <table>
+          <thead>
+            <th>Username</th>
+            <th>Количество букв</th>
+            <th>Язык</th>
+          </thead>
+          <tbody>
+            {searchingList.map((item) => (
+              <tr key={item.userId}>
+                <td>{item.userName}</td>
+                <td>{item.word.length}</td>
+                <td>{item.language}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      <form className={cls.randomForm} onSubmit={submitHandler}>
-        <select name="language" defaultValue={language} onChange={handleSelect}>
-          <option value="ru">Русский</option>
-          <option value="en">Английский</option>
-        </select>
-        <input className="commonInput" value={word} onChange={handleInput} type="text" placeholder="Загадайте слово" required />
-        {error && <div className={handleErrorClass()}>{error}</div>}
-        <button type="submit" className={cls.start}>Начать поиск</button>
-      </form>
+      <PrepareFormControl />
     </div>
   );
 }
