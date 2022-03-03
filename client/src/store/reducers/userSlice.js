@@ -18,12 +18,25 @@ const initialState = {
 
 export const registrateUser = createAsyncThunk('registrateUser', async ({ name, email, password }) => {
   console.log('registrateUser work-----------------', name, email, password);
-  return api.post('/registration', { name, email, password });
+  try {
+    const res = await api.post('/registration', { name, email, password });
+    console.log('NO ERROR', res);
+    return res;
+  } catch (err) {
+    console.log('ERRRRRRRRRRRRRRRRRrrrrr++++', err);
+    throw err.response.data;
+  }
 });
 
 export const loginUser = createAsyncThunk('loginUser', async ({ email, password }) => {
   console.log('loginUser work-----------------', email, password);
-  return api.post('/login', { email, password });
+  try {
+    const res = await api.post('/login', { email, password });
+    return res;
+  } catch (err) {
+    console.log('ERRRRRRRRRRRRRRRRRrrrrr++++', err);
+    throw err.response.data;
+  }
 });
 
 export const checkAuth = createAsyncThunk('isAuth', async () => {
@@ -79,11 +92,11 @@ export const userSlice = createSlice({
         // localStorage.setItem('token', payload.data.accessToken);
       }
     },
-    [registrateUser.rejected]: (state, payload) => {
-      console.log('registrateUser rejected++++++++++++++++++++++++++++', payload);
+    [registrateUser.rejected]: (state, action) => {
+      console.log('registrateUser rejected++++++++++++++++++++++++++++', action.error.message);
       state.status = 'failed';
       state.isError = true;
-      state.message = 'Ошибка регистрации';
+      state.message = action.error.message;
     },
 
     //----------------------------------------------------------------------------
@@ -108,16 +121,15 @@ export const userSlice = createSlice({
       console.log(payload);
     },
     [loginUser.rejected]: (state, action) => {
-      console.log('loginUser rejected++++++++++++++++++++++++++++');
+      console.log('loginUser rejected++++++++++++++++++++++++++++', action.error.message);
       state.isAuth = false;
       state.status = 'failed';
       state.userName = '';
       state.userId = null;
       state.isError = true;
-      state.message = 'Ошибка авторизации';
+      state.message = action.error.message;
       state.imgPath = '';
       state.fetch = 'err';
-      console.log(action.error);
     },
 
     //----------------------------------------------------------------------------
