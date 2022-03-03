@@ -165,6 +165,7 @@ export const userSlice = createSlice({
         state.userName = '';
         state.userId = null;
         localStorage.removeItem('token');
+        localStorage.removeItem('gamerId');
         state.imgPath = '';
       }
       console.log(payload);
@@ -176,6 +177,8 @@ export const userSlice = createSlice({
       state.userId = null;
       state.isError = true;
       state.message = 'Ошибка что то пошло не так';
+      localStorage.removeItem('token');
+      localStorage.removeItem('gamerId');
     },
 
     //----------------------------------------------------------------------------
