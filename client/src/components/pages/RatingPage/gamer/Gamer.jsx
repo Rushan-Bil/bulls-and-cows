@@ -1,6 +1,6 @@
 import React from 'react';
 import cls from './gamer.module.css';
-import { SERVER_URL } from '../../../../config'
+import { SERVER_URL } from '../../../../config';
 
 function Gamer({
   photo, name, rating, id,
