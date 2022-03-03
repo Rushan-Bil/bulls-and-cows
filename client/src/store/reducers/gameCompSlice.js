@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import gameController from '../../controllers/GameController';
 import {
-  setCompController, configureOfflineGame, offlineCheckWord, offlineAddWord,
+  configureOfflineGame, offlineAddWord,
 } from './actionCreators';
-import companyController from '../../controllers/companyController';
 
 const initialState = {
   secret: '',

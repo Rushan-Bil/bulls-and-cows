@@ -9,8 +9,6 @@ import ChoiceWordDialog from './ChoiceWordDialog/ChoiceWordDialog';
 import BattleWordInput from './BattleWordInput/BattleWordInput';
 import { onlineGameSlice, selectGameOnline } from '../../../store/reducers/onlineGameSlice';
 import { letterSlice } from '../../../store/reducers/lettersSlice';
-import { selectUserSlice } from '../../../store/reducers/userSlice';
-import CustomError from '../../CustomError/CustomError';
 
 function BattlePage() {
   const dispatch = useDispatch();

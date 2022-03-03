@@ -4,6 +4,7 @@ import CSSTransition from 'react-transition-group/CSSTransition';
 import cls from './prepare.module.css';
 import RoomCreateForm from './RoomCreateForm/RoomCreateForm';
 import RandomCreateForm from './RandomCreateForm/RandomCreateForm';
+
 function PreparePage() {
   const [showRoomSetting, setShowRoomSetting] = useState(false);
   const clickHandler = () => {

@@ -1,9 +1,10 @@
 import React from 'react';
 import cls from './loader.module.css';
 
-function Loader(props) {
+function Loader({ text = '' }) {
   return (
-    <div className={cls.loader}>
+    <>
+      {text && <p>{text}</p>}
       <div className={cls.ldsRoller}>
         <div />
         <div />
@@ -14,7 +15,7 @@ function Loader(props) {
         <div />
         <div />
       </div>
-    </div>
+    </>
   );
 }
 

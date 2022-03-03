@@ -4,6 +4,7 @@ import cls from './menuItem.module.css';
 
 function MenuItem({ title, link }) {
   const navigate = useNavigate();
+
   const clickHandler = () => {
     navigate(link);
   };

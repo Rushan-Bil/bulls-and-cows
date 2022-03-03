@@ -5,4 +5,5 @@
   gap: 20px;
   align-items: center;
   max-height: 50%;
+  animation: fadeFromTop 1s ease-in-out;
 }

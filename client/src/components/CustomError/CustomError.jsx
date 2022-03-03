@@ -1,13 +1,12 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import cls from './style.module.css';
 
 function CustomError({ selectState }) {
   const { error } = useSelector(selectState);
-  console.log('ERRROR', error);
   return (
-    <TransitionGroup className={cls.errorContainer}>
+    <TransitionGroup>
       <CSSTransition
         key={error}
         timeout={500}

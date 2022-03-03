@@ -27,5 +27,4 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/user', userRouter);
 app.use('/game', gameRouter);
 app.use(errorMiddleware);
-
 webSocket(app.listen(PORT));

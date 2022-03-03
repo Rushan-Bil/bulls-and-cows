@@ -2,7 +2,7 @@ const { WebSocket } = require('ws');
 
 const decoder = new TextDecoder('utf-8');
 const gameController = require('../controllers/GameController');
-const { Game, GamesAndUser } = require('../db/models');
+const { Game, GamesAndUser, User } = require('../db/models');
 
 const games = {};
 let searching = [];
@@ -25,23 +25,35 @@ const webSocket = function (expressServer) {
         userId, gameId, word, language,
       } = payload;
       switch (type) {
+        case 'GET_ALL_SEARCHING':
+          socket.send((JSON.stringify({ type: 'UPDATE_SEARCHING', payload: { searchList: searching } })));
+          break;
+        case 'STOP_SEARCHING':
+          searching = searching.filter((item) => item.userId !== userId);
+          wss.clients.forEach((client) => {
+            client.send((JSON.stringify({ type: 'UPDATE_SEARCHING', payload: { searchList: searching } })));
+          });
+          break;
         case 'SEARCHING_GAME':
           socket.id = userId;
           const opp = searching.filter((opp) => opp.word.length === word.length && opp.language === language && opp.userId !== userId)[0];
+          const currentUserName = await User.findByPk(userId);
           if (!opp) {
             const index = searching.findIndex((item) => item.userId === userId);
             if (index === -1) {
               searching.push({
-                userId, language, word,
+                userId, language, word, userName: currentUserName.name,
               });
             } else {
               searching[index].language = language;
               searching[index].word = word;
             }
-            console.log('SEARCHING');
+            wss.clients.forEach((client) => {
+              client.send(JSON.stringify({ type: 'UPDATE_SEARCHING', payload: { searchList: searching } }));
+            });
             return socket.send(JSON.stringify({ type: 'SEARCHING' }));
           }
-          console.log('PODBOR SOPERNIKA', searching);
+
           searching = searching.filter((item) => item.userId !== opp.userId || item.userId !== userId);
           const newGame = await Game.create({ winner: null, status: 'START' });
           await GamesAndUser.create({ game_id: newGame.id, user_id: userId });
@@ -74,7 +86,6 @@ const webSocket = function (expressServer) {
           const currentUser = game.users[userId];
           const { secret } = currentUser;
           const bullsAndCows = gameController.countBullandCows(word, secret);
-          console.log(bullsAndCows);
           currentUser.words.push(bullsAndCows);
           let gameCurrentTurn = game.currentTurn;
           for (const key in game.users) {
