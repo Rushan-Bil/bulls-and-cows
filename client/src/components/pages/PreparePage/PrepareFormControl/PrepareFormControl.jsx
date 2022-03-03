@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import cls from '../prepare.module.css';
 import { startSearching } from '../../../../store/reducers/actionCreators';
 import { onlineGameSlice, selectGameOnline } from '../../../../store/reducers/onlineGameSlice';
@@ -17,9 +16,7 @@ function PrepareFormControl() {
     setError, setLoading,
   } = onlineGameSlice.actions;
   const dispatch = useDispatch();
-  const handleErrorClass = () => (error
-    ? 'error'
-    : 'error fadeOut');
+
   const handleStopSearching = () => {
     socket.send(JSON.stringify({ type: 'STOP_SEARCHING', payload: { userId } }));
     dispatch(setLoading(false));
@@ -56,7 +53,9 @@ function PrepareFormControl() {
         : (
           <>
             {error && (
+            <div className={cls.info}>
               <CustomError selectState={selectGameOnline} />
+            </div>
             )}
             <form onSubmit={submitHandler}>
               <select name="language" defaultValue={language} onChange={handleSelect}>

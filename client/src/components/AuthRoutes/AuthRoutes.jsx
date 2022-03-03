@@ -14,6 +14,7 @@ import SettingsPage from '../pages/SettingsPage/SettingsPage';
 import RatingPage from '../pages/RatingPage/RatingPage';
 import { selectUserSlice } from '../../store/reducers/userSlice';
 import PreparePage from '../pages/PreparePage/PreparePage';
+
 function AuthRoutes() {
   const { isAuth } = useSelector(selectUserSlice);
   return (
