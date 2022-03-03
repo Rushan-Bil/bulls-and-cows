@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   loginUser,
   selectUserSlice,
+  userSlice,
 } from '../../store/reducers/userSlice';
 
 function Login() {
@@ -14,6 +15,8 @@ function Login() {
     event.preventDefault();
     dispatch(loginUser({ email, password }));
   };
+  const { setErrorMessageNull } = userSlice.actions;
+  useEffect(() => () => dispatch(setErrorMessageNull()), []);
 
   const errMessage = useSelector(selectUserSlice);
 

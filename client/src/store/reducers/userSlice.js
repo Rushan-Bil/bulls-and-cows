@@ -19,17 +19,30 @@ const initialState = {
 
 export const registrateUser = createAsyncThunk('registrateUser', async ({ name, email, password }) => {
   console.log('registrateUser work-----------------', name, email, password);
-  return api.post('/registration', { name, email, password });
+  try {
+    const res = await api.post('/registration', { name, email, password });
+    console.log('NO ERROR', res);
+    return res;
+  } catch (err) {
+    console.log('ERRRRRRRRRRRRRRRRRrrrrr++++', err);
+    throw err.response.data;
+  }
 });
 
 export const loginUser = createAsyncThunk('loginUser', async ({ email, password }) => {
   console.log('loginUser work-----------------', email, password);
-  return api.post('/login', { email, password });
+  try {
+    const res = await api.post('/login', { email, password });
+    return res;
+  } catch (err) {
+    console.log('ERRRRRRRRRRRRRRRRRrrrrr++++', err);
+    throw err.response.data;
+  }
 });
 
 export const checkAuth = createAsyncThunk('isAuth', async () => {
   console.log('refresh work-----------------');
-  const response = await axios(`${API_URL}/refresh`, { withCredentials: true });
+  const response = api.get('/refresh', { withCredentials: true });
   return response;
 });
 
@@ -53,6 +66,10 @@ export const userSlice = createSlice({
     setFetching(state, action) {
       console.log(action.payload);
       state.fetch = action.payload;
+    },
+    setErrorMessageNull(state) {
+      state.isError = false;
+      state.message = '';
     },
     setLoading(state, action) {
       state.isLoading = action.payload;
@@ -79,11 +96,11 @@ export const userSlice = createSlice({
         // localStorage.setItem('token', payload.data.accessToken);
       }
     },
-    [registrateUser.rejected]: (state, payload) => {
-      console.log('registrateUser rejected++++++++++++++++++++++++++++', payload);
+    [registrateUser.rejected]: (state, action) => {
+      console.log('registrateUser rejected++++++++++++++++++++++++++++', action.error.message);
       state.status = 'failed';
       state.isError = true;
-      state.message = 'Ошибка регистрации';
+      state.message = action.error.message;
     },
 
     //----------------------------------------------------------------------------
@@ -97,6 +114,7 @@ export const userSlice = createSlice({
       state.status = 'success';
       if (payload.status === 200) {
         localStorage.setItem('token', payload.data.accessToken);
+        localStorage.setItem('gamerId', payload.data.user.id);
         state.isAuth = true;
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
@@ -107,16 +125,15 @@ export const userSlice = createSlice({
       console.log(payload);
     },
     [loginUser.rejected]: (state, action) => {
-      console.log('loginUser rejected++++++++++++++++++++++++++++');
+      console.log('loginUser rejected++++++++++++++++++++++++++++', action.error.message);
       state.isAuth = false;
       state.status = 'failed';
       state.userName = '';
       state.userId = null;
       state.isError = true;
-      state.message = 'Ошибка авторизации';
+      state.message = action.error.message;
       state.imgPath = '';
       state.fetch = 'err';
-      console.log(action.error);
     },
 
     //----------------------------------------------------------------------------
@@ -135,6 +152,8 @@ export const userSlice = createSlice({
         state.userName = payload.data.user.name;
         state.userId = payload.data.user.id;
         state.imgPath = payload.data.user.photo;
+        state.isError = false;
+        state.message = '';
       }
       console.log(payload);
     },
@@ -162,6 +181,7 @@ export const userSlice = createSlice({
         state.userName = '';
         state.userId = null;
         localStorage.removeItem('token');
+        localStorage.removeItem('gamerId');
         state.imgPath = '';
       }
       console.log(payload);
@@ -173,6 +193,8 @@ export const userSlice = createSlice({
       state.userId = null;
       state.isError = true;
       state.message = 'Ошибка что то пошло не так';
+      localStorage.removeItem('token');
+      localStorage.removeItem('gamerId');
     },
 
     //----------------------------------------------------------------------------

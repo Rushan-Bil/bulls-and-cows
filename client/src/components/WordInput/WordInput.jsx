@@ -1,8 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 import controller from '../../controllers/TrainController';
-import gameController from '../../controllers/GameController';
 import { trainSlice } from '../../store/reducers/trainSlice';
+
 import cls from './wordInput.module.css';
 
 function WordInput({ setWords }) {
@@ -12,31 +13,36 @@ function WordInput({ setWords }) {
   const open = useSelector((state) => state.trainSlice.open);
   const { setOpen } = trainSlice.actions;
   const dispatch = useDispatch();
+  let res = '';
   const wordLength = secret?.length;
-
-  console.log(open);
 
   const inputsHandler = (e) => {
     if (e.target.value.length > wordLength) return;
     setInputs(e.target.value);
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     setError('');
-    const suppose = inputs;
+    const suppose = inputs.toLowerCase();
     setInputs('');
+
     if (suppose.length !== wordLength) {
       setError('Введите слово целиком');
-    } else if (!gameController.checkIncludesWord(suppose)) {
-      setError(`${suppose} - такого слова нет в словаре`);
-    } else if (suppose?.length === wordLength) {
-      const bulls = controller.checkBulls(secret, suppose);
-      const cows = controller.checkCows(secret, suppose);
-      setWords((prev) => ([...prev, { word: suppose, bulls, cows }]));
-      if (bulls === secret.length) {
-        dispatch(setOpen(true));
-        console.log(open);
+    } else {
+      try {
+        res = await axios.post('/game/word', { word: suppose, language: 'ru' });
+      } catch (err) {
+        setError(`${suppose} - такого слова нет в словаре`);
+        throw err;
+      }
+      if (res.status === 200 && suppose?.length === wordLength) {
+        const bulls = controller.checkBulls(secret, suppose);
+        const cows = controller.checkCows(secret, suppose);
+        setWords((prev) => ([...prev, { word: suppose, bulls, cows }]));
+        if (bulls === secret.length) {
+          dispatch(setOpen(true));
+        }
       }
     }
   };
@@ -57,8 +63,6 @@ function WordInput({ setWords }) {
               type="text"
               className="commonInput"
               id="inputSuppose"
-              // pattern="[А-Яа-яЁё ]+" // ТАК СЕБЕ ВАРИАНТ
-              // placeholder="Только русские буквы" // ТАК СЕБЕ ВАРИАНТ
               name="suppose"
               onChange={inputsHandler}
               value={inputs}
