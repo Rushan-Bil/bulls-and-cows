@@ -14,6 +14,7 @@ const initialState = {
   message: '',
   fetch: 'fetching',
   userList: [],
+  isLoading: false,
 };
 
 export const registrateUser = createAsyncThunk('registrateUser', async ({ name, email, password }) => {
@@ -69,6 +70,9 @@ export const userSlice = createSlice({
     setErrorMessageNull(state) {
       state.isError = false;
       state.message = '';
+    },
+    setLoading(state, action) {
+      state.isLoading = action.payload;
     },
   },
   extraReducers: {

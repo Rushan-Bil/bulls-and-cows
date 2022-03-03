@@ -5,22 +5,22 @@ import Modal from '@mui/material/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import cls from '../../BattlePage/ChoiceWordDialog/style.module.css';
 import { gameCompSlice, selectCompSlice } from '../../../../store/reducers/gameCompSlice';
-import gameController from '../../../../controllers/GameController';
-import { configureOfflineGame, setCompController, setSecretOffline } from '../../../../store/reducers/actionCreators';
+import { configureOfflineGame } from '../../../../store/reducers/actionCreators';
+import Loader from '../../../loader/Loader';
 
 export default function CompanyWordDialog() {
   const dispatch = useDispatch();
-  const { setSecret, setError } = gameCompSlice.actions;
-  const { secret, error, gameStart } = useSelector(selectCompSlice);
-  const [open, setOpen] = useState(true);
+  const { setError } = gameCompSlice.actions;
+  const { error, gameStart, isLoading } = useSelector(selectCompSlice);
   const [input, setInput] = useState('');
   const [language, setLanguage] = useState('ru');
   const [hardMode, setHardMode] = useState(false);
   const [removeError, setRemoveError] = useState(false);
-  console.log(gameStart);
+
   const handleErrorClass = () => (removeError
     ? 'error fadeOut'
     : 'error');
+
   const handleSelect = (e) => {
     setLanguage(e.target.value);
   };
@@ -63,17 +63,21 @@ export default function CompanyWordDialog() {
           Для начала игры загадайте слово и
           нажмите кнопку &ldquo;Старт!&rdquo;
         </p>
-        <form onSubmit={handleStart} className={cls.inputsWrap}>
-          <input ref={focusRef} type="text" className="commonInput" value={input} onChange={handleInput} placeholder="Секретное слово" />
-          <select name="language" defaultValue={language} onChange={handleSelect}>
-            <option value="ru">Русский</option>
-            <option value="en">Английский</option>
-          </select>
-          <input type="checkbox" id="hardMode" checked={hardMode} />
-          <label htmlFor="hardMode" onClick={() => setHardMode(!hardMode)}>Hard Mode</label>
-          {error && <div className={handleErrorClass()}>{error}</div>}
-          <button type="submit" className={cls.start}>Старт!</button>
-        </form>
+        {isLoading
+          ? <Loader/>
+          : (
+            <form onSubmit={handleStart} className={cls.inputsWrap}>
+              <input ref={focusRef} type="text" className="commonInput" value={input} onChange={handleInput} placeholder="Секретное слово" />
+              <select name="language" defaultValue={language} onChange={handleSelect}>
+                <option value="ru">Русский</option>
+                <option value="en">Английский</option>
+              </select>
+              <input type="checkbox" id="hardMode" checked={hardMode} />
+              <label htmlFor="hardMode" onClick={() => setHardMode(!hardMode)}>Hard Mode</label>
+              {error && <div className={handleErrorClass()}>{error}</div>}
+              <button type="submit" className={cls.start}>Старт!</button>
+            </form>
+          )}
       </div>
     </Modal>
   );

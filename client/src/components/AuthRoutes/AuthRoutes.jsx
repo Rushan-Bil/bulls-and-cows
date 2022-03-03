@@ -19,7 +19,7 @@ function AuthRoutes() {
   return (
     <Routes>
       <Route path="/" element={<MenuPage />} />
-      <Route path="/game/battle" element={isAuth ? <BattlePage /> : <Navigate to="/" />} />
+      <Route path="/game/battle/:id" element={isAuth ? <BattlePage /> : <Navigate to="/" />} />
       <Route path="/game/prepare" element={isAuth ? <PreparePage /> : <Navigate to="/" />} />
       <Route path="/settings" element={isAuth ? <SettingsPage /> : <Navigate to="/" />} />
       <Route path="/ratings" element={isAuth ? <RatingPage /> : <Navigate to="/" />} />
