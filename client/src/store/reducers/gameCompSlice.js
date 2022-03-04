@@ -24,8 +24,6 @@ export const gameCompSlice = createSlice({
   initialState,
   reducers: {
     resetGame(state) {
-      // state = initialState;
-      console.log(state);
       return initialState;
     },
     setError(state, action) {
