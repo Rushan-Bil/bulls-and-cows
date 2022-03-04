@@ -94,54 +94,19 @@ function RulesPage() {
               <img src={imgCows} alt="" width="80%" />
             </div>
           </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className={cls.pageWrap}>
-            <div className={`${cls.inputWrap} inputForm`} style={{ marginTop: 0 }}>
-              <form onSubmit={submitHandler} className="form-registration">
-                <div className="">
-                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                  <label htmlFor="inputForm" className={`${cls.labelWord} form-label`}>Загаданное слово:</label>
-                  <div>
-                    <input
-                      type="text"
-                      className="commonInput"
-                      id="inputSecret"
-                      name="secret"
-                      onChange={inputsHandler2}
-                      value={inputs2}
-                      autoComplete="off"
-                    />
-                  </div>
-                </div>
-                <div className="">
-                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                  <label htmlFor="inputForm" className={`${cls.labelWord} form-label`}>Предположение игрока:</label>
-                  <div>
-                    <input
-                      type="text"
-                      className="commonInput"
-                      id="inputSuppose"
-                      name="suppose"
-                      onChange={inputsHandler}
-                      value={inputs}
-                      autoComplete="off"
-                    />
-                  </div>
-                </div>
-                <button type="submit" className={cls.checkBtn}>Проверить!</button>
-              </form>
-              {answer && (
-              <div className={cls.error}>
-                {answer}
-              </div>
-              )}
-            </div>
+          <div style={{ display: 'flex' }}>
+            <button type="submit" className={cls.checkBtn}>Проверить!</button>
+            <GoBack />
           </div>
-        </SwiperSlide>
-      </Swiper>
 
-    </div>
+        </form>
+        {answer && (
+          <div className={cls.error}>
+            {answer}
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 
