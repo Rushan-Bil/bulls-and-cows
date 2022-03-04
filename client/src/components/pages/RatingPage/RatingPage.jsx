@@ -29,7 +29,9 @@ function RatingPage() {
     const elem = event.target.closest('#ratingBox').querySelector(`[data-id="${slice.userId}"]`);
     elem.classList.add('mySelf');
     elem.scrollIntoView();
-    console.log(elem);
+    setTimeout(() => {
+      elem.classList.remove('mySelf');
+    }, 3000);
   };
 
   return (

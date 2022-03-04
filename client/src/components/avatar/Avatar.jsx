@@ -34,17 +34,13 @@ function Avatar() {
   }
   return (
     <div className={cls.avatarContainer}>
-      <div className={cls.photo}>
-        <img src={`${SERVER_URL}${slice.imgPath}`} alt="" width="150px" height="150px" />
-
-      </div>
-      <div className={cls.infocontainer}>
-        <p>{slice.userName}</p>
+      <div className={cls.photo} style={{ backgroundImage: `url(${SERVER_URL}${slice.imgPath})` }} alt="avatar">
         <form>
-          <button type="button" onClick={((event) => photoHandler(event))} className={cls.btnPhoto}>Сменить аватар</button>
+          <button type="button" className="changePhoto" onClick={((event) => photoHandler(event))}>Сменить аватар</button>
           <input name="avatar" type="file" id="getFile" className={cls.getPhoto} onChange={(event) => inputsHandler(event)} />
         </form>
       </div>
+      <p>{slice.userName}</p>
     </div>
   );
 }
