@@ -41,6 +41,9 @@ function Authorisation() {
       <div>
         <CustomError selectState={selectUserSlice} />
       </div>
+      <div>
+        {errMessage.mailMessage}
+      </div>
     </div>
   );
 }

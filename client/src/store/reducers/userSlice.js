@@ -15,6 +15,7 @@ const initialState = {
   fetch: 'fetching',
   userList: [],
   isLoading: false,
+  mailMessage: '',
 };
 
 export const registrateUser = createAsyncThunk('registrateUser', async ({ name, email, password }) => {
@@ -92,8 +93,8 @@ export const userSlice = createSlice({
       state.status = 'success';
       if (payload.status === 200) {
         console.log('registrateUser fullfiled++++++++++++++++++++++++++++', payload);
-        state.error = 'Проверьте почту';
         // localStorage.setItem('token', payload.data.accessToken);
+        state.mailMessage = 'Проверьте почту';
       }
     },
     [registrateUser.rejected]: (state, action) => {
@@ -154,6 +155,7 @@ export const userSlice = createSlice({
         state.imgPath = payload.data.user.photo;
         state.isError = false;
         state.error = '';
+        state.mailMessage = '';
       }
       console.log(payload);
     },
@@ -163,9 +165,8 @@ export const userSlice = createSlice({
       state.status = 'failed';
       state.userName = '';
       state.userId = null;
-      state.isError = true;
-      state.error = 'Ошибка что то пошло не так';
       state.imgPath = '';
+      state.mailMessage = '';
     },
     //----------------------------------------------------------------------------
     // LOGOUT
