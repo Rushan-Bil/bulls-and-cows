@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import controller from '../../../controllers/TrainController';
+import imgBulls from '../../../images/bulls.png';
+import imgCows from '../../../images/cows.png';
 import cls from './rulesPage.module.css';
 
 function RulesPage() {
@@ -56,15 +58,15 @@ function RulesPage() {
       <div>
         Бык — это буква, которая есть в загаданном слове и стоит на своем месте.
       </div>
-      {/* <div>
-        <img src="https://www.sunhome.ru/i/wallpapers/163/alberta-banf-kanada.1920x1200.jpg" alt="" width="50%" />
-      </div> */}
+      <div>
+        <img src={imgBulls} alt="" width="50%" />
+      </div>
       <div>
         Корова — это буква, которая есть в загаданном слове, но стоит не на своем месте.
       </div>
-      {/* <div>
-        <img src="https://img2.goodfon.com/original/6048x4032/6/83/gorod-franciya-parizh-eyfeleva.jpg" alt="" width="50%" />
-      </div> */}
+      <div>
+        <img src={imgCows} alt="" width="50%" />
+      </div>
       <div className={`${cls.inputWrap} inputForm`}>
         <form onSubmit={submitHandler}>
           <div className="">
