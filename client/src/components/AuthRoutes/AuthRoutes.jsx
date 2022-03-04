@@ -17,6 +17,7 @@ import PreparePage from '../pages/PreparePage/PreparePage';
 
 function AuthRoutes() {
   const { isAuth } = useSelector(selectUserSlice);
+  // auth
   return (
     <Routes>
       <Route path="/" element={<MenuPage />} />
