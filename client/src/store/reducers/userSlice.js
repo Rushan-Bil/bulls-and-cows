@@ -196,10 +196,12 @@ export const userSlice = createSlice({
       state.isAuth = false;
       state.userName = '';
       state.userId = null;
-      state.isError = false;
-      state.error = 'Ошибка что то пошло не так';
       localStorage.removeItem('token');
       localStorage.removeItem('gamerId');
+      state.imgPath = '';
+      state.isError = false;
+      state.error = '';
+      state.mailMessage = '';
     },
 
     //----------------------------------------------------------------------------
