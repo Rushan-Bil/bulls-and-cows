@@ -19,41 +19,41 @@ const initialState = {
 };
 
 export const registrateUser = createAsyncThunk('registrateUser', async ({ name, email, password }) => {
-  console.log('registrateUser work-----------------', name, email, password);
+  // console.log('registrateUser work-----------------', name, email, password);
   try {
     const res = await api.post('/registration', { name, email, password });
-    console.log('NO ERROR', res);
+    // console.log('NO ERROR', res);
     return res;
   } catch (err) {
-    console.log('ERRRRRRRRRRRRRRRRRrrrrr++++', err);
+    // console.log('ERRRRRRRRRRRRRRRRRrrrrr++++', err);
     throw err.response.data;
   }
 });
 
 export const loginUser = createAsyncThunk('loginUser', async ({ email, password }) => {
-  console.log('loginUser work-----------------', email, password);
+  // console.log('loginUser work-----------------', email, password);
   try {
     const res = await api.post('/login', { email, password });
     return res;
   } catch (err) {
-    console.log('ERRRRRRRRRRRRRRRRRrrrrr++++', err);
+    // console.log('ERRRRRRRRRRRRRRRRRrrrrr++++', err);
     throw err.response.data;
   }
 });
 
 export const checkAuth = createAsyncThunk('isAuth', async () => {
-  console.log('refresh work-----------------');
+  // console.log('refresh work-----------------');
   const response = api.get('/refresh', { withCredentials: true });
   return response;
 });
 
+// eslint-disable-next-line arrow-body-style
 export const logOut = createAsyncThunk('logOut', async () => {
-  console.log('logOut work-----------------');
   return api.post('/logout');
 });
 
+// eslint-disable-next-line arrow-body-style
 export const setUserList = createAsyncThunk('setUserList', async () => {
-  console.log('setUserList work-----------------');
   return api.get('/users');
 });
 
@@ -65,7 +65,7 @@ export const userSlice = createSlice({
       state.imgPath = action.payload;
     },
     setFetching(state, action) {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.fetch = action.payload;
     },
     setErrorMessageNull(state) {
@@ -86,19 +86,19 @@ export const userSlice = createSlice({
     //----------------------------------------------------------------------------
     // REGISTRATEUSER
     [registrateUser.pending]: (state) => {
-      console.log('registrateUser pending--------------');
+      // console.log('registrateUser pending--------------');
       state.status = 'loading';
     },
     [registrateUser.fulfilled]: (state, { payload }) => {
       state.status = 'success';
       if (payload.status === 200) {
-        console.log('registrateUser fullfiled++++++++++++++++++++++++++++', payload);
+        // console.log('registrateUser fullfiled++++++++++++++++++++++++++++', payload);
         // localStorage.setItem('token', payload.data.accessToken);
         state.mailMessage = 'Проверьте почту';
       }
     },
     [registrateUser.rejected]: (state, action) => {
-      console.log('registrateUser rejected++++++++++++++++++++++++++++', action.error.message);
+      // console.log('registrateUser rejected++++++++++++++++++++++++++++', action.error.message);
       state.status = 'failed';
       state.isError = true;
       state.error = action.error.message;
@@ -107,11 +107,11 @@ export const userSlice = createSlice({
     //----------------------------------------------------------------------------
     // LOGINUSER
     [loginUser.pending]: (state) => {
-      console.log('loginUser pending--------------');
+      // console.log('loginUser pending--------------');
       state.status = 'loading';
     },
     [loginUser.fulfilled]: (state, { payload }) => {
-      console.log('loginUser fullfiled++++++++++++++++++++++++++++', payload.data);
+      // console.log('loginUser fullfiled++++++++++++++++++++++++++++', payload.data);
       state.status = 'success';
       if (payload.status === 200) {
         localStorage.setItem('token', payload.data.accessToken);
@@ -123,10 +123,10 @@ export const userSlice = createSlice({
         state.fetch = 'fetching';
         state.error = '';
       }
-      console.log(payload);
+      // console.log(payload);
     },
     [loginUser.rejected]: (state, action) => {
-      console.log('loginUser rejected++++++++++++++++++++++++++++', action.error.message);
+      // console.log('loginUser rejected++++++++++++++++++++++++++++', action.error.message);
       state.isAuth = false;
       state.status = 'failed';
       state.userName = '';
@@ -140,14 +140,14 @@ export const userSlice = createSlice({
     //----------------------------------------------------------------------------
     // CHECKAUTH
     [checkAuth.pending]: (state) => {
-      console.log('isAuth pending--------------');
+      // console.log('isAuth pending--------------');
       state.status = 'loading';
     },
     [checkAuth.fulfilled]: (state, { payload }) => {
-      console.log('isAuth fullfiled++++++++++++++++++++++++++++', payload.data);
+      // console.log('isAuth fullfiled++++++++++++++++++++++++++++', payload.data);
       state.status = 'success';
       if (payload.status === 200) {
-        console.log(payload);
+        // console.log(payload);
         localStorage.setItem('token', payload.data.accessToken);
         state.isAuth = true;
         state.userName = payload.data.user.name;
@@ -157,10 +157,10 @@ export const userSlice = createSlice({
         state.error = '';
         state.mailMessage = '';
       }
-      console.log(payload);
+      // console.log(payload);
     },
     [checkAuth.rejected]: (state, action) => {
-      console.log('isAuth rejected++++++++++++++++++++++++++++');
+      // console.log('isAuth rejected++++++++++++++++++++++++++++');
       state.isAuth = false;
       state.status = 'failed';
       state.userName = '';
@@ -171,11 +171,11 @@ export const userSlice = createSlice({
     //----------------------------------------------------------------------------
     // LOGOUT
     [logOut.pending]: (state) => {
-      console.log('logOut pending--------------');
+      // console.log('logOut pending--------------');
       state.status = 'loading';
     },
     [logOut.fulfilled]: (state, { payload }) => {
-      console.log('logOut fullfiled++++++++++++++++++++++++++++', payload.data);
+      // console.log('logOut fullfiled++++++++++++++++++++++++++++', payload.data);
       state.status = 'success';
       if (payload.status === 200) {
         state.isAuth = false;
@@ -185,10 +185,10 @@ export const userSlice = createSlice({
         localStorage.removeItem('gamerId');
         state.imgPath = '';
       }
-      console.log(payload);
+      // console.log(payload);
     },
     [logOut.rejected]: (state, action) => {
-      console.log('logOut rejected++++++++++++++++++++++++++++');
+      // console.log('logOut rejected++++++++++++++++++++++++++++');
       state.isAuth = false;
       state.userName = '';
       state.userId = null;
@@ -201,20 +201,20 @@ export const userSlice = createSlice({
     //----------------------------------------------------------------------------
     // USERLIST
     [setUserList.pending]: (state) => {
-      console.log('setUserList pending--------------');
+      // console.log('setUserList pending--------------');
       state.status = 'loading';
       state.fetch = 'fetching';
     },
     [setUserList.fulfilled]: (state, { payload }) => {
       state.status = 'success';
       if (payload.status === 200) {
-        console.log('setUserList fullfiled++++++++++++++++++++++++++++', payload);
+        // console.log('setUserList fullfiled++++++++++++++++++++++++++++', payload);
         state.userList = payload.data;
         state.fetch = 'done';
       }
     },
     [setUserList.rejected]: (state, payload) => {
-      console.log('setUserList rejected++++++++++++++++++++++++++++', payload);
+      // console.log('setUserList rejected++++++++++++++++++++++++++++', payload);
       state.fetch = 'err';
     },
   },

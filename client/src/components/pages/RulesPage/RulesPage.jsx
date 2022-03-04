@@ -1,8 +1,10 @@
+import GoBack from '../../goBack/GoBack';
 import React, { useState } from 'react';
 import controller from '../../../controllers/TrainController';
 import imgBulls from '../../../images/bulls.png';
 import imgCows from '../../../images/cows.png';
 import cls from './rulesPage.module.css';
+
 
 function RulesPage() {
   const [inputs, setInputs] = useState('');
@@ -107,8 +109,8 @@ function RulesPage() {
           </div>
         )}
       </div>
+      <GoBack />
     </>
-
   );
 }
 

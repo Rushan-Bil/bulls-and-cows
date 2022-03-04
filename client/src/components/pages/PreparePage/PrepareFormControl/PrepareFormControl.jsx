@@ -6,6 +6,7 @@ import { onlineGameSlice, selectGameOnline } from '../../../../store/reducers/on
 import { selectUserSlice } from '../../../../store/reducers/userSlice';
 import Loader from '../../../loader/Loader';
 import CustomError from '../../../CustomError/CustomError';
+import GoBack from '../../../goBack/GoBack';
 
 function PrepareFormControl() {
   const { error, socket, isLoading } = useSelector(selectGameOnline);
@@ -46,7 +47,7 @@ function PrepareFormControl() {
       {isLoading && !error
         ? (
           <div className={cls.searchingWrap}>
-            <Loader text="Поиск и подбор соперника..."/>
+            <Loader text="Поиск и подбор соперника..." />
             <button onClick={handleStopSearching} className={cls.stop}>Отменить</button>
           </div>
         )
@@ -63,12 +64,15 @@ function PrepareFormControl() {
                 <option value="en">Английский</option>
               </select>
               <input className="commonInput" value={word} onChange={handleInput} type="text" placeholder="Загадайте слово" required />
-              <button type="submit" className={cls.start}>Начать поиск</button>
+              <div>
+                <button type="submit" className={cls.start} style={{ marginBottom: '2vh' }}>Начать поиск</button>
+                <GoBack />
+              </div>
             </form>
           </>
         )}
 
-    </div>
+    </div >
   );
 }
 

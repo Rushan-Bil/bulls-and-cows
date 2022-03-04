@@ -3,13 +3,17 @@ import React, {
 } from 'react';
 import Modal from '@mui/material/Modal';
 import { useDispatch, useSelector } from 'react-redux';
+import { red } from '@mui/material/colors';
+import { useNavigate } from 'react-router-dom';
 import cls from '../../BattlePage/ChoiceWordDialog/style.module.css';
 import { gameCompSlice, selectCompSlice } from '../../../../store/reducers/gameCompSlice';
 import { configureOfflineGame } from '../../../../store/reducers/actionCreators';
 import Loader from '../../../loader/Loader';
+import GoBack from '../../../goBack/GoBack';
 
 export default function CompanyWordDialog() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { setError } = gameCompSlice.actions;
   const { error, gameStart, isLoading } = useSelector(selectCompSlice);
   const [input, setInput] = useState('');
@@ -64,7 +68,7 @@ export default function CompanyWordDialog() {
           нажмите кнопку &ldquo;Старт!&rdquo;
         </p>
         {isLoading
-          ? <Loader/>
+          ? <Loader />
           : (
             <form onSubmit={handleStart} className={cls.inputsWrap}>
               <input ref={focusRef} type="text" className="commonInput" value={input} onChange={handleInput} placeholder="Секретное слово" />
@@ -75,7 +79,11 @@ export default function CompanyWordDialog() {
               <input type="checkbox" id="hardMode" checked={hardMode} />
               <label htmlFor="hardMode" onClick={() => setHardMode(!hardMode)}>Hard Mode</label>
               {error && <div className={handleErrorClass()}>{error}</div>}
-              <button type="submit" className={cls.start}>Старт!</button>
+              <div style={{ display: 'flex' }}>
+                <button type="submit" className={cls.start}>Старт!</button>
+                <GoBack />
+              </div>
+
             </form>
           )}
       </div>
