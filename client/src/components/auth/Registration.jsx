@@ -26,7 +26,7 @@ function Authorisation() {
     <div className="registration">
       <div className="regForm">
         <h1 className="head">Регистрация</h1>
-        <form onSubmit={(event) => registrateHandler(event)}>
+        <form className="form-registration" onSubmit={(event) => registrateHandler(event)}>
           <input className="commonInput" value={name} onChange={(e) => setName(e.target.value)} placeholder="Имя игрока" />
           <input className="commonInput" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Почта" />
           <input className="commonInput" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" type="password" />
