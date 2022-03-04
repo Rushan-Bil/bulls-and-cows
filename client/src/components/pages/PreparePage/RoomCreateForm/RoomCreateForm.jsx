@@ -1,6 +1,6 @@
 import React from 'react';
-import CSSTransition from 'react-transition-group/CSSTransition';
-import { TransitionGroup } from 'react-transition-group';
+import GoBack from '../../../goBack/GoBack';
+import cls from '../../BattlePage/ChoiceWordDialog/style.module.css';
 
 function RoomCreateForm() {
   return (
@@ -8,7 +8,12 @@ function RoomCreateForm() {
       <form>
         <input className="commonInput" type="text" placeholder="введите номер комнаты" required />
         <input className="commonInput" type="password" placeholder="введите пароль для комнаты" />
-        <button type="button">Создать</button>
+
+        <div style={{ display: 'flex' }}>
+          <button className={cls.start}>Создать</button>
+          <GoBack />
+        </div>
+
       </form>
     </div>
   );

@@ -6,10 +6,11 @@ import WordsList from '../WordsList/WordsList';
 function TabWordsList({ reducer }) {
   const [count, setCount] = useState(0);
   const {
-    myWords, oppWords,
+    myWords, oppWords, isLoading,
   } = useSelector((state) => ({
     myWords: state[reducer].myWords,
     oppWords: state[reducer].oppWords,
+    isLoading: state[reducer].isLoading,
   }));
 
   const [showMe, setShowMe] = useState(true);
@@ -35,8 +36,8 @@ function TabWordsList({ reducer }) {
         </button>
       </div>
       {showMe
-        ? <WordsList words={myWords} type="myWords" />
-        : <WordsList words={oppWords} type="oppWords" />}
+        ? <WordsList words={myWords} type="myWords" isLoading={isLoading ?? false}/>
+        : <WordsList words={oppWords} type="oppWords" isLoading={isLoading ?? false}/>}
 
     </div>
 

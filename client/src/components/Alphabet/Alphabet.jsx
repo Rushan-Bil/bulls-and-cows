@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Letter from '../Letter/Letter';
 import cls from './alphabet.module.css';
-import { letterSlice } from '../../store/reducers/lettersSlice';
 
 function Alphabet() {
   const { alphabet } = useSelector((state) => state.letterReducer);

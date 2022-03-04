@@ -60,3 +60,9 @@ padding: 10px;
   transform: scale(0.95);
   background: rgba(0,229,255,0.5);
 }
+.loader{
+  margin-top: 20vh;
+}
+.loaderContainer{
+  margin-top: 25vh;
+}

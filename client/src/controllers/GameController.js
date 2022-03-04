@@ -2,7 +2,7 @@
 const { dictionary } = require('../dictionary');
 
 class GameController {
-  dict = dictionary;
+  dict = [];
 
   checkIncludesWord(word) {
     return this.dict.includes(word);
@@ -73,6 +73,6 @@ class GameController {
   }
 }
 const alex = new GameController();
-alex.countBullandCows('овлов', 'облов'); // ?
+alex.countBullandCows('хетт', 'тест'); // ?
 
 export default new GameController();

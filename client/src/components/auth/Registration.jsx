@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import CustomError from '../CustomError/CustomError';
 import {
   registrateUser,
   selectUserSlice,
@@ -24,18 +25,24 @@ function Authorisation() {
   return (
     <div className="registration">
       <div className="regForm">
-        <h1 className="head">REGISTRATION</h1>
-        <form onSubmit={(event) => registrateHandler(event)}>
+        <h1 className="head">Регистрация</h1>
+        <form className="form-registration" onSubmit={(event) => registrateHandler(event)}>
           <input className="commonInput" value={name} onChange={(e) => setName(e.target.value)} placeholder="Имя игрока" />
           <input className="commonInput" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Почта" />
           <input className="commonInput" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" type="password" />
           <h2 className={errMessage.isError ? 'warning' : undefined}>{errMessage.message}</h2>
           <div>
             <button type="submit" className="menuBtn">
-              Registration
+              Зарегистрироваться
             </button>
           </div>
         </form>
+      </div>
+      <div>
+        <CustomError selectState={selectUserSlice} />
+      </div>
+      <div>
+        {errMessage.mailMessage}
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 .labelWord {
-  font-size: 24px;
   padding: 5px 10px;
 }
 
@@ -22,18 +21,21 @@
 }
 
 .formWrap {
-  box-shadow: 0 0 10px 2px rgb(0,0,0,0.1);
   padding: 10px 20px;
   border-radius: 5px;
   margin-top: auto;
   position: relative;
 }
 .inputWrap {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
   margin-top: auto;
+  box-shadow: 0 0 10px 2px rgb(0,0,0,0.1);
+  padding: 10px 20px;
+  border-radius: 5px;
 }
 
 .info {
@@ -52,7 +54,6 @@
 
 .error {
   padding:10px 20px;
-  font-size: 16px;
   transition: all 1s ease-in-out;
   background: rgba(255, 0, 0, 0.5);
   animation: fadeIn 0.5s ease-in-out forwards;
