@@ -23,7 +23,7 @@
 .navList button::before{
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -2px;
   width: 100%;
   height: 2px;
   background: #00B7FF;

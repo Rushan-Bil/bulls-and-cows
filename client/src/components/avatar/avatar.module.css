@@ -4,30 +4,31 @@
   gap:20px;
 }
 .photo{
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   max-height: 100%;
+  background: no-repeat center center;
+  background-size: cover;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 2px rgba(255,255,255,0.3);
+  border: 0.1rem solid rgba(255,255,255,1);
 }
-.photo img {
-  height: auto;
-  width: 100%;
+.photo form {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(105%);
+}
+.photo form * {
+  font-size: 0.5rem;
+  color:white;
 }
 .getPhoto{
   visibility: hidden;
   position: absolute;
 }
 
-.btnPhoto{
-  font-size: 12px;
-  color: blue;
-}
-.infocontainer {
-  position: relative;
-}
-.infocontainer form {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(100%);
-}
