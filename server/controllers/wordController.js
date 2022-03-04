@@ -1,3 +1,4 @@
+const { log } = require('debug');
 const { Word, Language } = require('../db/models');
 const CompPlayerController = require('./compPlayerController');
 const gameController = require('./GameController');
@@ -23,8 +24,11 @@ class WordController {
       const dict = await Word.findAll();
       const newCompController = await CompPlayerController.guessingWord(dict, compController);
       const lastWord = newCompController.words[newCompController.words.length - 1].word;
+      console.log('lastword', lastWord);
       const result = gameController.countBullandCows(lastWord, compController.secret);
+      console.log('result', result);
       const userResult = gameController.countBullandCows(userWord, compController.word);
+      console.log('USER RESULT', userResult);
       const userWin = userResult.bulls === compController.word.length;
       const compWin = result.bulls === compController.secret.length;
       const finishGame = userWin || compWin;

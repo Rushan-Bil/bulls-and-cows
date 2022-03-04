@@ -41,6 +41,6 @@ class GameController {
   }
 }
 const alex = new GameController();
-alex.countBullandCows('акколада', 'акваланг'); // ?
+alex.countBullandCows('олово', 'слово'); // ?
 // alex.computerGuessingWord('акваланг', dictionary); // ?
 module.exports = new GameController();
