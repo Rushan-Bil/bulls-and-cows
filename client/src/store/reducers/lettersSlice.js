@@ -32,6 +32,9 @@ export const letterSlice = createSlice({
       const { compController } = action.payload;
       state.alphabet = alphabets[compController.language];
     },
+    [gameCompSlice.actions.resetGame]: (state) => {
+      state = initialState;
+    },
   },
 });
 

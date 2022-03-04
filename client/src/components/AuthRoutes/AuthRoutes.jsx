@@ -22,7 +22,6 @@ function AuthRoutes() {
       <Route path="/" element={<MenuPage />} />
       <Route path="/game/battle/:id" element={isAuth ? <BattlePage /> : <Navigate to="/" />} />
       <Route path="/game/prepare" element={isAuth ? <PreparePage /> : <Navigate to="/" />} />
-      <Route path="/settings" element={isAuth ? <SettingsPage /> : <Navigate to="/" />} />
       <Route path="/ratings" element={isAuth ? <RatingPage /> : <Navigate to="/" />} />
       <Route path="/login" element={isAuth ? <Navigate to="/" /> : <Login />} />
       <Route path="/registration" element={<Authorisation />} />

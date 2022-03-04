@@ -24,7 +24,7 @@ function Authorisation() {
   return (
     <div className="registration">
       <div className="regForm">
-        <h1 className="head">REGISTRATION</h1>
+        <h1 className="head">Регистрация</h1>
         <form onSubmit={(event) => registrateHandler(event)}>
           <input className="commonInput" value={name} onChange={(e) => setName(e.target.value)} placeholder="Имя игрока" />
           <input className="commonInput" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Почта" />
@@ -32,7 +32,7 @@ function Authorisation() {
           <h2 className={errMessage.isError ? 'warning' : undefined}>{errMessage.message}</h2>
           <div>
             <button type="submit" className="menuBtn">
-              Registration
+              Зарегистрироваться
             </button>
           </div>
         </form>

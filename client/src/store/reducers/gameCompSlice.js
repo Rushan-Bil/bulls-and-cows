@@ -23,6 +23,11 @@ export const gameCompSlice = createSlice({
   name: 'gameComp',
   initialState,
   reducers: {
+    resetGame(state) {
+      // state = initialState;
+      console.log(state);
+      return initialState;
+    },
     setError(state, action) {
       state.error = action.payload;
     },
