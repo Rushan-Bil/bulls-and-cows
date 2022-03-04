@@ -100,7 +100,11 @@ function RulesPage() {
               />
             </div>
           </div>
-          <button type="submit" className={cls.checkBtn}>Проверить!</button>
+          <div style={{ display: 'flex' }}>
+            <button type="submit" className={cls.checkBtn}>Проверить!</button>
+            <GoBack />
+          </div>
+
         </form>
         {answer && (
           <div className={cls.error}>
@@ -108,7 +112,7 @@ function RulesPage() {
           </div>
         )}
       </div>
-      <GoBack />
+
     </>
   );
 }
