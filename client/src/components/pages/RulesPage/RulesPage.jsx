@@ -1,10 +1,9 @@
-import GoBack from '../../goBack/GoBack';
 import React, { useState } from 'react';
+import GoBack from '../../goBack/GoBack';
 import controller from '../../../controllers/TrainController';
 import imgBulls from '../../../images/bulls.png';
 import imgCows from '../../../images/cows.png';
 import cls from './rulesPage.module.css';
-
 
 function RulesPage() {
   const [inputs, setInputs] = useState('');
@@ -61,13 +60,13 @@ function RulesPage() {
         Бык — это буква, которая есть в загаданном слове и стоит на своем месте.
       </div>
       <div>
-        <img src={imgBulls} alt="" width="50%" />
+        <img src={imgBulls} alt="" width="30%" />
       </div>
       <div>
         Корова — это буква, которая есть в загаданном слове, но стоит не на своем месте.
       </div>
       <div>
-        <img src={imgCows} alt="" width="50%" />
+        <img src={imgCows} alt="" width="30%" />
       </div>
       <div className={`${cls.inputWrap} inputForm`}>
         <form onSubmit={submitHandler}>
