@@ -163,8 +163,8 @@ export const userSlice = createSlice({
       state.status = 'failed';
       state.userName = '';
       state.userId = null;
-      state.isError = true;
-      state.error = 'Ошибка что то пошло не так';
+      // state.isError = true;
+      // state.error = 'Ошибка что то пошло не так';
       state.imgPath = '';
     },
     //----------------------------------------------------------------------------
