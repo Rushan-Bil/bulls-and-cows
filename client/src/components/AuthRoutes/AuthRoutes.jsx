@@ -14,6 +14,7 @@ import SettingsPage from '../pages/SettingsPage/SettingsPage';
 import RatingPage from '../pages/RatingPage/RatingPage';
 import { selectUserSlice } from '../../store/reducers/userSlice';
 import PreparePage from '../pages/PreparePage/PreparePage';
+
 function AuthRoutes() {
   const { isAuth } = useSelector(selectUserSlice);
   return (
@@ -21,7 +22,6 @@ function AuthRoutes() {
       <Route path="/" element={<MenuPage />} />
       <Route path="/game/battle/:id" element={isAuth ? <BattlePage /> : <Navigate to="/" />} />
       <Route path="/game/prepare" element={isAuth ? <PreparePage /> : <Navigate to="/" />} />
-      <Route path="/settings" element={isAuth ? <SettingsPage /> : <Navigate to="/" />} />
       <Route path="/ratings" element={isAuth ? <RatingPage /> : <Navigate to="/" />} />
       <Route path="/login" element={isAuth ? <Navigate to="/" /> : <Login />} />
       <Route path="/registration" element={<Authorisation />} />
