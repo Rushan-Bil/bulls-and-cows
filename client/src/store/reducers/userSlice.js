@@ -11,10 +11,11 @@ const initialState = {
   status: '',
   isError: false,
   imgPath: '',
-  message: '',
+  error: '',
   fetch: 'fetching',
   userList: [],
   isLoading: false,
+  mailMessage: '',
 };
 
 export const registrateUser = createAsyncThunk('registrateUser', async ({ name, email, password }) => {
@@ -69,7 +70,7 @@ export const userSlice = createSlice({
     },
     setErrorMessageNull(state) {
       state.isError = false;
-      state.message = '';
+      state.error = '';
     },
     setLoading(state, action) {
       state.isLoading = action.payload;
@@ -92,15 +93,15 @@ export const userSlice = createSlice({
       state.status = 'success';
       if (payload.status === 200) {
         console.log('registrateUser fullfiled++++++++++++++++++++++++++++', payload);
-        state.message = 'Проверьте почту';
         // localStorage.setItem('token', payload.data.accessToken);
+        state.mailMessage = 'Проверьте почту';
       }
     },
     [registrateUser.rejected]: (state, action) => {
       console.log('registrateUser rejected++++++++++++++++++++++++++++', action.error.message);
       state.status = 'failed';
       state.isError = true;
-      state.message = action.error.message;
+      state.error = action.error.message;
     },
 
     //----------------------------------------------------------------------------
@@ -120,7 +121,7 @@ export const userSlice = createSlice({
         state.userId = payload.data.user.id;
         state.imgPath = payload.data.user.photo;
         state.fetch = 'fetching';
-        state.message = '';
+        state.error = '';
       }
       console.log(payload);
     },
@@ -131,7 +132,7 @@ export const userSlice = createSlice({
       state.userName = '';
       state.userId = null;
       state.isError = true;
-      state.message = action.error.message;
+      state.error = action.error.message;
       state.imgPath = '';
       state.fetch = 'err';
     },
@@ -153,7 +154,8 @@ export const userSlice = createSlice({
         state.userId = payload.data.user.id;
         state.imgPath = payload.data.user.photo;
         state.isError = false;
-        state.message = '';
+        state.error = '';
+        state.mailMessage = '';
       }
       console.log(payload);
     },
@@ -163,9 +165,8 @@ export const userSlice = createSlice({
       state.status = 'failed';
       state.userName = '';
       state.userId = null;
-      state.isError = true;
-      state.message = 'Ошибка что то пошло не так';
       state.imgPath = '';
+      state.mailMessage = '';
     },
     //----------------------------------------------------------------------------
     // LOGOUT
@@ -192,7 +193,7 @@ export const userSlice = createSlice({
       state.userName = '';
       state.userId = null;
       state.isError = true;
-      state.message = 'Ошибка что то пошло не так';
+      state.error = 'Ошибка что то пошло не так';
       localStorage.removeItem('token');
       localStorage.removeItem('gamerId');
     },

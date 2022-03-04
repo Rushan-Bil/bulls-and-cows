@@ -41,7 +41,7 @@ function RatingPage() {
           <div className={cls.name}>User</div>
           <div className={cls.score}>Score</div>
         </header>
-        {store.fetch === 'fetching' && <Loader />}
+        {store.fetch === 'fetching' && <div className={cls.loaderContainer}><Loader /></div>}
         {store.fetch === 'done' && (
           <div className={cls.userList}>
             {store.userList.map((item) => (

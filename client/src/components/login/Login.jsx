@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import CustomError from '../CustomError/CustomError';
 import {
   loginUser,
   selectUserSlice,
@@ -34,6 +35,9 @@ function Login() {
             </button>
           </div>
         </form>
+      </div>
+      <div>
+        <CustomError selectState={selectUserSlice} />
       </div>
     </div>
   );
