@@ -131,9 +131,9 @@ function RulesPage() {
                 <button type="submit" className={cls.checkBtn}>Проверить!</button>
               </form>
               {answer && (
-              <div className={cls.error}>
-                {answer}
-              </div>
+                <div className={cls.error}>
+                  {answer}
+                </div>
               )}
             </div>
           </div>
