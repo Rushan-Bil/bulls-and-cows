@@ -42,5 +42,6 @@ module.exports = {
     'import/no-named-as-default': 'off',
     'jsx-a11y/alt-text': 'off',
     'react/jsx-no-duplicate-props': 'off',
+    'import/no-unresolved': 'off',
   },
 };

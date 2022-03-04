@@ -1,10 +1,15 @@
-import GoBack from '../../goBack/GoBack';
 import React, { useState } from 'react';
+import {
+  EffectCoverflow, Keyboard, Navigation, Pagination,
+} from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import controller from '../../../controllers/TrainController';
 import imgBulls from '../../../images/bulls.png';
 import imgCows from '../../../images/cows.png';
 import cls from './rulesPage.module.css';
-
 
 function RulesPage() {
   const [inputs, setInputs] = useState('');
@@ -45,72 +50,97 @@ function RulesPage() {
     if (cows === 0 || cows === 5 || cows === 6 || cows === 7 || cows === 8 || cows === 9 || cows === 10) {
       cowsWord = 'коров';
     } else if (cows === 1) {
-      cowsWord = 'коров';
+      cowsWord = 'корова';
     } else {
-      cowsWord = 'коров';
+      cowsWord = 'коровы';
     }
     setAnswer(`В слове "${suppose.toUpperCase()}" ${bulls} ${bullsWord} и ${cows} ${cowsWord}`);
   };
 
   return (
-    <>
-      <div>
-        RulesPage
-      </div>
-      <div>
-        Бык — это буква, которая есть в загаданном слове и стоит на своем месте.
-      </div>
-      <div>
-        <img src={imgBulls} alt="" width="50%" />
-      </div>
-      <div>
-        Корова — это буква, которая есть в загаданном слове, но стоит не на своем месте.
-      </div>
-      <div>
-        <img src={imgCows} alt="" width="50%" />
-      </div>
-      <div className={`${cls.inputWrap} inputForm`}>
-        <form onSubmit={submitHandler}>
-          <div className="">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="inputForm" className={`${cls.labelWord} form-label`}>Загаданное слово:</label>
-            <div style={{ maxWidth: 230, margin: '20px 10px' }}>
-              <input
-                type="text"
-                className="commonInput"
-                id="inputSecret"
-                name="secret"
-                onChange={inputsHandler2}
-                value={inputs2}
-                autoComplete="off"
-              />
+    <div className={cls.rulesPage}>
+      <Swiper
+        speed={600}
+        autoHeight={false}
+        modules={[Navigation, Pagination, Keyboard, EffectCoverflow]}
+        direction="horizontal"
+        keyboard
+        initialSlide={0}
+        slidesPerView={1}
+        centeredSlides
+        navigation
+        pagination={{ clickable: true }}
+        paginationType="bullets"
+        slidesOffsetBefore={0}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <div className={cls.pageWrap}>
+            <div>
+              Бык — это буква, которая есть в загаданном слове и стоит на своем месте.
+            </div>
+            <div>
+              <img src={imgBulls} alt="" width="80%" />
             </div>
           </div>
-          <div className="">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="inputForm" className={`${cls.labelWord} form-label`}>Предположение игрока:</label>
-            <div style={{ maxWidth: 230, margin: '20px 10px' }}>
-              <input
-                type="text"
-                className="commonInput"
-                id="inputSuppose"
-                name="suppose"
-                onChange={inputsHandler}
-                value={inputs}
-                autoComplete="off"
-              />
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className={cls.pageWrap}>
+            <div>
+              Корова — это буква, которая есть в загаданном слове, но стоит не на своем месте.
+            </div>
+            <div>
+              <img src={imgCows} alt="" width="80%" />
             </div>
           </div>
-          <button type="submit" className={cls.checkBtn}>Проверить!</button>
-        </form>
-        {answer && (
-          <div className={cls.error}>
-            {answer}
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className={cls.pageWrap}>
+            <div className={`${cls.inputWrap} inputForm`} style={{ marginTop: 0 }}>
+              <form onSubmit={submitHandler} className="form-registration">
+                <div className="">
+                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                  <label htmlFor="inputForm" className={`${cls.labelWord} form-label`}>Загаданное слово:</label>
+                  <div>
+                    <input
+                      type="text"
+                      className="commonInput"
+                      id="inputSecret"
+                      name="secret"
+                      onChange={inputsHandler2}
+                      value={inputs2}
+                      autoComplete="off"
+                    />
+                  </div>
+                </div>
+                <div className="">
+                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                  <label htmlFor="inputForm" className={`${cls.labelWord} form-label`}>Предположение игрока:</label>
+                  <div>
+                    <input
+                      type="text"
+                      className="commonInput"
+                      id="inputSuppose"
+                      name="suppose"
+                      onChange={inputsHandler}
+                      value={inputs}
+                      autoComplete="off"
+                    />
+                  </div>
+                </div>
+                <button type="submit" className={cls.checkBtn}>Проверить!</button>
+              </form>
+              {answer && (
+              <div className={cls.error}>
+                {answer}
+              </div>
+              )}
+            </div>
           </div>
-        )}
-      </div>
-      <GoBack />
-    </>
+        </SwiperSlide>
+      </Swiper>
+
+    </div>
   );
 }
 
