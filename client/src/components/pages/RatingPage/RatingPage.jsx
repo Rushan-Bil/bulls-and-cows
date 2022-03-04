@@ -38,8 +38,8 @@ function RatingPage() {
     <div className={cls.ratingPage} id="ratingBox">
       <div className={cls.rating}>
         <header className={cls.head}>
-          <div className={cls.name}>User</div>
-          <div className={cls.score}>Score</div>
+          <div className={cls.name}>Игрок</div>
+          <div className={cls.score}>Рейтинг</div>
         </header>
         {store.fetch === 'fetching' && <div className={cls.loaderContainer}><Loader /></div>}
         {store.fetch === 'done' && (
@@ -58,8 +58,8 @@ function RatingPage() {
         {store.fetch === 'err' && <span>Oшибка</span>}
       </div>
       <div className={cls.buttons}>
-        <Link to="/"><button type="button" className={cls.btn}>Back</button></Link>
-        <button type="button" className={cls.btn} onClick={(event) => showMeHandler(event)}>Show me</button>
+        <Link to="/"><button type="button" className={cls.btn}>Назад</button></Link>
+        <button type="button" className={cls.btn} onClick={(event) => showMeHandler(event)}>Где я?</button>
       </div>
 
     </div>

@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+
 import controller from '../../../controllers/TrainController';
 import imgBulls from '../../../images/bulls.png';
 import imgCows from '../../../images/cows.png';
