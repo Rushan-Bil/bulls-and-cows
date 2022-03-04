@@ -37,7 +37,7 @@ function Login() {
         </form>
       </div>
       <div>
-        <CustomError selectState={selectUserSlice}/>
+        <CustomError selectState={selectUserSlice} />
       </div>
     </div>
   );
