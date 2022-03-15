@@ -14,4 +14,5 @@
 
 При кажущейся простоте проект оказался интересным с технической точки зрения:
 
-![stack](https://user-images.githubusercontent.com/95147567/158393569-a6eddcce-40a9-42c0-8ea1-3fa69cb1d567.jpg)
+
+<img src="https://user-images.githubusercontent.com/95147567/158393913-38cdf2b7-da22-4899-9ab7-1b833465540f.jpg" width="500px"/>
